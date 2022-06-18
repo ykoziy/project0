@@ -54,7 +54,6 @@ public class Customer extends User
 	public String getAccountInfo()
 	{
 		Locale usa = new Locale("en", "US");
-		Currency dollars = Currency.getInstance(usa);
 		NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(usa);
 		double balance = account.getBalance();
 		
