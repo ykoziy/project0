@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.revature.util.SequenceGenerator;
+
 public class AccountTest
 {
 	private Account testAccount;
@@ -12,6 +14,7 @@ public class AccountTest
 	public void setUpAccount()
 	{
 		testAccount = new Account();
+		SequenceGenerator.setCounter(0);
 	}
 
 	@Test
@@ -34,4 +37,29 @@ public class AccountTest
 		
 		Assert.assertEquals(1.05, testAccount.getBalance(), 0.1);
 	}
+	
+	@Test
+	public void creatingAccountShouldGenerateValidAccountNumber()
+	{
+		// valid account number:
+		// 17 long, contains only digits, in needed padded with zeros
+		
+		Account newAccount = new Account();
+		
+		Assert.assertEquals("00000000000000001", newAccount.getNumber());
+		
+	}
+	
+	@Test
+	public void creatingThreeAcountShouldGenerateCorrectAccountNumber()
+	{
+		Account acc1 = new Account();
+		Account acc2 = new Account();
+		Account acc3 = new Account();
+		
+		Assert.assertEquals("00000000000000001", acc1.getNumber());
+		Assert.assertEquals("00000000000000002", acc2.getNumber());
+		Assert.assertEquals("00000000000000003", acc3.getNumber());
+	}
+		
 }
