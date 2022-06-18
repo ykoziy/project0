@@ -14,7 +14,12 @@ public class Account
 	{
 		balance = balance.add(BigDecimal.valueOf(amount));
 	}
-
+	
+	public void withdraw(double amount)
+	{
+		balance = balance.subtract(BigDecimal.valueOf(amount));
+	}
+	
 	public double getBalance()
 	{
 		return balance.doubleValue();
