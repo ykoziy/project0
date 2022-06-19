@@ -1,5 +1,8 @@
 package com.revature.models;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,44 +16,56 @@ public class CustomerTest
 	@Before
 	public void resetCustomer()
 	{
-		testCustomer = new Customer();
 		SequenceGenerator.setCounter(0L);
+		testCustomer = new Customer("John", "Doe", "jdoe45", "646-911-0101", "404 Example Rd, New York, NY 10017");
+		Map<String, Account> accounts = new HashMap<>();
+		Account acc1 = new Account();
+		Account acc2 = new Account();
+		
+		accounts.put(acc1.getNumber(), acc1);
+		accounts.put(acc2.getNumber(), acc1);
+		
+		testCustomer.setAccounts(accounts);
 	}
 	
 	@Test
 	public void customerShouldBeAbleToDebitAccount()
 	{	
-		testCustomer.debitAccount(50.05);
+		String accountNum = "00000000000000001";
+		testCustomer.debitAccount(accountNum, 50.05);
 		
-		Assert.assertEquals(50.05, testCustomer.getAccountBalance(), 0.1);
+		Assert.assertEquals(50.05, testCustomer.getAccountBalance(accountNum), 0.1);
 	}
 	
 	@Test
 	public void customerShouldNotBeAbleToDebitnegativeAmount()
 	{
-		testCustomer.debitAccount(-50.05);
+		String accountNum = "00000000000000001";
+		testCustomer.debitAccount(accountNum, -50.05);
 		
-		Assert.assertNotEquals(-50.05, testCustomer.getAccountBalance(), 0.1);		
+		Assert.assertNotEquals(-50.05, testCustomer.getAccountBalance(accountNum), 0.1);		
 	}
 	
 	@Test
 	public void customerShouldBeAbleToCreditAccount()
 	{
-		testCustomer.debitAccount(100.01);
+		String accountNum = "00000000000000001";
+		testCustomer.debitAccount(accountNum, 100.01);
 		
-		testCustomer.creditAccount(45.35);
+		testCustomer.creditAccount(accountNum, 45.35);
 		
-		Assert.assertEquals(54.66, testCustomer.getAccountBalance(), 0.1);
+		Assert.assertEquals(54.66, testCustomer.getAccountBalance(accountNum), 0.1);
 	}
 	
 	@Test
 	public void customerShouldNotBeAbleToOverdraft()
 	{
-		testCustomer.debitAccount(100.01);
+		String accountNum = "00000000000000001";
+		testCustomer.debitAccount(accountNum, 100.01);
 		
-		testCustomer.creditAccount(1000000);
+		testCustomer.creditAccount(accountNum, 1000000);
 		
-		Assert.assertEquals(100.01, testCustomer.getAccountBalance(), 0.1);		
+		Assert.assertEquals(100.01, testCustomer.getAccountBalance(accountNum), 0.1);		
 	}
 	
 	@Test
@@ -63,22 +78,20 @@ public class CustomerTest
 		info += "Phone Number: 646-911-0101\n";
 		info += "=======================================================\n";
 		
-		testCustomer = new Customer("John", "Doe", "jdoe45", "646-911-0101", "404 Example Rd, New York, NY 10017");
-		
 		Assert.assertEquals(info, testCustomer.getCustomerInfo());
 	}
 	
 	@Test
 	public void getAccountInfoShouldReturnAccountInfo()
 	{
+		String accountNum = "00000000000000001";
 		String info = "\n=======================================================\n";
 		info += "Account Number: 00000000000000001\n";
 		info += "Account Balance: $1,032.45\n";
 		info += "=======================================================\n";
 		
-		testCustomer = new Customer("John", "Doe", "jdoe45", "646-911-0101", "404 Example Rd, New York, NY 10017");
-		testCustomer.debitAccount(1032.45);
+		testCustomer.debitAccount(accountNum, 1032.45);
 		
-		Assert.assertEquals(info, testCustomer.getAccountInfo());
+		Assert.assertEquals(info, testCustomer.getAccountInfo(accountNum));
 	}
 }
