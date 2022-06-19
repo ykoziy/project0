@@ -1,7 +1,6 @@
 package com.revature.models;
 
 import java.text.NumberFormat;
-import java.util.Currency;
 import java.util.Locale;
 
 public class Customer extends User
@@ -34,7 +33,6 @@ public class Customer extends User
 		info += "User Name: " + userName + "\n";
 		info += "Address: " + address + "\n";
 		info += "Phone Number: " + phoneNumber + "\n";
-		info += "Account Number: " + account.getNumber() + "\n";
 		info += "=======================================================\n";
 		return info;
 	}

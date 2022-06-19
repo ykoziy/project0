@@ -61,7 +61,6 @@ public class CustomerTest
 		info += "User Name: jdoe45\n";
 		info += "Address: 404 Example Rd, New York, NY 10017\n";
 		info += "Phone Number: 646-911-0101\n";
-		info += "Account Number: 00000000000000001\n";
 		info += "=======================================================\n";
 		
 		testCustomer = new Customer("John", "Doe", "jdoe45", "646-911-0101", "404 Example Rd, New York, NY 10017");
