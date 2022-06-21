@@ -9,6 +9,12 @@ import com.revature.util.SequenceGenerator;
 public class BankTest
 {
 	private Bank testBank;
+	private final String firstName = "John";
+	private final String lastName = "Doe";
+	private final String userName = "jdoe45";
+	private final String email = "jdoe@google.com";
+	private final String phoneNumber = "646-911-0101";
+	private final String address = "404 Example Rd, New York, NY 10017";
 	
 	@Before
 	public void before()
@@ -27,9 +33,9 @@ public class BankTest
 	@Test
 	public void bankShouldBeAbleToAddAUser()
 	{
-		Customer testCustomer = new Customer("John", "Doe", "jdoe45", "646-911-0101", "404 Example Rd, New York, NY 10017");
+		Person testCustomer = new Customer(firstName, lastName, userName, email, phoneNumber, address);
 		
-		testBank.addCustomer(testCustomer);
+		testBank.addUser(testCustomer);
 		
 		Person u = testBank.getUser("jdoe45");
 		
@@ -53,15 +59,16 @@ public class BankTest
 	@Test
 	public void bankShouldBeAbleToRemoveUser()
 	{
-		Customer testCustomer = new Customer("John", "Doe", "jdoe45", "646-911-0101", "404 Example Rd, New York, NY 10017");
+		Person testCustomer = new Customer(firstName, lastName, userName, email, phoneNumber, address);
 		
-		testBank.addCustomer(testCustomer);
+		testBank.addUser(testCustomer);
 		
-		Customer testCustomer2 = new Customer("Joe", "Doe", "jdoe55", "646-911-0209", "403 Example Rd, New York, NY 10017");
 		
-		testBank.addCustomer(testCustomer2);
+		Person testCustomer2 = new Customer("joe", lastName, "jdoe55", "joey@yahoo.com", "646-911-0209", "403 Example Rd, New York, NY 10017");
 		
-		testBank.removeCustomer("jdoe45");
+		testBank.addUser(testCustomer2);
+		
+		testBank.removeUser("jdoe45");
 		
 		Assert.assertNull(testBank.getUser("jdoe45"));
 		Assert.assertEquals("jdoe55", testBank.getUser("jdoe55").getUserName());

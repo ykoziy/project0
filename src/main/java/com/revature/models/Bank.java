@@ -20,12 +20,12 @@ public class Bank
 		this.accounts = accounts;
 	}
 	
-	public void addCustomer(Customer customer)
+	public void addUser(Person p)
 	{
-		users.put(customer.getUserName(), customer);
+		users.put(p.getUserName(), p);
 	}
 	
-	public void removeCustomer(String userName)
+	public void removeUser(String userName)
 	{
 		users.remove(userName);
 	}
