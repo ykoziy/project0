@@ -13,11 +13,18 @@ public class CustomerTest
 {
 	private Customer testCustomer;
 	
+	private final String firstName = "John";
+	private final String lastName = "Doe";
+	private final String userName = "jdoe45";
+	private final String email = "jdoe@google.com";
+	private final String phoneNumber = "646-911-0101";
+	private final String address = "404 Example Rd, New York, NY 10017";
+	
 	@Before
 	public void resetCustomer()
 	{
 		SequenceGenerator.setCounter(0L);
-		testCustomer = new Customer("John", "Doe", "jdoe45", "646-911-0101", "404 Example Rd, New York, NY 10017");
+		testCustomer = new Customer(firstName, lastName, userName, email, phoneNumber, address);
 		Map<String, Account> accounts = new HashMap<>();
 		Account acc1 = new Account();
 		Account acc2 = new Account();
@@ -72,11 +79,16 @@ public class CustomerTest
 	public void getCustomerInfoShouldReturnCustomerInfo()
 	{
 		String info = "\n=======================================================\n";
-		info += "Name: John Doe\n";
-		info += "User Name: jdoe45\n";
-		info += "Address: 404 Example Rd, New York, NY 10017\n";
-		info += "Phone Number: 646-911-0101\n";
+		info += "Name: " + firstName + " " + lastName + "\n";
+		info += "User Name: " + userName + "\n";
+		info += "Email: " + email + "\n";
+		info += "Address: " + address + "\n";
+		info += "Phone Number: " + phoneNumber + "\n";
 		info += "=======================================================\n";
+		
+		System.out.println(testCustomer.getCustomerInfo());
+		
+		System.out.println(info);
 		
 		Assert.assertEquals(info, testCustomer.getCustomerInfo());
 	}

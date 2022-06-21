@@ -2,12 +2,13 @@ package com.revature.models;
 
 public class Customer extends Person
 {
-	public Customer(String firstName, String lastName, String userName, String phoneNumber, String address)
+	public Customer(String firstName, String lastName, String userName, String email, String phoneNumber, String address)
 	{
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
+		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 	}
@@ -22,6 +23,7 @@ public class Customer extends Person
 		String info = "\n=======================================================\n";
 		info += "Name: " + firstName + " " + lastName + "\n";
 		info += "User Name: " + userName + "\n";
+		info += "Email: " + email + "\n";
 		info += "Address: " + address + "\n";
 		info += "Phone Number: " + phoneNumber + "\n";
 		info += "=======================================================\n";

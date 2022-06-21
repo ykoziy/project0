@@ -14,6 +14,8 @@ public abstract class Person
 	
 	protected String userName;
 	
+	protected String email;
+	
 	protected String phoneNumber;
 	
 	protected String address;
@@ -116,4 +118,15 @@ public abstract class Person
 	{
 		return accounts;
 	}
+	
+	public String getEmail()
+	{
+		return email;
+	}
+
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
+
 }
