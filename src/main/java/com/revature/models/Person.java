@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Map;
 
-public abstract class User
+public abstract class Person
 {
 	protected Map<String, Account> accounts;
 	

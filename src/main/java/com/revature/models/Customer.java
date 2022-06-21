@@ -1,6 +1,6 @@
 package com.revature.models;
 
-public class Customer extends User
+public class Customer extends Person
 {
 	public Customer(String firstName, String lastName, String userName, String phoneNumber, String address)
 	{

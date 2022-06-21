@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Bank
 {
-	private Map<String, User> users;
+	private Map<String, Person> users;
 	private Map<String, Account> accounts;
 	
 	public Bank() 
@@ -14,7 +14,7 @@ public class Bank
 		accounts = new HashMap<>();
 	}
 	
-	public Bank(Map<String, User> users, Map<String, Account> accounts)
+	public Bank(Map<String, Person> users, Map<String, Account> accounts)
 	{
 		this.users = users;
 		this.accounts = accounts;
@@ -40,12 +40,12 @@ public class Bank
 		accounts.remove(accountNumber);
 	}
 
-	public Map<String, User> getUsers()
+	public Map<String, Person> getUsers()
 	{
 		return users;
 	}
 
-	public void setUsers(Map<String, User> users)
+	public void setUsers(Map<String, Person> users)
 	{
 		this.users = users;
 	}
@@ -60,7 +60,7 @@ public class Bank
 		this.accounts = accounts;
 	}
 	
-	public User getUser(String userName) 
+	public Person getUser(String userName) 
 	{
 		return users.get(userName);
 	}

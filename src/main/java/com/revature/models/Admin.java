@@ -1,6 +1,6 @@
 package com.revature.models;
 
-public class Admin extends User
+public class Admin extends Person
 {
 
 }

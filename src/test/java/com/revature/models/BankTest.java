@@ -31,7 +31,7 @@ public class BankTest
 		
 		testBank.addCustomer(testCustomer);
 		
-		User u = testBank.getUser("jdoe45");
+		Person u = testBank.getUser("jdoe45");
 		
 		Assert.assertEquals("jdoe45", u.getUserName());
 	}
