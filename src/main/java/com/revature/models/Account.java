@@ -2,12 +2,14 @@ package com.revature.models;
 
 import java.math.BigDecimal;
 
+import com.revature.enums.Status;
+
 public class Account
 {
 	private long id;
 	private long ownerId;
 	private BigDecimal balance;
-	private String status;
+	private Status status;
 	
 	private static final int NUMBER_LENGTH = 17;
 	
@@ -16,7 +18,7 @@ public class Account
 		super();
 	}
 
-	public Account(long id, long ownerId, BigDecimal balance, String status)
+	public Account(long id, long ownerId, BigDecimal balance, Status status)
 	{
 		super();
 		this.id = id;
@@ -55,12 +57,12 @@ public class Account
 		this.ownerId = ownerId;
 	}
 
-	public String getStatus()
+	public Status getStatus()
 	{
 		return status;
 	}
 
-	public void setStatus(String status)
+	public void setStatus(Status status)
 	{
 		this.status = status;
 	}
