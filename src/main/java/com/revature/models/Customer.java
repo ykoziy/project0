@@ -14,6 +14,21 @@ public class Customer extends Person
 		super(firstName, lastName, userName, email, phoneNumber, address, userRole);
 	}
 	
+	public Customer(String firstName, String lastName, String userName, char[] pwd, String email, String phoneNumber, String address, String userRole)
+	{
+		super(firstName, lastName, userName, pwd, email, phoneNumber, address, userRole);
+	}
+	
+	public Customer(long id, String firstName, String lastName, String userName, String email, String phoneNumber, String address, String userRole)
+	{
+		super(id, firstName, lastName, userName, email, phoneNumber, address, userRole);
+	}
+	
+	public Customer(long id, String firstName, String lastName, String userName, char[] pwd, String email, String phoneNumber, String address, String userRole)
+	{
+		super(id, firstName, lastName, userName, pwd, email, phoneNumber, address, userRole);
+	}
+	
 	public Account getAccount(String accountNumber)
 	{
 		return accounts.get(accountNumber);
