@@ -9,9 +9,9 @@ public class Customer extends Person
 		super();
 	}
 	
-	public Customer(String firstName, String lastName, String userName, String email, String phoneNumber, String address)
+	public Customer(String firstName, String lastName, String userName, String email, String phoneNumber, String address, String userRole)
 	{
-		super(firstName, lastName, userName, email, phoneNumber, address);
+		super(firstName, lastName, userName, email, phoneNumber, address, userRole);
 	}
 	
 	public Account getAccount(String accountNumber)

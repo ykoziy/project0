@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.revature.enums.UserRole;
 import com.revature.util.SequenceGenerator;
 
 public class BankTest
@@ -15,6 +16,8 @@ public class BankTest
 	private final String email = "jdoe@google.com";
 	private final String phoneNumber = "646-911-0101";
 	private final String address = "404 Example Rd, New York, NY 10017";
+	
+	private String userRole = UserRole.CUSTOMER.toString();
 	
 	@Before
 	public void before()
@@ -33,7 +36,7 @@ public class BankTest
 	@Test
 	public void bankShouldBeAbleToAddAUser()
 	{
-		Person testCustomer = new Customer(firstName, lastName, userName, email, phoneNumber, address);
+		Person testCustomer = new Customer(firstName, lastName, userName, email, phoneNumber, address, userRole);
 		
 		testBank.addUser(testCustomer);
 		
@@ -59,12 +62,12 @@ public class BankTest
 	@Test
 	public void bankShouldBeAbleToRemoveUser()
 	{
-		Person testCustomer = new Customer(firstName, lastName, userName, email, phoneNumber, address);
+		Person testCustomer = new Customer(firstName, lastName, userName, email, phoneNumber, address, userRole);
 		
 		testBank.addUser(testCustomer);
 		
 		
-		Person testCustomer2 = new Customer("joe", lastName, "jdoe55", "joey@yahoo.com", "646-911-0209", "403 Example Rd, New York, NY 10017");
+		Person testCustomer2 = new Customer("joe", lastName, "jdoe55", "joey@yahoo.com", "646-911-0209", "403 Example Rd, New York, NY 10017", userRole);
 		
 		testBank.addUser(testCustomer2);
 		

@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.revature.enums.UserRole;
 import com.revature.util.SequenceGenerator;
 
 public class CustomerTest
@@ -20,11 +21,13 @@ public class CustomerTest
 	private final String phoneNumber = "646-911-0101";
 	private final String address = "404 Example Rd, New York, NY 10017";
 	
+	private String userRole = UserRole.CUSTOMER.toString();
+	
 	@Before
 	public void resetCustomer()
 	{
 		SequenceGenerator.setCounter(0L);
-		testCustomer = new Customer(firstName, lastName, userName, email, phoneNumber, address);
+		testCustomer = new Customer(firstName, lastName, userName, email, phoneNumber, address, userRole);
 		Map<String, Account> accounts = new HashMap<>();
 		Account acc1 = new Account();
 		Account acc2 = new Account();

@@ -21,19 +21,22 @@ public abstract class Person implements Serializable
 	
 	protected String address;
 	
+	protected String userRole;
+	
 	public Person() 
 	{
 		
 	}
 	
-	public Person(String firstName, String lastName, String userName, String email, String phoneNumber, String address)
+	public Person(String firstName, String lastName, String userName, String email, String phoneNumber, String address, String userRole)
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.address = address;		
+		this.address = address;
+		this.userRole = userRole;
 	}
 	
 	public String getAccountInfo(String accountNumber)
@@ -143,6 +146,16 @@ public abstract class Person implements Serializable
 	public void setEmail(String email)
 	{
 		this.email = email;
+	}
+
+	public String getUserRole()
+	{
+		return userRole;
+	}
+
+	public void setUserRole(String userRole)
+	{
+		this.userRole = userRole;
 	}
 
 }
