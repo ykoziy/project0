@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import com.revature.enums.UserRole;
+
 public class Customer extends Person
 {
 	private static final long serialVersionUID = 1L;
@@ -9,12 +11,12 @@ public class Customer extends Person
 		super();
 	}
 		
-	public Customer(long id, String firstName, String lastName, String userName, String email, String phoneNumber, Address address, String userRole)
+	public Customer(long id, String firstName, String lastName, String userName, String email, String phoneNumber, Address address, UserRole userRole)
 	{
 		super(id, firstName, lastName, userName, email, phoneNumber, address, userRole);
 	}
 	
-	public Customer(long id, String firstName, String lastName, String userName, char[] pwd, String email, String phoneNumber, Address address, String userRole)
+	public Customer(long id, String firstName, String lastName, String userName, char[] pwd, String email, String phoneNumber, Address address, UserRole userRole)
 	{
 		super(id, firstName, lastName, userName, pwd, email, phoneNumber, address, userRole);
 	}

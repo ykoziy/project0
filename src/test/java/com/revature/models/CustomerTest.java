@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.revature.enums.Status;
 import com.revature.enums.UserRole;
 
 public class CustomerTest
@@ -21,15 +22,15 @@ public class CustomerTest
 	private final String phoneNumber = "646-911-0101";
 	private final Address address = new Address("404 Example Rd", "New York", "NY", "10017");
 	
-	private String userRole = UserRole.CUSTOMER.toString();
+	private UserRole userRole = UserRole.CUSTOMER;
 	
 	@Before
 	public void resetCustomer()
 	{
 		testCustomer = new Customer(1, firstName, lastName, userName, email, phoneNumber, address, userRole);
 		Map<String, Account> accounts = new HashMap<>();
-		Account acc1 = new Account(1, 1, new BigDecimal(100.04), "active");
-		Account acc2 = new Account(2, 1, new BigDecimal(1032.45), "active");
+		Account acc1 = new Account(1, 1, new BigDecimal(100.04), Status.ACTIVE);
+		Account acc2 = new Account(2, 1, new BigDecimal(1032.45), Status.ACTIVE);
 		
 		accounts.put(acc1.getAccountNumber(), acc1);
 		accounts.put(acc2.getAccountNumber(), acc1);

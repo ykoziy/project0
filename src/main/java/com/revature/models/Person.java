@@ -5,6 +5,8 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Map;
 
+import com.revature.enums.UserRole;
+
 public abstract class Person implements Serializable
 {
 	protected Map<String, Account> accounts;
@@ -25,14 +27,14 @@ public abstract class Person implements Serializable
 	
 	private Address address;
 	
-	private String userRole;
+	private UserRole userRole;
 	
 	public Person() 
 	{
 		
 	}
 		
-	public Person(long id, String firstName, String lastName, String userName, String email, String phoneNumber, Address address, String userRole)
+	public Person(long id, String firstName, String lastName, String userName, String email, String phoneNumber, Address address, UserRole userRole)
 	{
 		this.id = id;
 		this.firstName = firstName;
@@ -44,7 +46,7 @@ public abstract class Person implements Serializable
 		this.userRole = userRole;
 	}
 	
-	public Person(long id, String firstName, String lastName, String userName, char[] password, String email, String phoneNumber, Address address, String userRole)
+	public Person(long id, String firstName, String lastName, String userName, char[] password, String email, String phoneNumber, Address address, UserRole userRole)
 	{
 		this.id = id;
 		this.firstName = firstName;
@@ -148,12 +150,12 @@ public abstract class Person implements Serializable
 		this.email = email;
 	}
 
-	public String getUserRole()
+	public UserRole getUserRole()
 	{
 		return userRole;
 	}
 
-	public void setUserRole(String userRole)
+	public void setUserRole(UserRole userRole)
 	{
 		this.userRole = userRole;
 	}
