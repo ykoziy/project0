@@ -13,17 +13,19 @@ public abstract class Person implements Serializable
 	
 	private String firstName;
 	
-	protected String lastName;
+	private String lastName;
 	
-	protected String userName;
+	private String userName;
 	
-	protected String email;
+	private char[] password;
 	
-	protected String phoneNumber;
+	private String email;
 	
-	protected String address;
+	private String phoneNumber;
 	
-	protected String userRole;
+	private String address;
+	
+	private String userRole;
 	
 	public Person() 
 	{
@@ -41,12 +43,37 @@ public abstract class Person implements Serializable
 		this.userRole = userRole;
 	}
 	
+	public Person(String firstName, String lastName, String userName, char[] password, String email, String phoneNumber, String address, String userRole)
+	{
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.userRole = userRole;
+	}
+	
 	public Person(long id, String firstName, String lastName, String userName, String email, String phoneNumber, String address, String userRole)
 	{
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.userRole = userRole;
+	}
+	
+	public Person(long id, String firstName, String lastName, String userName, char[] password, String email, String phoneNumber, String address, String userRole)
+	{
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.password = password;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
@@ -179,5 +206,15 @@ public abstract class Person implements Serializable
 	public void setId(long id)
 	{
 		this.id = id;
+	}
+
+	public char[] getPassword()
+	{
+		return password;
+	}
+
+	public void setPassword(char[] password)
+	{
+		this.password = password;
 	}
 }
