@@ -1,14 +1,15 @@
 package com.revature.models;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Map;
 
-public abstract class Person
+public abstract class Person implements Serializable
 {
 	protected Map<String, Account> accounts;
 	
-	protected String firstName;
+	private String firstName;
 	
 	protected String lastName;
 	
@@ -19,6 +20,21 @@ public abstract class Person
 	protected String phoneNumber;
 	
 	protected String address;
+	
+	public Person() 
+	{
+		
+	}
+	
+	public Person(String firstName, String lastName, String userName, String email, String phoneNumber, String address)
+	{
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.address = address;		
+	}
 	
 	public String getAccountInfo(String accountNumber)
 	{

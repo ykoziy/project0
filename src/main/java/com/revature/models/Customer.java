@@ -2,15 +2,16 @@ package com.revature.models;
 
 public class Customer extends Person
 {
-	public Customer(String firstName, String lastName, String userName, String email, String phoneNumber, String address)
+	private static final long serialVersionUID = 1L;
+
+	public Customer()
 	{
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userName = userName;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
+	}
+	
+	public Customer(String firstName, String lastName, String userName, String email, String phoneNumber, String address)
+	{
+		super(firstName, lastName, userName, email, phoneNumber, address);
 	}
 	
 	public Account getAccount(String accountNumber)
@@ -21,11 +22,11 @@ public class Customer extends Person
 	public String getCustomerInfo()
 	{
 		String info = "\n=======================================================\n";
-		info += "Name: " + firstName + " " + lastName + "\n";
-		info += "User Name: " + userName + "\n";
-		info += "Email: " + email + "\n";
-		info += "Address: " + address + "\n";
-		info += "Phone Number: " + phoneNumber + "\n";
+		info += "Name: " + this.getFirstName() + " " + this.getLastName() + "\n";
+		info += "User Name: " + this.getUserName() + "\n";
+		info += "Email: " + this.getEmail() + "\n";
+		info += "Address: " + this.getAddress() + "\n";
+		info += "Phone Number: " + this.getPhoneNumber() + "\n";
 		info += "=======================================================\n";
 		return info;
 	}
