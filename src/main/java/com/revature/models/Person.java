@@ -59,13 +59,13 @@ public abstract class Person implements Serializable
 	
 	public String getAccountInfo(String accountNumber)
 	{
+		
 		Account account = accounts.get(accountNumber);
 		Locale usa = new Locale("en", "US");
 		NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(usa);
 		double balance = account.getBalance();
-		
 		String info = "\n=======================================================\n";
-		info += "Account Number: " + account.getNumber() + "\n";
+		info += "Account Number: " + account.getAccountNumber() + "\n";
 		info += "Account Balance: " + dollarFormat.format(balance) + "\n";
 		info += "=======================================================\n";
 		return info;		
@@ -77,25 +77,7 @@ public abstract class Person implements Serializable
 		Account account = accounts.get(accountNumber);
 		return account.getBalance();
 	}
-	
-	public void debitAccount(String accountNumber, double amount)
-	{
-		Account account = accounts.get(accountNumber);
-		if (amount > 0.0) 
-		{
-			account.deposit(amount);			
-		}
-	}
-	
-	public void creditAccount(String accountNumber, double amount)
-	{
-		Account account = accounts.get(accountNumber);
-		if (amount <= account.getBalance())
-		{
-			account.withdraw(amount);
-		}
-	}
-	
+		
 	public String getFirstName()
 	{
 		return firstName;
