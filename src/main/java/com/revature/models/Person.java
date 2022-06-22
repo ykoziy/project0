@@ -31,30 +31,7 @@ public abstract class Person implements Serializable
 	{
 		
 	}
-	
-	public Person(String firstName, String lastName, String userName, String email, String phoneNumber, Address address, String userRole)
-	{
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userName = userName;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.userRole = userRole;
-	}
-	
-	public Person(String firstName, String lastName, String userName, char[] password, String email, String phoneNumber, Address address, String userRole)
-	{
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userName = userName;
-		this.password = password;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.userRole = userRole;
-	}
-	
+		
 	public Person(long id, String firstName, String lastName, String userName, String email, String phoneNumber, Address address, String userRole)
 	{
 		this.id = id;

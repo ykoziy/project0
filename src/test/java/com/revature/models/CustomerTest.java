@@ -27,7 +27,7 @@ public class CustomerTest
 	public void resetCustomer()
 	{
 		SequenceGenerator.setCounter(0L);
-		testCustomer = new Customer(firstName, lastName, userName, email, phoneNumber, address, userRole);
+		testCustomer = new Customer(1, firstName, lastName, userName, email, phoneNumber, address, userRole);
 		Map<String, Account> accounts = new HashMap<>();
 		Account acc1 = new Account();
 		Account acc2 = new Account();

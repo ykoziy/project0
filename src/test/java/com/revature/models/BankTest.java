@@ -36,7 +36,7 @@ public class BankTest
 	@Test
 	public void bankShouldBeAbleToAddAUser()
 	{
-		Person testCustomer = new Customer(firstName, lastName, userName, email, phoneNumber, address, userRole);
+		Person testCustomer = new Customer(1, firstName, lastName, userName, email, phoneNumber, address, userRole);
 		
 		testBank.addUser(testCustomer);
 		
@@ -62,12 +62,12 @@ public class BankTest
 	@Test
 	public void bankShouldBeAbleToRemoveUser()
 	{
-		Person testCustomer = new Customer(firstName, lastName, userName, email, phoneNumber, address, userRole);
+		Person testCustomer = new Customer(1, firstName, lastName, userName, email, phoneNumber, address, userRole);
 		
 		testBank.addUser(testCustomer);
 		
 		Address a = new Address("403 Example Rd", "New York", "NY", "10017");
-		Person testCustomer2 = new Customer("joe", lastName, "jdoe55", "joey@yahoo.com", "646-911-0209", a, userRole);
+		Person testCustomer2 = new Customer(2 ,"joe", lastName, "jdoe55", "joey@yahoo.com", "646-911-0209", a, userRole);
 		
 		testBank.addUser(testCustomer2);
 		
