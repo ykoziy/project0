@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.revature.enums.Status;
+
 public class AccountTest
 {
 	private Account testAccount;
@@ -13,7 +15,7 @@ public class AccountTest
 	@Before
 	public void setUpAccount()
 	{
-		testAccount = new Account(1, 1, new BigDecimal(100.04), "active");
+		testAccount = new Account(1, 1, new BigDecimal(100.04), Status.ACTIVE);
 	}
 	
 	@Test
