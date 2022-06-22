@@ -23,7 +23,7 @@ public abstract class Person implements Serializable
 	
 	private String phoneNumber;
 	
-	private String address;
+	private Address address;
 	
 	private String userRole;
 	
@@ -32,7 +32,7 @@ public abstract class Person implements Serializable
 		
 	}
 	
-	public Person(String firstName, String lastName, String userName, String email, String phoneNumber, String address, String userRole)
+	public Person(String firstName, String lastName, String userName, String email, String phoneNumber, Address address, String userRole)
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -43,7 +43,7 @@ public abstract class Person implements Serializable
 		this.userRole = userRole;
 	}
 	
-	public Person(String firstName, String lastName, String userName, char[] password, String email, String phoneNumber, String address, String userRole)
+	public Person(String firstName, String lastName, String userName, char[] password, String email, String phoneNumber, Address address, String userRole)
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -55,7 +55,7 @@ public abstract class Person implements Serializable
 		this.userRole = userRole;
 	}
 	
-	public Person(long id, String firstName, String lastName, String userName, String email, String phoneNumber, String address, String userRole)
+	public Person(long id, String firstName, String lastName, String userName, String email, String phoneNumber, Address address, String userRole)
 	{
 		this.id = id;
 		this.firstName = firstName;
@@ -67,7 +67,7 @@ public abstract class Person implements Serializable
 		this.userRole = userRole;
 	}
 	
-	public Person(long id, String firstName, String lastName, String userName, char[] password, String email, String phoneNumber, String address, String userRole)
+	public Person(long id, String firstName, String lastName, String userName, char[] password, String email, String phoneNumber, Address address, String userRole)
 	{
 		this.id = id;
 		this.firstName = firstName;
@@ -159,12 +159,12 @@ public abstract class Person implements Serializable
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public String getAddress()
+	public Address getAddress()
 	{
 		return address;
 	}
 
-	public void setAddress(String address)
+	public void setAddress(Address address)
 	{
 		this.address = address;
 	}

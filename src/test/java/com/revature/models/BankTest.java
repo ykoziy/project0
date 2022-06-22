@@ -15,7 +15,7 @@ public class BankTest
 	private final String userName = "jdoe45";
 	private final String email = "jdoe@google.com";
 	private final String phoneNumber = "646-911-0101";
-	private final String address = "404 Example Rd, New York, NY 10017";
+	private final Address address = new Address("404 Example Rd", "New York", "NY", "10017");
 	
 	private String userRole = UserRole.CUSTOMER.toString();
 	
@@ -66,8 +66,8 @@ public class BankTest
 		
 		testBank.addUser(testCustomer);
 		
-		
-		Person testCustomer2 = new Customer("joe", lastName, "jdoe55", "joey@yahoo.com", "646-911-0209", "403 Example Rd, New York, NY 10017", userRole);
+		Address a = new Address("403 Example Rd", "New York", "NY", "10017");
+		Person testCustomer2 = new Customer("joe", lastName, "jdoe55", "joey@yahoo.com", "646-911-0209", a, userRole);
 		
 		testBank.addUser(testCustomer2);
 		

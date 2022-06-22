@@ -19,7 +19,7 @@ public class CustomerTest
 	private final String userName = "jdoe45";
 	private final String email = "jdoe@google.com";
 	private final String phoneNumber = "646-911-0101";
-	private final String address = "404 Example Rd, New York, NY 10017";
+	private final Address address = new Address("404 Example Rd", "New York", "NY", "10017");
 	
 	private String userRole = UserRole.CUSTOMER.toString();
 	
