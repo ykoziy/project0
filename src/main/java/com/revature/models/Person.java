@@ -9,6 +9,8 @@ public abstract class Person implements Serializable
 {
 	protected Map<String, Account> accounts;
 	
+	private long id;
+	
 	private String firstName;
 	
 	protected String lastName;
@@ -30,6 +32,18 @@ public abstract class Person implements Serializable
 	
 	public Person(String firstName, String lastName, String userName, String email, String phoneNumber, String address, String userRole)
 	{
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.userRole = userRole;
+	}
+	
+	public Person(long id, String firstName, String lastName, String userName, String email, String phoneNumber, String address, String userRole)
+	{
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
@@ -157,5 +171,13 @@ public abstract class Person implements Serializable
 	{
 		this.userRole = userRole;
 	}
+	public long getId()
+	{
+		return id;
+	}
 
+	public void setId(long id)
+	{
+		this.id = id;
+	}
 }
