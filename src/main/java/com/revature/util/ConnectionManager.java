@@ -6,19 +6,29 @@ import java.sql.SQLException;
 
 public final class ConnectionManager
 {
-	private static Connection connection = null;
 	
-	static 
-	{		
+	private static Connection conn = null;
+	
+	private ConnectionManager() {
+	}
+	
+	public static Connection getConnection() {
 		try {
-			connection = DriverManager.getConnection(System.getenv("DB_URL"),System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
+			if (conn != null && !conn.isClosed()) {
+				return conn;
+			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return null;
 		}
+
+		try {
+			conn = DriverManager.getConnection(System.getenv("DB_URL"), System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return conn;
 	}
-	
-	public static Connection getConnection()
-	{
-		return connection;
-	}
+
 }
