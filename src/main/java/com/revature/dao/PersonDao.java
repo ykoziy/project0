@@ -6,6 +6,8 @@ public interface PersonDao
 {
 	Person get(long id);
 	
+	Person getByUsername(String username);
+	
 	boolean delete(long id);
 	
 	boolean update(Person person);

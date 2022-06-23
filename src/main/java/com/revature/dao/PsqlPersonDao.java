@@ -63,8 +63,7 @@ public class PsqlPersonDao implements PersonDao
 		{
 			e.printStackTrace();
 		}
-		return null;
-		
+		return null;		
 	}
 
 	@Override
@@ -154,5 +153,60 @@ public class PsqlPersonDao implements PersonDao
 			e.printStackTrace();
 		}
 		return id;
+	}
+
+	@Override
+	public Person getByUsername(String username)
+	{
+		String sql = 
+		"SELECT p.id, p.username, p.email, p.pwd, p.first_name, p.last_name, p.phone, p.user_role, a.street, a.city, a.state, a.zip" +
+		" FROM person p" +
+		" LEFT JOIN address a ON p.id = a.id" +
+		" WHERE p.username = ?";
+		
+		try(Connection conn = ConnectionManager.getConnection())
+		{
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			ResultSet rs = pstmt.executeQuery();
+			
+			String userName = "";
+			String pwd = "";
+			String email = "";
+			String firstName = "";
+			String lastName = "";
+			String phone = "";
+			UserRole role = null;
+			
+			String street = "";
+			String city = "";
+			String state = "";
+			String zip = "";
+			long id = 0L;
+			
+			while(rs.next()) {
+				id = rs.getLong("id");
+				userName = rs.getString("username");
+				pwd = rs.getString("pwd");
+				email = rs.getString("email");
+				firstName = rs.getString("first_name");
+				lastName = rs.getString("last_name");
+				phone = rs.getString("phone");
+				role = UserRole.valueOf(rs.getString("user_role"));
+				
+				street = rs.getString("street");
+				city = rs.getString("city");
+				state = rs.getString("state");
+				zip = rs.getString("zip");
+			}
+			
+			Address address = new Address(street, city, state, zip);
+			return new Person(id, firstName, lastName, userName, pwd.toCharArray(), email, phone, address, role);
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return null;	
 	}
 }
