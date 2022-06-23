@@ -6,6 +6,8 @@ public class Address implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
+	private long id;
+	
 	private long userId;
 	
 	private String street;
@@ -94,6 +96,16 @@ public class Address implements Serializable
 	public String toString()
 	{
 		return String.format("%s, %s, %s %s", street, city, state, zip);
+	}
+
+	public long getId()
+	{
+		return id;
+	}
+
+	public void setId(long id)
+	{
+		this.id = id;
 	}
 	
 	
