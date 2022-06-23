@@ -41,6 +41,17 @@ public class Address implements Serializable
 		this.state = state;
 		this.zip = zip;
 	}
+	
+	public Address(long id, long userId, String street, String city, String state, String zip)
+	{
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+	}
 
 	public long getUserId()
 	{
