@@ -11,9 +11,9 @@ import org.junit.Test;
 import com.revature.enums.Status;
 import com.revature.enums.UserRole;
 
-public class CustomerTest
+public class PersonTest
 {
-	private Customer testCustomer;
+	private Person testCustomer;
 	
 	private final String firstName = "John";
 	private final String lastName = "Doe";
@@ -27,7 +27,7 @@ public class CustomerTest
 	@Before
 	public void resetCustomer()
 	{
-		testCustomer = new Customer(1, firstName, lastName, userName, email, phoneNumber, address, userRole);
+		testCustomer = new Person(1, firstName, lastName, userName, email, phoneNumber, address, userRole);
 		Map<String, Account> accounts = new HashMap<>();
 		Account acc1 = new Account(1, 1, new BigDecimal(100.04), Status.ACTIVE);
 		Account acc2 = new Account(2, 1, new BigDecimal(1032.45), Status.ACTIVE);
@@ -49,11 +49,11 @@ public class CustomerTest
 		info += "Phone Number: " + phoneNumber + "\n";
 		info += "=======================================================\n";
 		
-		System.out.println(testCustomer.getCustomerInfo());
+		System.out.println(testCustomer.getInfo());
 		
 		System.out.println(info);
 		
-		Assert.assertEquals(info, testCustomer.getCustomerInfo());
+		Assert.assertEquals(info, testCustomer.getInfo());
 	}
 	
 	@Test

@@ -7,8 +7,10 @@ import java.util.Map;
 
 import com.revature.enums.UserRole;
 
-public abstract class Person implements Serializable
+public class Person implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+
 	protected Map<String, Account> accounts;
 	
 	private long id;
@@ -178,4 +180,21 @@ public abstract class Person implements Serializable
 	{
 		this.password = password;
 	}
+	
+    public Account getAccount(String accountNumber)
+    {
+        return accounts.get(accountNumber);
+    }
+    
+    public String getInfo()
+    {
+        String info = "\n=======================================================\n";
+        info += "Name: " + this.getFirstName() + " " + this.getLastName() + "\n";
+        info += "User Name: " + this.getUserName() + "\n";
+        info += "Email: " + this.getEmail() + "\n";
+        info += "Address: " + this.getAddress() + "\n";
+        info += "Phone Number: " + this.getPhoneNumber() + "\n";
+        info += "=======================================================\n";
+        return info;
+    }
 }
