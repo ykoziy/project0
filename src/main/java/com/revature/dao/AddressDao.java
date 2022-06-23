@@ -2,7 +2,7 @@ package com.revature.dao;
 
 import com.revature.models.Address;
 
-interface AddressDao
+public interface AddressDao
 {
 	long addPersonAddress(Address address, long personId);
 	
