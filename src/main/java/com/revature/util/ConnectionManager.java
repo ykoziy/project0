@@ -16,7 +16,7 @@ public final class ConnectionManager
 		final String password = "postgres";
 		
 		try {
-			connection = DriverManager.getConnection(url, user, password);
+			connection = DriverManager.getConnection(System.getenv("DB_URL"),System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
