@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import com.revature.enums.Status;
 import com.revature.enums.UserRole;
 import com.revature.models.Address;
 import com.revature.models.Person;
@@ -33,7 +34,7 @@ public class PsqlPersonDao implements PersonDao
 			String firstName = "";
 			String lastName = "";
 			String phone = "";
-			String role = "";
+			UserRole role = null;
 			
 			String street = "";
 			String city = "";
@@ -47,7 +48,7 @@ public class PsqlPersonDao implements PersonDao
 				firstName = rs.getString("first_name");
 				lastName = rs.getString("last_name");
 				phone = rs.getString("phone");
-				role = rs.getString("user_role");
+				role = UserRole.valueOf(rs.getString("user_role"));
 				
 				street = rs.getString("street");
 				city = rs.getString("city");
@@ -56,8 +57,7 @@ public class PsqlPersonDao implements PersonDao
 			}
 			
 			Address address = new Address(street, city, state, zip);
-
-			return new Person(id, firstName, lastName, userName, email, phone, address, UserRole.CUSTOMER);
+			return new Person(id, firstName, lastName, userName, email, phone, address, role);
 
 		} catch (SQLException e)
 		{

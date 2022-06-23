@@ -22,7 +22,7 @@ public class PersonTest
 	private final String phoneNumber = "646-911-0101";
 	private final Address address = new Address("404 Example Rd", "New York", "NY", "10017");
 	
-	private UserRole userRole = UserRole.CUSTOMER;
+	private UserRole userRole = UserRole.customer;
 	
 	@Before
 	public void resetCustomer()

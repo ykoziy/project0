@@ -2,9 +2,9 @@ package com.revature.enums;
 
 public enum UserRole
 {
-	CUSTOMER("customer"),
-	ADMIN("admin"),
-	EMPLOYEE("employee");
+	customer("customer"),
+	admin("admin"),
+	employee("employee");
 	
 	private final String text;
 
