@@ -9,12 +9,7 @@ public final class ConnectionManager
 	private static Connection connection = null;
 	
 	static 
-	{
-		final String url = "jdbc:postgresql://localhost:5432/bank";
-		final String user = "postgres";
-		// NEVER STORE PASSWORD IN CLASS, VISIBLE ON GITHUB
-		final String password = "postgres";
-		
+	{		
 		try {
 			connection = DriverManager.getConnection(System.getenv("DB_URL"),System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
 		} catch (SQLException e) {
