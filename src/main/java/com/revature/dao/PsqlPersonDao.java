@@ -8,7 +8,6 @@ import java.sql.Types;
 
 import com.revature.enums.UserRole;
 import com.revature.models.Address;
-import com.revature.models.Customer;
 import com.revature.models.Person;
 import com.revature.util.ConnectionManager;
 
@@ -57,18 +56,9 @@ public class PsqlPersonDao implements PersonDao
 			}
 			
 			Address address = new Address(street, city, state, zip);
-			Person person;
-			
-			if (role.equals(UserRole.CUSTOMER.toString())) {
-				person = new Customer(id, firstName, lastName, userName, email, phone, address, UserRole.CUSTOMER);
-				return person;
-			} else if (role.equals(UserRole.EMPLOYEE.toString())) {
-				person = new Customer(id, firstName, lastName, userName, email, phone, address, UserRole.EMPLOYEE);
-				return person;				
-			} else if (role.equals(UserRole.ADMIN.toString())) {
-				person = new Customer(id, firstName, lastName, userName, email, phone, address, UserRole.ADMIN);
-				return person;						
-			}
+
+			return new Person(id, firstName, lastName, userName, email, phone, address, UserRole.CUSTOMER);
+
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
