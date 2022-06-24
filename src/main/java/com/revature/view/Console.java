@@ -43,6 +43,7 @@ public class Console
     
     public static void generateMenu(String menuTitle, List<String> options)
     {
+    	printLine("");
         printLine(menuTitle);
         for (int i = 0; i < options.size(); i++) {
             printLine(options.get(i));
