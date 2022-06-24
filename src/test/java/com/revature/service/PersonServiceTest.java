@@ -106,7 +106,7 @@ public class PersonServiceTest
 	{
 		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
 		
-		when(mockDaoPerson.add(dummyPerson)).thenReturn(1L);
+		when(mockDaoPerson.add(dummyPerson)).thenReturn(-1L);
 		when(mockDaoAddress.addPersonAddress(dummyAddress, 1)).thenReturn(-1L);
 		ps.register(dummyPerson, dummyAddress);
 	}
@@ -152,5 +152,44 @@ public class PersonServiceTest
 		
 		Person loggedIn = ps.login(username, password);
 		Assert.assertNull(loggedIn);
-	}	
+	}
+	
+	@Test
+	public void shouldBeAbleToEditPerson()
+	{
+		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
+		dummyPerson = new Person(0, firstName, lastName, userName,"pwd".toCharArray(), email, phoneNumber, dummyAddress, UserRole.customer);
+		
+		when(mockDaoPerson.update(dummyPerson)).thenReturn(true);
+		
+		boolean result = ps.update(dummyPerson);
+
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void shouldBeAbleToDeletePerson()
+	{
+		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
+		dummyPerson = new Person(1, firstName, lastName, userName,"pwd".toCharArray(), email, phoneNumber, dummyAddress, UserRole.customer);
+		
+		when(mockDaoPerson.delete(dummyPerson.getId())).thenReturn(true);
+		
+		boolean result = ps.delete(dummyPerson);
+
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void shouldNotDeletePersonWithIdZero()
+	{
+		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
+		dummyPerson = new Person(0, firstName, lastName, userName,"pwd".toCharArray(), email, phoneNumber, dummyAddress, UserRole.customer);
+		
+		when(mockDaoPerson.delete(dummyPerson.getId())).thenReturn(true);
+		
+		boolean result = ps.delete(dummyPerson);
+
+		Assert.assertFalse(result);
+	}
 }

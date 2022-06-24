@@ -53,13 +53,19 @@ public class PersonService
 		return null;
 	}
 	
-	public Person update()
+	public boolean update(Person person)
 	{
-		return null;
+		boolean result = pdao.update(person);
+		return result;
 	}
 	
-	public boolean delete()
+	public boolean delete(Person person)
 	{
-		return false;
+		if (person.getId() > 0)
+		{
+			return pdao.delete(person.getId());			
+		} else {
+			return false;		
+		}
 	}
 }
