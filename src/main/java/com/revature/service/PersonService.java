@@ -4,6 +4,7 @@ import com.revature.dao.PersonDao;
 import com.revature.dao.AddressDao;
 import com.revature.dao.PsqlAddressDao;
 import com.revature.dao.PsqlPersonDao;
+import com.revature.exceptions.RegisterPersonFailedException;
 import com.revature.models.Address;
 import com.revature.models.Person;
 
@@ -16,7 +17,7 @@ public class PersonService
 	{
 		if (person.getId() != 0) 
 		{
-			//do something.... exception?
+			throw new RegisterPersonFailedException("Person not valid to register because ID was not 0");
 		}
 		
 		long newPersonIndex = pdao.add(person);
@@ -27,14 +28,14 @@ public class PersonService
 		{
 			person.setId(newPersonIndex );
 		} else {
-			//do something.... exception?
+			throw new RegisterPersonFailedException("Person's ID was either -1 or did not change after insertion");
 		}
 		
 		if (newAddressIndex != -1 && newAddressIndex != address.getId()) 
 		{
 			address.setId(newAddressIndex);
 		} else {
-			//do something.... exception?
+			throw new RegisterPersonFailedException("Person's address ID was either -1 or did not change after insertion");
 		}
 		
 		return person;
