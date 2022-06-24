@@ -9,8 +9,8 @@ import com.revature.models.Person;
 
 public class PersonService
 {
-	private PersonDao pdao = new PsqlPersonDao();
-	private AddressDao adao = new PsqlAddressDao();
+	public PersonDao pdao = new PsqlPersonDao();
+	public AddressDao adao = new PsqlAddressDao();
 	
 	public Person register(Person person, Address address)
 	{
