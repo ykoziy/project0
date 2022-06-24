@@ -6,7 +6,8 @@ public class App
 {
 	public static void main(String... args)
 	{
-		MenuNavigation nav = new MenuNavigation();
+		Bank bank = new Bank();
+		MenuNavigation nav = new MenuNavigation(bank);
 		nav.start();
 	}
 }
