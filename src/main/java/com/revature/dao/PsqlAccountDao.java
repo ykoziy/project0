@@ -101,7 +101,7 @@ public class PsqlAccountDao implements AccountDao
 	public boolean update(Account account)
 	{
 		String sql = "UPDATE account " +
-				"SET id = ?, user_id = ?, balance = ?, status = ? " +
+				"SET user_id = ?, balance = ?, status = ? " +
 				"WHERE id = ?";
 		try(Connection conn = ConnectionManager.getConnection())
 		{
@@ -109,6 +109,7 @@ public class PsqlAccountDao implements AccountDao
 			pstmt.setLong(1, account.getOwnerId());
 			pstmt.setLong(2, (long) (account.getBalance()*100));
 			pstmt.setObject(3, account.getStatus(), Types.OTHER);
+			pstmt.setLong(4, account.getId());
 			
 			int rowsAffected = pstmt.executeUpdate();
 			
