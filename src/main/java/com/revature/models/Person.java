@@ -40,7 +40,6 @@ public class Person implements Serializable
 	{;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.userName = userName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 	}
