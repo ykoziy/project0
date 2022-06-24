@@ -33,7 +33,7 @@ public class PsqlAccountDao implements AccountDao
 
 			while (rs.next()) {
 				user_id = rs.getLong("id");
-				ownerId = 1;
+				ownerId = rs.getLong("user_id");
 				balance = new BigDecimal(rs.getLong("balance")).divide(new BigDecimal(100));
 				status = Status.valueOf(rs.getString("status"));
 				
@@ -50,7 +50,7 @@ public class PsqlAccountDao implements AccountDao
 	public List<Account> getUserAccounts(long id)
 	{
 		List<Account> accList = new ArrayList<>();
-		String sql = "SELECT a.id, a.balance, a.status " +
+		String sql = "SELECT a.id, a.user_id, a.balance, a.status " +
 				"FROM account_holder ah " +
 				"LEFT JOIN account a ON ah.account_id = a.id " +
 				"WHERE ah.user_id = ?";
@@ -62,11 +62,11 @@ public class PsqlAccountDao implements AccountDao
 			
 			while (rs.next()) {
 				long user_id = rs.getLong("id");
-				long owner_id = 1;
+				long ownerId = rs.getLong("user_id");
 				BigDecimal balance = new BigDecimal(rs.getLong("balance")).divide(new BigDecimal(100));
 				Status status = Status.valueOf(rs.getString("status"));
 				
-				Account a = new Account(user_id, owner_id, balance, status);
+				Account a = new Account(user_id, ownerId, balance, status);
 				
 				accList.add(a);
 			}
