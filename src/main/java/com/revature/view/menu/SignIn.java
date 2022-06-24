@@ -2,13 +2,18 @@ package com.revature.view.menu;
 
 import java.util.Scanner;
 
+import com.revature.Bank;
+import com.revature.service.PersonService;
 import com.revature.view.Console;
 
 public class SignIn extends Menu
 {
-	public SignIn(String menuTitle)
+	private Bank bank;
+	
+	public SignIn(String menuTitle, Bank bank)
 	{
 		super(menuTitle);
+		this.bank = bank;
 		this.addOption(1, "Continue");
 		this.addQuitOption();
 		this.addGoBackOption();
@@ -44,12 +49,14 @@ public class SignIn extends Menu
 					break;
 			}
 		}
+		if (isValid) {
+			result = "next";
+		}
 		return result;
 	}
 	
 	private boolean getUserInfo()
 	{
-		boolean canProceed = false;
 		Scanner scan = new Scanner(System.in);
 		Console.printLine("\nUsername: ");
 		String username = scan.nextLine();
@@ -58,7 +65,7 @@ public class SignIn extends Menu
 		String password = scan.nextLine();
 		
 		Console.printLine("");
-		// placeholder //
-		return canProceed;
+
+		return bank.signIn(username, password);
 	}
 }

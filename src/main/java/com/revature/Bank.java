@@ -11,7 +11,7 @@ public class Bank
 	
 	public Bank()
 	{
-		
+		ps = new PersonService();
 	}
 
 	public Person getCurrentUser()
@@ -22,5 +22,15 @@ public class Bank
 	public void setCurrentUser(Person currentUser)
 	{
 		this.currentUser = currentUser;
+	}
+	
+	public boolean signIn(String username, String password)
+	{
+		currentUser = ps.login(username, password);
+		if (currentUser != null)
+		{
+			return true;
+		}
+		return false;
 	}
 }

@@ -6,9 +6,9 @@ public class MenuFactory
 {
 	private Bank bank;
 	
-	public MenuFactory(Bank b)
+	public MenuFactory(Bank bank)
 	{
-		bank = new Bank();
+		this.bank = bank;
 	}
 	
 	public Menu getMenu(String menuType)

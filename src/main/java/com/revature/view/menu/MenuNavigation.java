@@ -1,16 +1,19 @@
 package com.revature.view.menu;
 
 import com.revature.Bank;
+import com.revature.view.Console;
 
 public class MenuNavigation
 {
 
 	private Menu menu;
 	private MenuFactory fact;
+	private Bank bank;
 	
 	public MenuNavigation(Bank bank)
 	{
-		fact = new MenuFactory(bank);
+		this.bank = bank;
+		fact = new MenuFactory(this.bank);
 	}
 	
 	public void start() 
@@ -45,6 +48,9 @@ public class MenuNavigation
 		String choice = menu.handleInput();
 		if (choice.equals("back")) {
 			return 0;
+		} else if (choice.equals("next")) {
+			String name = bank.getCurrentUser().getFirstName();
+			Console.printLine(name + " welcome back, thank you for being YKZ BANK customer");
 		}
 		return 1;
 	}
