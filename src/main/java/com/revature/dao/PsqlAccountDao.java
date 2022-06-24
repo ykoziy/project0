@@ -63,7 +63,7 @@ public class PsqlAccountDao implements AccountDao
 			while (rs.next()) {
 				long user_id = rs.getLong("id");
 				long owner_id = 1;
-				BigDecimal balance = new BigDecimal(rs.getLong("balance")/100);
+				BigDecimal balance = new BigDecimal(rs.getLong("balance")).divide(new BigDecimal(100));
 				Status status = Status.valueOf(rs.getString("status"));
 				
 				Account a = new Account(user_id, owner_id, balance, status);
