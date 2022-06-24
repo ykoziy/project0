@@ -15,4 +15,6 @@ public interface AccountDao
 	boolean update(Account account);
 	
 	long add(long user_id, Account account);
+	
+	List<Account> getAll();
 }
