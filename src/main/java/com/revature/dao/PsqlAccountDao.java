@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -153,5 +154,39 @@ public class PsqlAccountDao implements AccountDao
 			e.printStackTrace();
 		}
 		return id;
+	}
+
+	@Override
+	public List<Account> getAll()
+	{
+		String sql = "SELECT * FROM account";
+		List<Account> accList = new ArrayList<>();
+		
+		try (Connection conn = ConnectionManager.getConnection())
+		{
+			Statement stmt = conn.createStatement();
+
+			long user_id = 0;
+			long ownerId = 0;
+			BigDecimal balance = new BigDecimal(0);
+			Status status = null;
+			
+			ResultSet rs = stmt.executeQuery(sql);			
+			while (rs.next())
+			{
+				user_id = rs.getLong("id");
+				ownerId = rs.getLong("user_id");
+				balance = new BigDecimal(rs.getLong("balance")).divide(new BigDecimal(100));
+				status = Status.valueOf(rs.getString("status"));				
+				Account a = new Account(user_id, ownerId, balance, status);		
+				accList.add(a);				
+			}
+			return accList;
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return null;
 	}
 }
