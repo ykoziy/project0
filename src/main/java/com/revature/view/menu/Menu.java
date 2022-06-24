@@ -5,22 +5,21 @@ import java.util.List;
 
 public abstract class Menu implements Interactable
 {
-	// subclasses must implement Interactable interface
-	
 	protected String menuTitle;
-	protected List<String> options  = new ArrayList<>();
+	protected List<String> options;
 	
 	public Menu() {
-		
+		options = new ArrayList<>();
 	}
 	
 	public Menu(String menuTitle)
 	{
+		this();
 		this.menuTitle = menuTitle;
 	}
 	
 	public abstract void show();
-		
+			
 	protected void addQuitOption()
 	{
 		options.add("q) Exit the application.");
