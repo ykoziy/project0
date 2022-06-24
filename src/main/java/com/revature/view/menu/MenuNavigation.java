@@ -1,14 +1,16 @@
 package com.revature.view.menu;
 
+import com.revature.Bank;
+
 public class MenuNavigation
 {
 
 	private Menu menu;
 	private MenuFactory fact;
 	
-	public MenuNavigation()
+	public MenuNavigation(Bank bank)
 	{
-		fact = new MenuFactory();
+		fact = new MenuFactory(bank);
 	}
 	
 	public void start() 
