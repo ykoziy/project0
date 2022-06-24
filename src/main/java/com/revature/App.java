@@ -1,11 +1,12 @@
 package com.revature;
 
-import com.revature.view.Console;
+import com.revature.view.menu.MenuNavigation;
 
 public class App
 {
 	public static void main(String... args)
 	{
-		Console.showWelcomeScreen();
+		MenuNavigation nav = new MenuNavigation();
+		nav.start();
 	}
 }
