@@ -1,5 +1,6 @@
 package com.revature;
 
+import com.revature.models.Address;
 import com.revature.models.Person;
 import com.revature.service.PersonService;
 
@@ -27,6 +28,16 @@ public class Bank
 	public boolean signIn(String username, String password)
 	{
 		currentUser = ps.login(username, password);
+		if (currentUser != null)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean signUp(Person person, Address address)
+	{
+		currentUser = ps.register(person, address);
 		if (currentUser != null)
 		{
 			return true;

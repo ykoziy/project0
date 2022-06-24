@@ -37,7 +37,10 @@ public class MenuNavigation
 				initial();
 			}
 		} else if(choice.equals("signup")) {
-			System.out.println("Sign up");
+			int result = signUp();
+			if (result == 0) {
+				initial();
+			}
 		}
 	}
 	
@@ -53,5 +56,16 @@ public class MenuNavigation
 			Console.printLine(name + " welcome back, thank you for being YKZ BANK customer");
 		}
 		return 1;
+	}
+	
+	private int signUp()
+	{
+		menu = fact.getMenu("signup");
+		menu.show();
+		String choice = menu.handleInput();
+		if (choice.equals("back")) {
+			return 0;
+		}
+		return 1;		
 	}
 }

@@ -25,6 +25,8 @@ public class MenuFactory
 			return new Initial("Welcome to YKZ BANK!");
 		} else if (menuType.equalsIgnoreCase("signin")) {
 			return new SignIn("Sign in.", bank);
+		} else if (menuType.equalsIgnoreCase("signup")) {
+			return new SignUp("Sign up.", bank);
 		}
 		return null;
 	}
