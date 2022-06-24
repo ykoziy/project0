@@ -54,6 +54,6 @@ public class WelcomeTest
 		simulatedInput = new ByteArrayInputStream("\n".getBytes());
 		System.setIn(simulatedInput);
 		
-		Assert.assertTrue(menu.handleInput());
+		Assert.assertEquals("next",menu.handleInput());
 	}
 }
