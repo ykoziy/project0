@@ -1,5 +1,7 @@
 package com.revature.dao;
 
+import java.util.List;
+
 import com.revature.models.Person;
 
 public interface PersonDao
@@ -13,4 +15,6 @@ public interface PersonDao
 	boolean update(Person person);
 
 	long add(Person person);
+	
+	List<Person> getAll();
 }

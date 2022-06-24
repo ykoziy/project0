@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.revature.enums.Status;
 import com.revature.enums.UserRole;
@@ -208,5 +211,61 @@ public class PsqlPersonDao implements PersonDao
 			e.printStackTrace();
 		}
 		return null;	
+	}
+
+	@Override
+	public List<Person> getAll()
+	{
+		String sql = "SELECT * FROM person p LEFT JOIN address a ON p.id = a.id";
+		
+		List<Person> users = new ArrayList<>();
+		
+		try(Connection conn = ConnectionManager.getConnection())
+		{
+			Statement stmt = conn.createStatement();
+
+			String userName = "";
+			String email = "";
+			String firstName = "";
+			String lastName = "";
+			String phone = "";
+			UserRole role = null;
+			
+			String street = "";
+			String city = "";
+			String state = "";
+			String zip = "";
+			
+			long id = 0L;
+			
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) 
+			{
+				id = rs.getLong("id");
+				userName = rs.getString("username");
+				email = rs.getString("email");
+				firstName = rs.getString("first_name");
+				lastName = rs.getString("last_name");
+				phone = rs.getString("phone");
+				role = UserRole.valueOf(rs.getString("user_role"));
+				
+				street = rs.getString("street");
+				city = rs.getString("city");
+				state = rs.getString("state");
+				zip = rs.getString("zip");
+				
+				Address address = new Address(street, city, state, zip);
+				Person person =  new Person(id, firstName, lastName, userName, email, phone, address, role);
+				
+				users.add(person);
+			}
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return users;		
 	}
 }
