@@ -44,6 +44,11 @@ public class CustomerMenu extends MainMenu
 					repeat();
 					input = scan.next().charAt(0);
 					break;
+				case '2':
+					deposit();
+					repeat();
+					input = scan.next().charAt(0);
+					break;					
 				case 'q':
 					this.exitApp();
 					break;				
@@ -59,6 +64,49 @@ public class CustomerMenu extends MainMenu
 	private void repeat()
 	{
 		Console.generateMenu(menuTitle, options);
+	}
+	
+	private void deposit() 
+	{
+		Console.printLine("\nSelect account and input amount for deposit.");
+		Scanner scan = new Scanner(System.in);
+		
+		boolean isValid = false;
+		
+		long userId = 0;
+		double amount = 0;
+		
+		while (!isValid)
+		{
+			Console.printLine("Please enter a valid account ID (id > 0)");
+			Console.print("\nAccount ID: ");
+			if (scan.hasNextLong())
+			{
+				userId = scan.nextLong();
+				isValid = true;
+			} else {
+				Console.printLine("\nYou did not enter a number for the account ID, try again.");
+				scan.nextLine();
+			}
+		}
+
+		isValid = false;
+
+		while (!isValid)
+		{
+			Console.printLine("Please enter a valid amount (amount > 0)");
+			Console.print("\nAmount: ");
+			if (scan.hasNextDouble())
+			{
+				amount = scan.nextLong();
+				isValid = true;
+			} else {
+				Console.printLine("\nYou did not enter a number for the account ID, try again.");
+				scan.nextLine();
+			}
+		}
+		
+		///do the deposit right here....	
 	}
 	
 	private void viewAccounts()
