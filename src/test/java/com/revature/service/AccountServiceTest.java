@@ -3,7 +3,9 @@ package com.revature.service;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import org.junit.After;
@@ -274,5 +276,31 @@ public class AccountServiceTest
 		when(mockDaoAccount.update(dummyAccount)).thenReturn(true);
 		boolean result = as.update(dummyAccount);
 		Assert.assertFalse(result);
-	}	
+	}
+	
+	// testing getAccountsByUserId
+	@Test
+	public void shouldGetAllAccountsForUserId()
+	{
+		List<Account> accList = new ArrayList<>();
+		
+		accList.add(new Account(1, 1, 10000, Status.pending));
+		accList.add(new Account(2, 1, 10000, Status.active));
+		accList.add(new Account(3, 1, 10000, Status.active));
+		accList.add(new Account(4, 1, 10000, Status.closed));
+		
+		when(mockDaoAccount.getUserAccounts(1)).thenReturn(accList);
+		
+		List<Account> resultList = as.getAccountsByUserId(1L);
+		
+		Assert.assertNotNull(resultList);
+		Assert.assertArrayEquals(accList.toArray(), resultList.toArray());
+	}
+	
+	@Test
+	public void shouldNotGetAccountsForInvalidId()
+	{
+		List<Account> resultList = as.getAccountsByUserId(0L);
+		Assert.assertNull(resultList);
+	}
 }
