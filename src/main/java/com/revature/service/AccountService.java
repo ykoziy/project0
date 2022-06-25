@@ -94,9 +94,15 @@ public class AccountService
 		return false;
 	}
 	
-	public Account update(Account acc)
+	public boolean update(Account acc)
 	{
-		return null;
+		if (acc == null || acc.getId() <= 0 || acc.getOwnerId() <= 0) 
+		{
+			return false;
+		} else {
+			boolean status = adao.update(acc);
+		}
+		return false;
 	}
 	
 	public List<Account> getAccountsByUserId()
