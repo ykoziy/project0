@@ -226,4 +226,28 @@ public class PersonServiceTest
 		Assert.assertNotNull(resultList);
 		Assert.assertArrayEquals(userList.toArray(), resultList.toArray());
 	}
+	
+	// testing findByUsername
+	@Test
+	public void shouldBeAbleToFindUserByUsername()
+	{
+		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
+		dummyPerson = new Person(1, "Jake", "Miller", "jmiller","pwd".toCharArray(), email, phoneNumber, dummyAddress, UserRole.customer);
+		when(mockDaoPerson.getByUsername("jmiller")).thenReturn(dummyPerson);
+		
+		Person resultPerson = ps.findByUsername("jmiller");
+		
+		Assert.assertNotNull(resultPerson);
+		Assert.assertEquals(dummyPerson, resultPerson);
+	}
+	
+	@Test
+	public void shouldNotBeAbleToFindUserByBlankUsername()
+	{		
+		when(mockDaoPerson.getByUsername(userName)).thenReturn(null);
+		
+		Person resultPerson = ps.findByUsername("");
+		
+		Assert.assertNull(resultPerson);
+	}
 }

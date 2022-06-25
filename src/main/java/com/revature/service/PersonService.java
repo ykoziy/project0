@@ -76,4 +76,14 @@ public class PersonService
 	{
 		return pdao.getAll();
 	}
+	
+	public Person findByUsername(String username)
+	{
+		if (username.equals("")) 
+		{
+			return null;
+		} else {
+			return pdao.getByUsername(username);
+		}
+	}
 }
