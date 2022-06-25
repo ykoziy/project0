@@ -73,5 +73,6 @@ public class MenuNavigation
 	{
 		menu = fact.getMenu("main_menu");
 		menu.show();
+		String choice = menu.handleInput();
 	}
 }
