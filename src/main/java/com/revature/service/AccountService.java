@@ -36,10 +36,10 @@ public class AccountService
 		if (newAccountIndex != -1 && newAccountIndex != account.getId()) 
 		{
 			account.setId(newAccountIndex);
+			logger.info("created an account with id: " + newAccountIndex);
 		} else {
 			throw new CreateAccountFailedException("Account ID was either -1 or did not change after insertion");
 		}
-
 		return account;
 	}
 
@@ -56,6 +56,7 @@ public class AccountService
 			long amt = (long)(amount*100.00);
 			acc.setBalance(acc.getBalance() + amt);
 			boolean status = adao.update(acc);
+			logger.info("depositing: $" + amt/100.0 + " to the account id: " + accountId);
 			return status;
 		}
 	}
@@ -81,6 +82,7 @@ public class AccountService
 		} else {
 			acc.setBalance(acc.getBalance() - amt);
 			boolean status = adao.update(acc);
+			logger.info("withdrawing: $" + amt/100.0 + " from the account id: " + accountId);
 			return status;
 		}
 	}
@@ -102,7 +104,7 @@ public class AccountService
 		{
 			return false;
 		} else {
-			logger.info("updating account with id: " + acc.getId());
+			logger.info("updating account id: " + acc.getId());
 			boolean status = adao.update(acc);
 			return status;
 		}
@@ -114,6 +116,7 @@ public class AccountService
 		{
 			return null;
 		} else {
+			logger.info("fetching all accounts for user id: " + id);
 			return adao.getUserAccounts(id);
 		}
 	}
