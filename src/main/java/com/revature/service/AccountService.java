@@ -114,4 +114,9 @@ public class AccountService
 			return adao.getUserAccounts(id);
 		}
 	}
+	
+	public List<Account> getAll()
+	{
+		return adao.getAll();
+	}
 }

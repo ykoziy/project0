@@ -303,4 +303,22 @@ public class AccountServiceTest
 		List<Account> resultList = as.getAccountsByUserId(0L);
 		Assert.assertNull(resultList);
 	}
+	
+	// testing getAll
+	@Test
+	public void shouldGetAllAccounts()
+	{
+		List<Account> accList = new ArrayList<>();
+		
+		accList.add(new Account(1, 1, 10000, Status.pending));
+		accList.add(new Account(2, 1, 10000, Status.active));
+		accList.add(new Account(3, 2, 10000, Status.active));
+		accList.add(new Account(4, 3, 10000, Status.closed));
+		
+		when(mockDaoAccount.getAll()).thenReturn(accList);
+		
+		List<Account> resultList = as.getAll();
+		Assert.assertNotNull(resultList);
+		Assert.assertArrayEquals(accList.toArray(), resultList.toArray());
+	}
 }
