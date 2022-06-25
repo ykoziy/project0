@@ -1,13 +1,11 @@
 package com.revature.service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import com.revature.dao.AccountDao;
 import com.revature.dao.PsqlAccountDao;
 import com.revature.exceptions.RegisterPersonFailedException;
 import com.revature.models.Account;
-import com.revature.models.Address;
 import com.revature.models.Person;
 
 public class AccountService
@@ -46,21 +44,21 @@ public class AccountService
 	public boolean deposit(int accountId, double amount)
 	{
 		Account acc = null;
-		if (amount <= 0) {
+		if (amount <= 0 || accountId <= 0) {
 			return false;
 		} else {
 			acc = adao.get(accountId);
 			if (acc == null) {
 				return false;
 			}
-			BigDecimal amt = new BigDecimal(acc.getBalance() + amount);
-			acc.setBalance(amt);
+			long amt = (long)(amount*100.00);
+			acc.setBalance(acc.getBalance() + amt);
 			boolean status = adao.update(acc);
+			return status;
 		}
-		return true;
 	}
 	
-	public boolean withdraw(int accountId)
+	public boolean withdraw(int accountId, double amount)
 	{
 		return false;
 	}
