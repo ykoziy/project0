@@ -1,7 +1,10 @@
 package com.revature.view.menu;
 
 import com.revature.Bank;
-import com.revature.view.menu.main.UserMainMenu;
+import com.revature.enums.UserRole;
+import com.revature.view.menu.main.AdminMenu;
+import com.revature.view.menu.main.CustomerMenu;
+import com.revature.view.menu.main.EmployeeMenu;
 
 public class MenuFactory
 {
@@ -29,7 +32,20 @@ public class MenuFactory
 		} else if (menuType.equalsIgnoreCase("signup")) {
 			return new SignUp("Sign up.", bank);
 		} else if (menuType.equalsIgnoreCase("main_menu")) {
-			return new UserMainMenu(bank);
+			return getMainMenu(bank.getCurrentUser().getUserRole());
+		}
+		return null;
+	}
+	
+	
+	private Menu getMainMenu(UserRole role)
+	{
+		if (role == UserRole.customer) {
+			return new CustomerMenu(bank);
+		} else if (role == UserRole.employee) {
+			return new EmployeeMenu(bank);			
+		} else if (role == UserRole.admin) {
+			return new AdminMenu(bank);				
 		}
 		return null;
 	}
