@@ -1,7 +1,5 @@
 package com.revature.models;
 
-import java.math.BigDecimal;
-
 import com.revature.enums.Status;
 
 public class Account
