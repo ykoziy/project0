@@ -70,6 +70,7 @@ public class PsqlAccountDao implements AccountDao
 				
 				accList.add(a);
 			}
+			return accList;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
