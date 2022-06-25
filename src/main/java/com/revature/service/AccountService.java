@@ -1,7 +1,7 @@
 package com.revature.service;
 
 import java.util.List;
-
+import org.apache.log4j.Logger;
 import com.revature.dao.AccountDao;
 import com.revature.dao.PsqlAccountDao;
 import com.revature.exceptions.CreateAccountFailedException;
@@ -11,6 +11,8 @@ import com.revature.models.Person;
 public class AccountService
 {
 	public AccountDao adao = new PsqlAccountDao();
+	
+	private Logger logger = Logger.getLogger(AccountService.class);
 	
 	public Account createAccountForPerson(Person person, Account account)
 	{
@@ -100,6 +102,7 @@ public class AccountService
 		{
 			return false;
 		} else {
+			logger.info("updating account with id: " + acc.getId());
 			boolean status = adao.update(acc);
 			return status;
 		}
@@ -117,6 +120,7 @@ public class AccountService
 	
 	public List<Account> getAll()
 	{
+		logger.info("fetching all accounts");
 		return adao.getAll();
 	}
 }
