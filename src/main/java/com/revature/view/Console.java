@@ -1,8 +1,6 @@
 package com.revature.view;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class Console
 {
@@ -14,14 +12,6 @@ public class Console
     public static void printLine(Object obj)
     {
         System.out.println(obj.toString());
-    }
-    
-    public static String getMoney(long amt)
-    {
-		Locale usa = new Locale("en", "US");
-		NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(usa);
-		double balance = amt / 100.0;
-		return dollarFormat.format(balance);
     }
     
     public static void showWelcomeScreen()
