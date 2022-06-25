@@ -60,7 +60,27 @@ public class AccountService
 	
 	public boolean withdraw(int accountId, double amount)
 	{
-		return false;
+		Account acc = null;
+
+		if (accountId <= 0) {
+			return false;
+		}
+		
+		acc = adao.get(accountId);
+		
+		if (acc == null) {
+			return false;
+		}
+		
+		long amt = (long)(amount*100.00);
+		
+		if (amt > acc.getBalance()) {
+			return false;
+		} else {
+			acc.setBalance(acc.getBalance() - amt);
+			boolean status = adao.update(acc);
+			return status;
+		}
 	}
 	
 	public boolean transfer(int fromId, int toId)
