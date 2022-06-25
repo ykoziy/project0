@@ -1,6 +1,9 @@
 package com.revature.service;
 
 import com.revature.dao.PersonDao;
+
+import java.util.List;
+
 import com.revature.dao.AddressDao;
 import com.revature.dao.PsqlAddressDao;
 import com.revature.dao.PsqlPersonDao;
@@ -67,5 +70,10 @@ public class PersonService
 		} else {
 			return false;		
 		}
+	}
+	
+	public List<Person> getAll()
+	{
+		return pdao.getAll();
 	}
 }

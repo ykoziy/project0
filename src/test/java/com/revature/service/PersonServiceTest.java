@@ -4,7 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import org.junit.After;
@@ -14,6 +17,7 @@ import org.junit.Test;
 
 import com.revature.dao.PsqlAddressDao;
 import com.revature.dao.PsqlPersonDao;
+import com.revature.enums.Status;
 import com.revature.enums.UserRole;
 import com.revature.exceptions.RegisterPersonFailedException;
 import com.revature.models.Account;
@@ -64,6 +68,8 @@ public class PersonServiceTest
 		mockDaoPerson = null;
 		mockDaoAddress = null;
 	}
+	
+	// testing register
 	
 	@Test
 	public void testRegisterPersonReturnsNewPKId() 
@@ -139,6 +145,8 @@ public class PersonServiceTest
 		
 	}
 	
+	// testing login
+	
 	@Test
 	public void testLoginReturnsNull() 
 	{
@@ -154,6 +162,8 @@ public class PersonServiceTest
 		Assert.assertNull(loggedIn);
 	}
 	
+	//testing update
+	
 	@Test
 	public void shouldBeAbleToEditPerson()
 	{
@@ -166,6 +176,8 @@ public class PersonServiceTest
 
 		Assert.assertTrue(result);
 	}
+	
+	// testing delete
 	
 	@Test
 	public void shouldBeAbleToDeletePerson()
@@ -191,5 +203,27 @@ public class PersonServiceTest
 		boolean result = ps.delete(dummyPerson);
 
 		Assert.assertFalse(result);
+	}
+	
+	// testing getAll
+	@Test
+	public void shouldBeAbleToGetAllUsers()
+	{
+		List<Person> userList = new ArrayList<>();
+		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
+		dummyPerson = new Person(0, firstName, lastName, userName,"pwd".toCharArray(), email, phoneNumber, dummyAddress, UserRole.customer);
+		
+	    
+		for (int i = 0; i < 5; i++) 
+		{
+			userList.add(new Person(i+1, firstName + i, lastName, userName,"pwd".toCharArray(), email, phoneNumber, dummyAddress, UserRole.customer));		
+		}
+		
+		when(mockDaoPerson.getAll()).thenReturn(userList);
+		
+		List<Person> resultList = ps.getAll();
+		
+		Assert.assertNotNull(resultList);
+		Assert.assertArrayEquals(userList.toArray(), resultList.toArray());
 	}
 }
