@@ -105,8 +105,13 @@ public class AccountService
 		}
 	}
 	
-	public List<Account> getAccountsByUserId()
+	public List<Account> getAccountsByUserId(long id)
 	{
-		return null;
+		if (id <= 0)
+		{
+			return null;
+		} else {
+			return adao.getUserAccounts(id);
+		}
 	}
 }
