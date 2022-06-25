@@ -4,29 +4,29 @@ import java.util.List;
 
 import com.revature.dao.AccountDao;
 import com.revature.dao.PsqlAccountDao;
-import com.revature.exceptions.RegisterPersonFailedException;
+import com.revature.exceptions.CreateAccountFailedException;
 import com.revature.models.Account;
 import com.revature.models.Person;
 
 public class AccountService
 {
-	private AccountDao adao = new PsqlAccountDao();
+	public AccountDao adao = new PsqlAccountDao();
 	
 	public Account createAccountForPerson(Person person, Account account)
 	{
 		if (person.getId() < 1) 
 		{
-			throw new RegisterPersonFailedException("Account not valid to register because person ID was invalid");
+			throw new CreateAccountFailedException("Account not valid to register because person ID was invalid");
 		}
 		
 		if (account.getId() != 0) 
 		{
-			throw new RegisterPersonFailedException("Account not valid to register because account ID is not 0");
+			throw new CreateAccountFailedException("Account not valid to register because account ID is not 0");
 		}
-		
+
 		if (account.getOwnerId() != person.getId()) 
 		{
-			throw new RegisterPersonFailedException("Account owner ID does not match person ID");
+			throw new CreateAccountFailedException("Account owner ID does not match person ID");
 		}
 		
 		long newAccountIndex = adao.add(person.getId(), account);
@@ -35,7 +35,7 @@ public class AccountService
 		{
 			account.setId(newAccountIndex);
 		} else {
-			throw new RegisterPersonFailedException("Account ID was either -1 or did not change after insertion");
+			throw new CreateAccountFailedException("Account ID was either -1 or did not change after insertion");
 		}
 
 		return account;
@@ -101,8 +101,8 @@ public class AccountService
 			return false;
 		} else {
 			boolean status = adao.update(acc);
+			return status;
 		}
-		return false;
 	}
 	
 	public List<Account> getAccountsByUserId()
