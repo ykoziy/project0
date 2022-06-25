@@ -4,6 +4,8 @@ import com.revature.dao.PersonDao;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.revature.dao.AddressDao;
 import com.revature.dao.PsqlAddressDao;
 import com.revature.dao.PsqlPersonDao;
@@ -15,6 +17,7 @@ public class PersonService
 {
 	public PersonDao pdao = new PsqlPersonDao();
 	public AddressDao adao = new PsqlAddressDao();
+	private Logger logger = Logger.getLogger(PersonService.class);
 	
 	public Person register(Person person, Address address)
 	{
@@ -29,7 +32,8 @@ public class PersonService
 		
 		if (newPersonIndex != -1 && newPersonIndex != person.getId()) 
 		{
-			person.setId(newPersonIndex );
+			person.setId(newPersonIndex);
+			logger.info("user: " + newPersonIndex + " was created");
 		} else {
 			throw new RegisterPersonFailedException("Person's ID was either -1 or did not change after insertion");
 		}
@@ -37,6 +41,7 @@ public class PersonService
 		if (newAddressIndex != -1 && newAddressIndex != address.getId()) 
 		{
 			address.setId(newAddressIndex);
+			logger.info("address: " + newAddressIndex + " was created");
 		} else {
 			throw new RegisterPersonFailedException("Person's address ID was either -1 or did not change after insertion");
 		}
@@ -50,6 +55,7 @@ public class PersonService
 		Person returnedPerson = pdao.getByUsername(username);
 		if (new String(returnedPerson.getPassword()).equals(password)) 
 		{
+			logger.info("user: " + returnedPerson.getId() + " successfully logged in");
 			return returnedPerson;
 		}
 				
@@ -59,6 +65,7 @@ public class PersonService
 	public boolean update(Person person)
 	{
 		boolean result = pdao.update(person);
+		logger.info("updating person with id: " + person.getId());
 		return result;
 	}
 	
@@ -66,6 +73,7 @@ public class PersonService
 	{
 		if (person.getId() > 0)
 		{
+			logger.info("deleteding person with id: " + person.getId());
 			return pdao.delete(person.getId());			
 		} else {
 			return false;		
@@ -83,6 +91,7 @@ public class PersonService
 		{
 			return null;
 		} else {
+			logger.info("finding person by username");
 			return pdao.getByUsername(username);
 		}
 	}
