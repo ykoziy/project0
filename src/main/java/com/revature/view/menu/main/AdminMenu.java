@@ -13,8 +13,13 @@ public class AdminMenu extends MainMenu
 	@Override
 	public void generateMainMenu()
 	{
-		// TODO Auto-generated method stub
-
+        this.addOption(1, "Deposit");
+        this.addOption(2, "Withdraw");
+        this.addOption(3, "Transfer");          
+        this.addOption(4, "Get customer information.");
+        this.addOption(5, "Get customer account(s).");
+        this.addOption(6, "Cancel accounts.");
+        this.addQuitOption();
 	}
 
 	@Override
