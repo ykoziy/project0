@@ -28,17 +28,17 @@ public class PsqlAccountDao implements AccountDao
 			
 			long user_id = 0;
 			long ownerId = 0;
-			BigDecimal balance = new BigDecimal(0);
+			long balance = 0;
 			Status status = null;
 
 			while (rs.next()) {
 				user_id = rs.getLong("id");
 				ownerId = rs.getLong("user_id");
-				balance = new BigDecimal(rs.getLong("balance")).divide(new BigDecimal(100));
+				balance = rs.getLong("balance");
 				status = Status.valueOf(rs.getString("status"));
 				
 			}
-			return new Account(user_id, ownerId, balance, status);
+			return new Account(id, ownerId, balance, status);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -63,7 +63,7 @@ public class PsqlAccountDao implements AccountDao
 			while (rs.next()) {
 				long user_id = rs.getLong("id");
 				long ownerId = rs.getLong("user_id");
-				BigDecimal balance = new BigDecimal(rs.getLong("balance")).divide(new BigDecimal(100));
+				long balance = rs.getLong("balance");
 				Status status = Status.valueOf(rs.getString("status"));
 				
 				Account a = new Account(user_id, ownerId, balance, status);
@@ -107,7 +107,7 @@ public class PsqlAccountDao implements AccountDao
 		{
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, account.getOwnerId());
-			pstmt.setLong(2, (long) (account.getBalance()*100));
+			pstmt.setLong(2, account.getBalance());
 			pstmt.setObject(3, account.getStatus(), Types.OTHER);
 			pstmt.setLong(4, account.getId());
 			
@@ -136,7 +136,7 @@ public class PsqlAccountDao implements AccountDao
 		{
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, account.getOwnerId());
-			pstmt.setLong(2, (long) (account.getBalance()*100));
+			pstmt.setLong(2, account.getBalance());
 			pstmt.setObject(3, account.getStatus(), Types.OTHER);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -169,7 +169,7 @@ public class PsqlAccountDao implements AccountDao
 
 			long user_id = 0;
 			long ownerId = 0;
-			BigDecimal balance = new BigDecimal(0);
+			long balance = 0;
 			Status status = null;
 			
 			ResultSet rs = stmt.executeQuery(sql);			
@@ -177,7 +177,7 @@ public class PsqlAccountDao implements AccountDao
 			{
 				user_id = rs.getLong("id");
 				ownerId = rs.getLong("user_id");
-				balance = new BigDecimal(rs.getLong("balance")).divide(new BigDecimal(100));
+				balance = rs.getLong("balance");
 				status = Status.valueOf(rs.getString("status"));				
 				Account a = new Account(user_id, ownerId, balance, status);		
 				accList.add(a);				

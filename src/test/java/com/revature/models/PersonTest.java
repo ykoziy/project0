@@ -29,8 +29,8 @@ public class PersonTest
 	{
 		testCustomer = new Person(1, firstName, lastName, userName, email, phoneNumber, address, userRole);
 		Map<String, Account> accounts = new HashMap<>();
-		Account acc1 = new Account(1, 1, new BigDecimal(100.04), Status.active);
-		Account acc2 = new Account(2, 1, new BigDecimal(1032.45), Status.active);
+		Account acc1 = new Account(1, 1, 10004, Status.active);
+		Account acc2 = new Account(2, 1, 103245, Status.active);
 		
 		accounts.put(acc1.getAccountNumber(), acc1);
 		accounts.put(acc2.getAccountNumber(), acc1);

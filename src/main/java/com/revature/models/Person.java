@@ -75,7 +75,7 @@ public class Person implements Serializable
 		Account account = accounts.get(accountNumber);
 		Locale usa = new Locale("en", "US");
 		NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(usa);
-		double balance = account.getBalance();
+		double balance = ((double)account.getBalance()) / 100.0;
 		String info = "\n=======================================================\n";
 		info += "Account Number: " + account.getAccountNumber() + "\n";
 		info += "Account Balance: " + dollarFormat.format(balance) + "\n";
@@ -83,7 +83,7 @@ public class Person implements Serializable
 		return info;		
 	}
 	
-	public double getAccountBalance(String accountNumber)
+	public long getAccountBalance(String accountNumber)
 	{
 		
 		Account account = accounts.get(accountNumber);

@@ -1,7 +1,5 @@
 package com.revature.models;
 
-import java.math.BigDecimal;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +13,7 @@ public class AccountTest
 	@Before
 	public void setUpAccount()
 	{
-		testAccount = new Account(1, 1, new BigDecimal(100.04), Status.active);
+		testAccount = new Account(1, 1, 10004, Status.active);
 	}
 	
 	@Test

@@ -8,7 +8,7 @@ public class Account
 {
 	private long id;
 	private long ownerId;
-	private BigDecimal balance;
+	private long balance;
 	private Status status;
 	
 	private static final int NUMBER_LENGTH = 17;
@@ -18,7 +18,7 @@ public class Account
 		super();
 	}
 
-	public Account(long id, long ownerId, BigDecimal balance, Status status)
+	public Account(long id, long ownerId, long balance, Status status)
 	{
 		super();
 		this.id = id;
@@ -27,14 +27,14 @@ public class Account
 		this.status = status;
 	}
 	
-	public void setBalance(BigDecimal balance)
+	public void setBalance(long balance)
 	{
 		this.balance = balance;
 	}
 	
-	public double getBalance()
+	public long getBalance()
 	{
-		return balance.doubleValue();
+		return balance;
 	}
 	
 	public long getId()
