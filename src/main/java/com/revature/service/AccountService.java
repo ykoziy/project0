@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.revature.dao.AccountDao;
@@ -42,9 +43,21 @@ public class AccountService
 		return account;
 	}
 
-	public boolean deposit(int accountId)
+	public boolean deposit(int accountId, double amount)
 	{
-		return false;
+		Account acc = null;
+		if (amount <= 0) {
+			return false;
+		} else {
+			acc = adao.get(accountId);
+			if (acc == null) {
+				return false;
+			}
+			BigDecimal amt = new BigDecimal(acc.getBalance() + amount);
+			acc.setBalance(amt);
+			boolean status = adao.update(acc);
+		}
+		return true;
 	}
 	
 	public boolean withdraw(int accountId)
