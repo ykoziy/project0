@@ -43,7 +43,7 @@ public class AccountService
 		return account;
 	}
 
-	public boolean deposit(int accountId, double amount)
+	public boolean deposit(long accountId, double amount)
 	{
 		Account acc = null;
 		if (amount <= 0 || accountId <= 0) {
@@ -61,7 +61,7 @@ public class AccountService
 		}
 	}
 	
-	public boolean withdraw(int accountId, double amount)
+	public boolean withdraw(long accountId, double amount)
 	{
 		Account acc = null;
 
@@ -87,7 +87,7 @@ public class AccountService
 		}
 	}
 	
-	public boolean transfer(int fromId, int toId)
+	public boolean transfer(long fromId, long toId)
 	{
 		return false;
 	}
