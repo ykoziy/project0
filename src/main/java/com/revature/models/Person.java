@@ -2,8 +2,8 @@ package com.revature.models;
 
 import java.io.Serializable;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import com.revature.enums.UserRole;
 
@@ -11,7 +11,7 @@ public class Person implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	protected Map<String, Account> accounts;
+	private  List<Account> accounts;
 	
 	private long id;
 	
@@ -69,10 +69,10 @@ public class Person implements Serializable
 		this.userRole = userRole;
 	}
 	
-	public String getAccountInfo(String accountNumber)
+	public String getAccountInfo(int index)
 	{
 		
-		Account account = accounts.get(accountNumber);
+		Account account = accounts.get(index);
 		Locale usa = new Locale("en", "US");
 		NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(usa);
 		double balance = ((double)account.getBalance()) / 100.0;
@@ -83,10 +83,10 @@ public class Person implements Serializable
 		return info;		
 	}
 	
-	public long getAccountBalance(String accountNumber)
+	public long getAccountBalance(int index)
 	{
 		
-		Account account = accounts.get(accountNumber);
+		Account account = accounts.get(index);
 		return account.getBalance();
 	}
 		
@@ -140,12 +140,12 @@ public class Person implements Serializable
 		this.address = address;
 	}
 	
-	public void setAccounts(Map<String, Account> accounts)
+	public void setAccounts(List<Account> accounts)
 	{
 		this.accounts = accounts;
 	}
 	
-	public Map<String, Account> getAccounts()
+	public List<Account> getAccounts()
 	{
 		return accounts;
 	}
@@ -189,9 +189,9 @@ public class Person implements Serializable
 		this.password = password;
 	}
 	
-    public Account getAccount(String accountNumber)
+    public Account getAccount(int index)
     {
-        return accounts.get(accountNumber);
+        return accounts.get(index);
     }
     
     public String getInfo()

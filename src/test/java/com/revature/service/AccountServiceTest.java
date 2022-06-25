@@ -4,7 +4,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -47,7 +46,7 @@ public class AccountServiceTest
 		dummyAccount.setId(0);
 		
 		dummyPerson = new Person();
-		dummyPerson.setAccounts(new HashMap<String, Account>());
+		dummyPerson.setAccounts(new ArrayList<Account>());
 		dummyPerson.setId(0);
 	}
 	
@@ -183,7 +182,7 @@ public class AccountServiceTest
 	{
 		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
 		dummyPerson = new Person(1, firstName, lastName, userName,"pwd".toCharArray(), email, phoneNumber, dummyAddress, UserRole.customer);
-		dummyPerson.setAccounts(new HashMap<String, Account>());
+		dummyPerson.setAccounts(new ArrayList<Account>());
 		
 		dummyAccount = new Account(0, 1, 10000, Status.pending);
 		

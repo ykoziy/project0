@@ -1,8 +1,8 @@
 package com.revature.models;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -28,12 +28,12 @@ public class PersonTest
 	public void resetCustomer()
 	{
 		testCustomer = new Person(1, firstName, lastName, userName, email, phoneNumber, address, userRole);
-		Map<String, Account> accounts = new HashMap<>();
+		List<Account> accounts = new ArrayList<>();
 		Account acc1 = new Account(1, 1, 10004, Status.active);
 		Account acc2 = new Account(2, 1, 103245, Status.active);
 		
-		accounts.put(acc1.getAccountNumber(), acc1);
-		accounts.put(acc2.getAccountNumber(), acc1);
+		accounts.add(acc1);
+		accounts.add(acc2);
 		
 		testCustomer.setAccounts(accounts);
 	}
@@ -59,14 +59,13 @@ public class PersonTest
 	@Test
 	public void getAccountInfoShouldReturnAccountInfo()
 	{
-		String accountNum = "00000000000000001";
 		String info = "\n=======================================================\n";
-		info += "Account Number: 00000000000000001\n";
-		info += "Account Balance: $100.04\n";
+		info += "Account Number: 00000000000000002\n";
+		info += "Account Balance: $1,032.45\n";
 		info += "=======================================================\n";
 		
-		System.out.println(testCustomer.getAccountInfo(accountNum));
+		System.out.println(testCustomer.getAccountInfo(1));
 		
-		Assert.assertEquals(info, testCustomer.getAccountInfo(accountNum));
+		Assert.assertEquals(info, testCustomer.getAccountInfo(1));
 	}
 }

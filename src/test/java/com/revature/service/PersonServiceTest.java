@@ -55,7 +55,7 @@ public class PersonServiceTest
 		ps.adao = mockDaoAddress;
 		
 		dummyPerson = new Person();
-		dummyPerson.setAccounts(new HashMap<String, Account>());
+		dummyPerson.setAccounts(new ArrayList<Account>());
 		dummyPerson.setId(0);
 	}
 	
@@ -77,7 +77,7 @@ public class PersonServiceTest
 		// Let's make a user object to test
 		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
 		dummyPerson = new Person(0, firstName, lastName, userName,"pwd".toCharArray(), email, phoneNumber, dummyAddress, UserRole.admin);
-		dummyPerson.setAccounts(new HashMap<String, Account>());
+		dummyPerson.setAccounts(new ArrayList<Account>());
 		
 		// Let's generate a random number to pretend the DB created it
 		Random r = new Random();
