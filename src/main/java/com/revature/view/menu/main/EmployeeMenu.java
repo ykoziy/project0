@@ -12,8 +12,10 @@ public class EmployeeMenu extends MainMenu
 	@Override
 	public void generateMainMenu()
 	{
-		// TODO Auto-generated method stub
-
+        this.addOption(1, "Get customer information.");
+        this.addOption(2, "Get customer account(s).");
+        this.addOption(3, "Approve/deny accounts.");
+        this.addQuitOption();
 	}
 
 	@Override

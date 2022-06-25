@@ -1,7 +1,11 @@
 package com.revature;
 
+import java.util.List;
+
+import com.revature.models.Account;
 import com.revature.models.Address;
 import com.revature.models.Person;
+import com.revature.service.AccountService;
 import com.revature.service.PersonService;
 
 public class Bank
@@ -10,9 +14,12 @@ public class Bank
 	
 	private PersonService ps;
 	
+	private AccountService as;
+	
 	public Bank()
 	{
 		ps = new PersonService();
+		as = new AccountService();
 	}
 
 	public Person getCurrentUser()
@@ -43,5 +50,15 @@ public class Bank
 			return true;
 		}
 		return false;
+	}
+	
+	public void setUserAccounts()
+	{
+		long userId = currentUser.getId();
+		List<Account> alist = as.getAccountsByUserId(userId);
+		
+		if (alist != null) {
+			currentUser.setAccounts(alist);
+		}
 	}
 }
