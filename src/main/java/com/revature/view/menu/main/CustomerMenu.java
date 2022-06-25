@@ -65,19 +65,13 @@ public class CustomerMenu extends MainMenu
 	{
 		this.getBank().setUserAccounts();
 		List<Account> aList = this.getBank().getCurrentUser().getAccounts();
-		Locale usa = new Locale("en", "US");
-		NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(usa);
-		
-		
 		Console.printLine("");
 		Console.printLine("========== Accounts ==========");
 		for (int i = 0; i < aList.size(); i++)
 		{
 			Account a = aList.get(i);
 			String accountNumber = a.getAccountNumber();
-			double balance = a.getBalance() / 100.0;
-			String balanceStr = dollarFormat.format(balance);
-			
+			String balanceStr = Console.getMoney(a.getBalance());
 			String out = String.format("%d) %s Balance: %s Status: %s", i+1, accountNumber, balanceStr, a.getStatus());
 			Console.printLine(out);
 		}
