@@ -1,6 +1,7 @@
 package com.revature.view.menu;
 
 import com.revature.Bank;
+import com.revature.view.menu.main.UserMainMenu;
 
 public class MenuFactory
 {
@@ -27,6 +28,8 @@ public class MenuFactory
 			return new SignIn("Sign in.", bank);
 		} else if (menuType.equalsIgnoreCase("signup")) {
 			return new SignUp("Sign up.", bank);
+		} else if (menuType.equalsIgnoreCase("main_menu")) {
+			return new UserMainMenu(bank);
 		}
 		return null;
 	}
