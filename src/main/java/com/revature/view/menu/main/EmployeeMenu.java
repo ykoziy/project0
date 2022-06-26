@@ -57,11 +57,6 @@ public class EmployeeMenu extends MainMenu
 		return "invalid";
 	}
 	
-	private void repeat()
-	{
-		Console.generateMenu(menuTitle, options);
-	}
-	
 	private void getCustomerInfo() 
 	{
 		Console.printLine("\nSelect customer to view their information.");
@@ -119,21 +114,5 @@ public class EmployeeMenu extends MainMenu
 				scan.nextLine();
 			}
 		}		
-	}
-	
-	private void printAccounts(List<Account> accounts, String username)
-	{
-		Console.printLine("");
-		Console.printLine("========== Accounts for " + username +" ==========");
-		for (int i = 0; i < accounts.size(); i++)
-		{
-			Account a = accounts.get(i);
-			String accountNumber = a.getAccountNumber();
-			String balanceStr = Console.getMoney(a.getBalance());
-			String out = String.format("%d) %s Balance: %s Status: %s", i+1, accountNumber, balanceStr, a.getStatus());
-			Console.printLine(out);
-		}
-		Console.printLine("================================");
-		Console.printLine("");		
 	}
 }

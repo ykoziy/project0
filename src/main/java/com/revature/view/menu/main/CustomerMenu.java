@@ -73,11 +73,6 @@ public class CustomerMenu extends MainMenu
 		return "invalid";
 	}
 	
-	private void repeat()
-	{
-		Console.generateMenu(menuTitle, options);
-	}
-	
 	private void viewAccounts()
 	{
 		this.getBank().setUserAccounts();
