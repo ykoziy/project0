@@ -2,6 +2,9 @@ package com.revature.view.menu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import com.revature.view.Console;
 
 public abstract class Menu implements Interactable
 {
@@ -38,5 +41,25 @@ public abstract class Menu implements Interactable
 	protected void exitApp() {
 		System.out.println("Thank you for using YKZ BANK, exiting........");
 		System.exit(0);
+	}
+
+	protected String readString(String prompt)
+	{
+		Scanner scan = new Scanner(System.in);
+		String input = "";
+		boolean isValid = false;
+		
+		while (!isValid)
+		{
+			Console.printLine(prompt + ": ");
+			input = scan.nextLine();
+			if (!input.equals(""))
+			{
+				return input;
+			} else {
+				Console.printLine(prompt + " cant be empty.");
+			}
+		}
+		return "";		
 	}
 }

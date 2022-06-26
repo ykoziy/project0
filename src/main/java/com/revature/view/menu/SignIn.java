@@ -59,11 +59,9 @@ public class SignIn extends Menu
 	private boolean getUserInfo()
 	{
 		Scanner scan = new Scanner(System.in);
-		Console.printLine("\nUsername: ");
-		String username = scan.nextLine();
-		
-		Console.printLine("Password: ");
-		String password = scan.nextLine();
+		Console.printLine("\nLog in by typing in username and password.");
+		String username = readString("Username");
+		String password  = readString("Password");
 		
 		Console.printLine("");
 
