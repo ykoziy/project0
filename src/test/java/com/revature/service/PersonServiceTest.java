@@ -127,6 +127,26 @@ public class PersonServiceTest
 		ps.register(dummyPerson, dummyAddress);
 	}
 	
+	@Test(expected = RegisterPersonFailedException.class)
+	public void testRegisterPersonCreatedWithSameId() 
+	{
+		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
+
+		when(mockDaoPerson.add(dummyPerson)).thenReturn(0L);
+		when(mockDaoAddress.addPersonAddress(dummyAddress, 1)).thenReturn(1L);
+		ps.register(dummyPerson, dummyAddress);
+	}
+	
+	@Test(expected = RegisterPersonFailedException.class)
+	public void testRegisterPersonAddressCreatedWithSameId() 
+	{
+		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
+
+		when(mockDaoPerson.add(dummyPerson)).thenReturn(1L);
+		when(mockDaoAddress.addPersonAddress(dummyAddress, 1)).thenReturn(0L);
+		ps.register(dummyPerson, dummyAddress);
+	}
+	
 	@Test
 	public void testLoginReturnsPerson() 
 	{
@@ -157,6 +177,21 @@ public class PersonServiceTest
 		String password = "pwdz";
 		
 		when(mockDaoPerson.getByUsername(username)).thenReturn(dummyPerson);
+		
+		Person loggedIn = ps.login(username, password);
+		Assert.assertNull(loggedIn);
+	}
+	
+	@Test
+	public void testLoginReturnsNullIfUserNotFound() 
+	{
+		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
+		dummyPerson = new Person(0, firstName, lastName, userName,"pwd".toCharArray(), email, phoneNumber, dummyAddress, UserRole.admin);
+		
+		String username = "jdoe45";
+		String password = "pwdz";
+		
+		when(mockDaoPerson.getByUsername(username)).thenReturn(null);
 		
 		Person loggedIn = ps.login(username, password);
 		Assert.assertNull(loggedIn);
