@@ -128,7 +128,6 @@ public abstract class MainMenu extends Menu
 		
 		while (!isValid)
 		{
-			Console.printLine("User input: ");
 			choice = scan.nextLine();
 			if (choice.equalsIgnoreCase("yes"))
 			{
