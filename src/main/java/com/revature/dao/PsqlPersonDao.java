@@ -142,17 +142,13 @@ public class PsqlPersonDao implements PersonDao
 			ResultSet rs = pstmt.executeQuery();
 			
 			//get primary key
-			if (rs != null) {
-				
-				rs.next();
+			if (rs.next()) 
+			{
 				id = rs.getInt(1); 
 				return id;
 			}			
-			
-			
 		} catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return id;
