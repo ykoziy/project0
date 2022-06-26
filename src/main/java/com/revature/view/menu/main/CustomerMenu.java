@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import com.revature.Bank;
 import com.revature.models.Person;
-import com.revature.view.ConsoleOps;
+import com.revature.view.Console;
 import com.revature.models.Account;
 
 public class CustomerMenu extends MainMenu
@@ -63,12 +63,12 @@ public class CustomerMenu extends MainMenu
 	
 	private void repeat()
 	{
-		ConsoleOps.generateMenu(menuTitle, options);
+		Console.generateMenu(menuTitle, options);
 	}
 	
 	private boolean deposit() 
 	{
-		ConsoleOps.printLine("\nSelect account and input amount for deposit.");
+		Console.printLine("\nSelect account and input amount for deposit.");
 		Scanner scan = new Scanner(System.in);
 		
 		boolean isValid = false;
@@ -78,14 +78,14 @@ public class CustomerMenu extends MainMenu
 		
 		while (!isValid)
 		{
-			ConsoleOps.printLine("Please enter a valid account ID (id > 0)");
-			ConsoleOps.print("\nAccount ID: ");
+			Console.printLine("Please enter a valid account ID (id > 0)");
+			Console.print("\nAccount ID: ");
 			if (scan.hasNextLong())
 			{
 				accountId = scan.nextLong();
 				isValid = true;
 			} else {
-				ConsoleOps.printLine("\nYou did not enter a number for the account ID, try again.");
+				Console.printLine("\nYou did not enter a number for the account ID, try again.");
 				scan.nextLine();
 			}
 		}
@@ -94,14 +94,14 @@ public class CustomerMenu extends MainMenu
 
 		while (!isValid)
 		{
-			ConsoleOps.printLine("Please enter a valid amount (amount > 0)");
-			ConsoleOps.print("\nAmount: ");
+			Console.printLine("Please enter a valid amount (amount > 0)");
+			Console.print("\nAmount: ");
 			if (scan.hasNextDouble())
 			{
 				amount = scan.nextDouble();
 				isValid = true;
 			} else {
-				ConsoleOps.printLine("\nYou did not enter a number for the account ID, try again.");
+				Console.printLine("\nYou did not enter a number for the account ID, try again.");
 				scan.nextLine();
 			}
 		}
@@ -113,14 +113,14 @@ public class CustomerMenu extends MainMenu
 			boolean result = this.getBank().deposit(accountId, amount);
 			if (result)
 			{
-				ConsoleOps.printLine("\nYou have succesfully deposited: $" + amount + " into account with ID: " + accountId);
+				Console.printLine("\nYou have succesfully deposited: $" + amount + " into account with ID: " + accountId);
 				return true;
 			} else {
-				ConsoleOps.printLine("\nDeposit failed.");
+				Console.printLine("\nDeposit failed.");
 				return false;
 			}
 		}
-		ConsoleOps.printLine("\nDeposit failed, account access failure.");
+		Console.printLine("\nDeposit failed, account access failure.");
 		return false;
 	}
 	
@@ -128,18 +128,18 @@ public class CustomerMenu extends MainMenu
 	{
 		this.getBank().setUserAccounts();
 		List<Account> aList = this.getBank().getCurrentUser().getAccounts();
-		ConsoleOps.printLine("");
-		ConsoleOps.printLine("========== Accounts ==========");
+		Console.printLine("");
+		Console.printLine("========== Accounts ==========");
 		for (int i = 0; i < aList.size(); i++)
 		{
 			Account a = aList.get(i);
 			String accountNumber = a.getAccountNumber();
-			String balanceStr = ConsoleOps.getMoney(a.getBalance());
+			String balanceStr = Console.getMoney(a.getBalance());
 			String out = String.format("%d) %s Balance: %s Status: %s", i+1, accountNumber, balanceStr, a.getStatus());
-			ConsoleOps.printLine(out);
+			Console.printLine(out);
 		}
-		ConsoleOps.printLine("================================");
-		ConsoleOps.printLine("");
+		Console.printLine("================================");
+		Console.printLine("");
 	}
 
 }

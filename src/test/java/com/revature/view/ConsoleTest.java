@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class ConsoleOpsTest
+public class ConsoleTest
 {
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -35,21 +35,21 @@ public class ConsoleOpsTest
 	@Test
 	public void ptintShouldPrintALine()
 	{
-		ConsoleOps.print("test print");
+		Console.print("test print");
 		Assert.assertEquals("test print", outContent.toString());
 	}
 	
 	@Test
 	public void printLineShouldPrintANewLine()
 	{
-		ConsoleOps.printLine("test print");
+		Console.printLine("test print");
 		Assert.assertEquals("test print\r\n", outContent.toString());
 	}
 	
 	@Test
 	public void showWelcomeScreenShouldPrintWelcomeScreen()
 	{
-		ConsoleOps.showWelcomeScreen();
+		Console.showWelcomeScreen();
 		Assert.assertNotEquals("", outContent.toString());
 	}
 	
@@ -61,7 +61,7 @@ public class ConsoleOpsTest
         options.add("2) Deposit");
         options.add("3) Withdraw");
         options.add("4) Transfer");
-        ConsoleOps.generateMenu("Customer Menu", options);
+        Console.generateMenu("Customer Menu", options);
         Assert.assertTrue(outContent.toString().contains("Customer Menu"));
         Assert.assertTrue(outContent.toString().contains("1) Account Information"));
         Assert.assertTrue(outContent.toString().contains("2) Deposit"));

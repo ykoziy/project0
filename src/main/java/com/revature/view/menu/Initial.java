@@ -2,7 +2,7 @@ package com.revature.view.menu;
 
 import java.util.Scanner;
 
-import com.revature.view.ConsoleOps;
+import com.revature.view.Console;
 
 public class Initial extends Menu implements Interactable
 {
@@ -17,7 +17,7 @@ public class Initial extends Menu implements Interactable
 	@Override
 	public void show()
 	{
-		ConsoleOps.generateMenu(menuTitle, options);
+		Console.generateMenu(menuTitle, options);
 	}
 
 	@Override

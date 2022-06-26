@@ -2,7 +2,7 @@ package com.revature.view.menu.main;
 
 import com.revature.Bank;
 import com.revature.enums.UserRole;
-import com.revature.view.ConsoleOps;
+import com.revature.view.Console;
 import com.revature.view.menu.Menu;
 
 public abstract class MainMenu extends Menu
@@ -28,7 +28,7 @@ public abstract class MainMenu extends Menu
 	public void show()
 	{
 		generateMainMenu();
-		ConsoleOps.generateMenu(menuTitle, options);
+		Console.generateMenu(menuTitle, options);
 	}
 	
 	public abstract void generateMainMenu();

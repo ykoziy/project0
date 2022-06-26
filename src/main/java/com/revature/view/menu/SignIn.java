@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import com.revature.Bank;
 import com.revature.service.PersonService;
-import com.revature.view.ConsoleOps;
+import com.revature.view.Console;
 
 public class SignIn extends Menu
 {
@@ -22,7 +22,7 @@ public class SignIn extends Menu
 	@Override
 	public void show()
 	{
-		ConsoleOps.generateMenu(menuTitle, options);
+		Console.generateMenu(menuTitle, options);
 	}
 
 	@Override
@@ -58,13 +58,13 @@ public class SignIn extends Menu
 	private boolean getUserInfo()
 	{
 		Scanner scan = new Scanner(System.in);
-		ConsoleOps.printLine("\nUsername: ");
+		Console.printLine("\nUsername: ");
 		String username = scan.nextLine();
 		
-		ConsoleOps.printLine("Password: ");
+		Console.printLine("Password: ");
 		String password = scan.nextLine();
 		
-		ConsoleOps.printLine("");
+		Console.printLine("");
 
 		return bank.signIn(username, password);
 	}

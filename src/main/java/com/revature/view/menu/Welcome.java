@@ -2,14 +2,14 @@ package com.revature.view.menu;
 
 import java.util.Scanner;
 
-import com.revature.view.ConsoleOps;
+import com.revature.view.Console;
 
 public class Welcome extends Menu
 {
 	@Override
 	public void show()
 	{
-		ConsoleOps.showWelcomeScreen();
+		Console.showWelcomeScreen();
 	}
 
 	@Override

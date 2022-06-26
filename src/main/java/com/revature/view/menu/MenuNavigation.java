@@ -1,7 +1,7 @@
 package com.revature.view.menu;
 
 import com.revature.Bank;
-import com.revature.view.ConsoleOps;
+import com.revature.view.Console;
 
 public class MenuNavigation
 {
