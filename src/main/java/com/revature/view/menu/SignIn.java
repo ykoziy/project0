@@ -39,6 +39,7 @@ public class SignIn extends Menu
 			{
 				case '1':
 					isValid = getUserInfo();
+					input = scan.next().charAt(0);
 					break;
 				case 'b':
 					return "back";
@@ -46,6 +47,7 @@ public class SignIn extends Menu
 					this.exitApp();
 					break;				
 				default:
+					input = scan.next().charAt(0);
 					break;
 			}
 		}
