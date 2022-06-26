@@ -93,10 +93,15 @@ public class AccountService
 		return adao.transfer(fromId, toId, Math.round(amount*100));
 	}
 	
-	public boolean close()
+	public boolean delete(long id)
 	{
-		// closing account is deleting????
-		return false;
+		if (id > 0)
+		{
+			logger.info("deleteding account with id: " + id);
+			return adao.delete(id);			
+		} else {
+			return false;		
+		}
 	}
 	
 	public boolean update(Account acc)

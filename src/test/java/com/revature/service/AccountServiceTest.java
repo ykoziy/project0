@@ -345,4 +345,24 @@ public class AccountServiceTest
 		boolean result = as.checkUserAccess(1, 0);
 		Assert.assertFalse(result);
 	}
+	
+	// testing delete
+	@Test
+	public void shouldBeAbleToDeleteAccount()
+	{
+		dummyAccount.setId(1);
+		when(mockDaoAccount.delete(dummyAccount.getId())).thenReturn(true);
+		boolean result = as.delete(dummyAccount.getId());
+
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void shouldNotDeleteAccountWithIdZero()
+	{
+		when(mockDaoAccount.delete(dummyAccount.getId())).thenReturn(false);
+		boolean result = as.delete(dummyAccount.getId());
+
+		Assert.assertFalse(result);
+	}
 }
