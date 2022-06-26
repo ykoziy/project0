@@ -2,8 +2,11 @@ package com.revature.models;
 
 import java.io.Serializable;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.revature.enums.UserRole;
 
@@ -201,8 +204,22 @@ public class Person implements Serializable
         info += "User Name: " + this.getUserName() + "\n";
         info += "Email: " + this.getEmail() + "\n";
         info += "Address: " + this.getAddress() + "\n";
-        info += "Phone Number: " + this.getPhoneNumber() + "\n";
+        info += "Phone Number: " + prettifyPhoneNumber(this.phoneNumber) + "\n";
         info += "=======================================================\n";
         return info;
     }
+
+	private String prettifyPhoneNumber(String phoneNumber)
+	{
+		StringBuilder sb = new StringBuilder();
+		Pattern pattern = Pattern.compile("^(\\d{3})(\\d{3})(\\d{4})$");
+		Matcher m = pattern.matcher(phoneNumber);
+		if(m.find())
+		{
+			sb.append("(" + m.group(1) + ")-");
+			sb.append(m.group(2) + "-");
+			sb.append(m.group(3));
+		}
+		return sb.toString();
+	}
 }
