@@ -72,6 +72,11 @@ public class Bank
 		return as.deposit(accountId, amount);
 	}
 	
+	public boolean withdraw(long accountId, double amount)
+	{
+		return as.withdraw(accountId, amount);
+	}
+	
 	public Person getUser(String username)
 	{
 		return ps.findByUsername(username);
