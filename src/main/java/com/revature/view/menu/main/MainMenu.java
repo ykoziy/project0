@@ -157,9 +157,4 @@ public abstract class MainMenu extends Menu
 		Console.printLine("================================");
 		Console.printLine("");		
 	}
-
-	protected void repeat()
-	{
-		Console.generateMenu(menuTitle, options);
-	}
 }

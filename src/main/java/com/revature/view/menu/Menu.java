@@ -62,4 +62,9 @@ public abstract class Menu implements Interactable
 		}
 		return "";		
 	}
+
+	protected void repeat()
+	{
+		Console.generateMenu(menuTitle, options);
+	}
 }
