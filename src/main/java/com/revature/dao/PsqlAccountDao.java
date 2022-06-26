@@ -37,8 +37,10 @@ public class PsqlAccountDao implements AccountDao
 				status = Status.valueOf(rs.getString("status"));
 				
 			}
-			return new Account(user_id, ownerId, balance, status);
-			
+			if (user_id != 0)
+			{
+				return new Account(user_id, ownerId, balance, status);			
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

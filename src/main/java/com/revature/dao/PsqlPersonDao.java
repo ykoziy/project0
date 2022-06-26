@@ -9,7 +9,6 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.enums.Status;
 import com.revature.enums.UserRole;
 import com.revature.models.Address;
 import com.revature.models.Person;
@@ -44,6 +43,8 @@ public class PsqlPersonDao implements PersonDao
 			String state = "";
 			String zip = "";
 			
+			long idFromDb = 0L;
+			
 			while(rs.next()) {
 				id = rs.getLong("id");
 				userName = rs.getString("username");
@@ -58,9 +59,12 @@ public class PsqlPersonDao implements PersonDao
 				state = rs.getString("state");
 				zip = rs.getString("zip");
 			}
-			
-			Address address = new Address(street, city, state, zip);
-			return new Person(id, firstName, lastName, userName, email, phone, address, role);
+			if (idFromDb != 0)
+			{
+				Address address = new Address(street, city, state, zip);
+				return new Person(id, firstName, lastName, userName, email, phone, address, role);		
+			}
+
 
 		} catch (SQLException e)
 		{
@@ -198,10 +202,11 @@ public class PsqlPersonDao implements PersonDao
 				state = rs.getString("state");
 				zip = rs.getString("zip");
 			}
-			
-			Address address = new Address(street, city, state, zip);
-			return new Person(id, firstName, lastName, userName, pwd.toCharArray(), email, phone, address, role);
-
+			if (id != 0)
+			{
+				Address address = new Address(street, city, state, zip);
+				return new Person(id, firstName, lastName, userName, pwd.toCharArray(), email, phone, address, role);			
+			}
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
