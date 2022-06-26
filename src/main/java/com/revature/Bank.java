@@ -76,4 +76,15 @@ public class Bank
 	{
 		return ps.findByUsername(username);
 	}
+	
+	public List<Account> getAccountsForUser(String username)
+	{
+		List<Account> alist = as.getAccountsByUserName(username);
+		
+		if (alist != null) 
+		{
+			return alist;
+		}	
+		return alist;
+	}
 }

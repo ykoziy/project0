@@ -1,8 +1,10 @@
 package com.revature.view.menu.main;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.revature.Bank;
+import com.revature.models.Account;
 import com.revature.models.Person;
 import com.revature.view.Console;
 
@@ -37,7 +39,12 @@ public class EmployeeMenu extends MainMenu
 					getCustomerInfo();
 					repeat();
 					input = scan.next().charAt(0);
-					break;				
+					break;
+				case '2':
+					viewCustomerAccounts();
+					repeat();
+					input = scan.next().charAt(0);
+					break;					
 				case 'q':
 					this.exitApp();
 					break;				
@@ -82,5 +89,51 @@ public class EmployeeMenu extends MainMenu
 				scan.nextLine();
 			}
 		}
+	}
+	
+	private void viewCustomerAccounts()
+	{
+		Console.printLine("\nSelect customer to view their accounts.");
+		Scanner scan = new Scanner(System.in);
+		
+		List<Account> aList = null;
+		boolean isValid = false;
+		
+		String username = "";
+		
+		while (!isValid)
+		{
+			Console.print("\nPlease enter customers username: ");
+			username = scan.nextLine();
+			if (!username.equals(""))
+			{
+				aList = this.getBank().getAccountsForUser(username);
+				if (aList.size() > 0) {
+					printAccounts(aList, username);
+				} else {
+					Console.printLine("\nUser with username: " + username + " does not exist. Or ha no accounts attached.");
+				}
+				isValid = true;
+			} else {
+				Console.printLine("\nPlease enter a username.");
+				scan.nextLine();
+			}
+		}		
+	}
+	
+	private void printAccounts(List<Account> accounts, String username)
+	{
+		Console.printLine("");
+		Console.printLine("========== Accounts for " + username +" ==========");
+		for (int i = 0; i < accounts.size(); i++)
+		{
+			Account a = accounts.get(i);
+			String accountNumber = a.getAccountNumber();
+			String balanceStr = Console.getMoney(a.getBalance());
+			String out = String.format("%d) %s Balance: %s Status: %s", i+1, accountNumber, balanceStr, a.getStatus());
+			Console.printLine(out);
+		}
+		Console.printLine("================================");
+		Console.printLine("");		
 	}
 }
