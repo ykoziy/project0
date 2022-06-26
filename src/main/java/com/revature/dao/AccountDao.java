@@ -10,6 +10,8 @@ public interface AccountDao
 	
 	List<Account> getUserAccounts(long id);
 	
+	List<Account> getUserAccounts(String username);
+	
 	boolean delete(Account account);
 	
 	boolean update(Account account);

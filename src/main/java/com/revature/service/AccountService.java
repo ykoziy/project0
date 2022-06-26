@@ -121,6 +121,17 @@ public class AccountService
 		}
 	}
 	
+	public List<Account> getAccountsByUserName(String username)
+	{
+		if (username.equals(""))
+		{
+			return null;
+		} else {
+			logger.info("fetching all accounts by for user: " + username);
+			return adao.getUserAccounts(username);
+		}
+	}
+	
 	public List<Account> getAll()
 	{
 		logger.info("fetching all accounts");

@@ -78,6 +78,39 @@ public class PsqlAccountDao implements AccountDao
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Account> getUserAccounts(String username)
+	{
+		List<Account> accList = new ArrayList<>();
+		String sql = "SELECT a.id, a.user_id, a.balance, a.status " +
+				"FROM person p " +
+				"LEFT JOIN account_holder ah ON p.id = ah.user_id " +
+				"LEFT JOIN account a ON ah.account_id = a.id " +
+				"WHERE p.username = ?";
+		try (Connection conn = ConnectionManager.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				long user_id = rs.getLong("id");
+				long ownerId = rs.getLong("user_id");
+				long balance = rs.getLong("balance");
+				Status status = Status.valueOf(rs.getString("status"));
+				
+				Account a = new Account(user_id, ownerId, balance, status);
+				
+				accList.add(a);
+			}
+			return accList;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public boolean delete(Account account)
