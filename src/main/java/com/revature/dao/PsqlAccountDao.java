@@ -1,6 +1,5 @@
 package com.revature.dao;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -143,13 +142,10 @@ public class PsqlAccountDao implements AccountDao
 			ResultSet rs = pstmt.executeQuery();
 			
 			//get primary key
-			if (rs != null) {
-				
-				rs.next();
+			if (rs.next()) {
 				id = rs.getInt(1); 
 				return id;
-			}			
-			
+			}					
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -190,5 +186,30 @@ public class PsqlAccountDao implements AccountDao
 			e.printStackTrace();
 		}	
 		return null;
+	}
+
+	@Override
+	public boolean checkUserAccess(long userId, long accountId)
+	{
+		String sql = "SELECT count(*) FROM account_holder WHERE user_id = ? AND account_id = ?";
+		try (Connection conn = ConnectionManager.getConnection())
+		{
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, userId);
+			pstmt.setLong(2, accountId);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if (rs.next()) 
+			{
+				int count = rs.getInt(1); 
+				return count == 1 ? true : false;
+			}			
+			
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

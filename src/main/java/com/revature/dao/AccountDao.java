@@ -17,4 +17,6 @@ public interface AccountDao
 	long add(long user_id, Account account);
 	
 	List<Account> getAll();
+	
+	boolean checkUserAccess(long userId, long accountId);
 }
