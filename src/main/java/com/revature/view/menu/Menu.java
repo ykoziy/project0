@@ -30,7 +30,7 @@ public abstract class Menu implements Interactable
 	
 	protected void addGoBackOption()
 	{
-		options.add("b) Bo back.");
+		options.add("b) Go back.");
 	}
 	
 	protected void addOption(int number, String text)
