@@ -151,7 +151,7 @@ public abstract class MainMenu extends Menu
 			Account a = accounts.get(i);
 			String accountNumber = a.getAccountNumber();
 			String balanceStr = Console.getMoney(a.getBalance());
-			String out = String.format("%d) %s Balance: %s Status: %s", i+1, accountNumber, balanceStr, a.getStatus());
+			String out = String.format("%d) Account number: %s Balance: %s Status: %s", i+1, accountNumber, balanceStr, a.getStatus());
 			Console.printLine(out);
 		}
 		Console.printLine("================================");

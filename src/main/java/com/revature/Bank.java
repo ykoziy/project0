@@ -109,4 +109,14 @@ public class Bank
 		}
 		return false;
 	}
+	
+	public List<Person> getAllUsernames()
+	{
+		List<Person> alist = ps.getAll();
+		if (alist != null) 
+		{
+			return alist;
+		}	
+		return alist;		
+	}
 }

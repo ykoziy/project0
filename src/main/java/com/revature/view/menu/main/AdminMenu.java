@@ -19,7 +19,7 @@ public class AdminMenu extends MainMenu
 	@Override
 	public void generateMainMenu()
 	{
-		this.addOption(1, "View bank users");
+		this.addOption(1, "Get all usernames");
         this.addOption(2, "Deposit");
         this.addOption(3, "Withdraw");
         this.addOption(4, "Transfer");
@@ -40,7 +40,7 @@ public class AdminMenu extends MainMenu
 			switch (input)
 			{
 				case '1':
-					Console.printLine("view all users not implemented");
+					getAllUsernames();
 					repeat();
 					input = scan.next().charAt(0);
 					break;
@@ -219,6 +219,35 @@ public class AdminMenu extends MainMenu
 				scan.nextLine();
 			}
 		}
+	}
+	
+	private void getAllUsernames()
+	{
+		Console.printLine("This might take a while....");
+		List<Person> aList = null;		
+		aList = this.getBank().getAllUsernames();
+		if (aList.size() > 0) {
+			printUsernames(aList);
+		} else {
+			Console.printLine("\nSomething wrong, cant get all users.");
+		}
+	}
+	
+	protected void printUsernames(List<Person> users)
+	{
+		Console.printLine("");
+		Console.printLine("========== Bank Users ==========");
+		for (int i = 0; i < users.size(); i++)
+		{
+			Person p = users.get(i);
+			String username = p.getUserName();
+			String email = p.getEmail();
+			long id = p.getId();
+			String out = String.format("id: %d username: %s email: %s", id, username, email);
+			Console.printLine(out);
+		}
+		Console.printLine("================================");
+		Console.printLine("");		
 	}
 
 }
