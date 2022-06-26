@@ -1,14 +1,9 @@
 package com.revature.dao;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
-
-import com.revature.enums.Status;
-import com.revature.models.Account;
 import com.revature.models.Address;
 import com.revature.util.ConnectionManager;
 
@@ -34,17 +29,14 @@ public class PsqlAddressDao implements AddressDao
 			ResultSet rs = pstmt.executeQuery();
 			
 			//get primary key
-			if (rs != null) {
-				
-				rs.next();
+			if (rs.next()) 
+			{
 				id = rs.getInt(1); 
 				return id;
 			}			
 			
-			
 		} catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return id;
