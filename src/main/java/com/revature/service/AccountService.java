@@ -87,9 +87,9 @@ public class AccountService
 		}
 	}
 	
-	public boolean transfer(long fromId, long toId)
+	public boolean transfer(long fromId, long toId, double amount)
 	{
-		return false;
+		return adao.transfer(fromId, toId, Math.round(amount*100));
 	}
 	
 	public boolean close()
