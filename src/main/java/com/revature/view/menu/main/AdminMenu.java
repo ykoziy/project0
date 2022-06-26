@@ -70,7 +70,7 @@ public class AdminMenu extends MainMenu
 					input = scan.next().charAt(0);
 					break;
 				case '7':
-					Console.printLine("cancel accounts not implemented");
+					deleteAccount();
 					repeat();
 					input = scan.next().charAt(0);
 					break;
@@ -233,7 +233,7 @@ public class AdminMenu extends MainMenu
 		}
 	}
 	
-	protected void printUsernames(List<Person> users)
+	private void printUsernames(List<Person> users)
 	{
 		Console.printLine("");
 		Console.printLine("========== Bank Users ==========");
@@ -249,5 +249,32 @@ public class AdminMenu extends MainMenu
 		Console.printLine("================================");
 		Console.printLine("");		
 	}
+	
+	private void deleteAccount()
+	{
+		long accountId = 0;
+		
+		Console.printLine("\nSelect account by ID to delete it.");
+		Console.printLine("Please enter a valid account ID (id > 0)");
+		accountId = getAccountId("Account ID");
+		
+		Console.printLine("\nWarning! Are you sure want to delete an account with ID of " + accountId);
+		Console.printLine("\nUser account might still be in use.");
+		Console.print("Type in yes or no: ");
+		if(!isYesSelected())
+		{
+			return;
+		}
+		
+		Console.printLine("\nAttempting to delete account with ID of " + accountId);
+		
+		if (this.getBank().deleteAccount(accountId))
+		{
+			Console.printLine("Deleted account with ID of " + accountId);
+		} else {
+			Console.printLine("Account deletion failed.");
+		}
+	}
+	
 
 }

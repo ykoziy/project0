@@ -119,4 +119,9 @@ public class Bank
 		}	
 		return alist;		
 	}
+	
+	public boolean deleteAccount(long id)
+	{
+		return as.delete(id);
+	}
 }
