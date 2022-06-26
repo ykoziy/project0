@@ -44,7 +44,6 @@ public class SignUp extends Menu
 			{
 				case '1':
 					isValid = register();
-					input = scan.next().charAt(0);
 					break;
 				case 'b':
 					return "back";
