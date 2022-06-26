@@ -365,4 +365,31 @@ public class AccountServiceTest
 
 		Assert.assertFalse(result);
 	}
+	
+	// testing findByUsername
+	// testing getAccountsByUserId
+	@Test
+	public void shouldGetAllAccountsForUsername()
+	{
+		List<Account> accList = new ArrayList<>();
+		
+		accList.add(new Account(1, 1, 10000, Status.pending));
+		accList.add(new Account(2, 1, 10000, Status.active));
+		accList.add(new Account(3, 1, 10000, Status.active));
+		accList.add(new Account(4, 1, 10000, Status.closed));
+		
+		when(mockDaoAccount.getUserAccounts("jmiller")).thenReturn(accList);
+		
+		List<Account> resultList = as.getAccountsByUserName("jmiller");
+		
+		Assert.assertNotNull(resultList);
+		Assert.assertArrayEquals(accList.toArray(), resultList.toArray());
+	}
+	
+	@Test
+	public void shouldNotGetAccountsForInvalidUsername()
+	{
+		List<Account> resultList = as.getAccountsByUserName("");
+		Assert.assertNull(resultList);
+	}
 }
