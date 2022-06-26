@@ -53,7 +53,7 @@ public class AccountService
 			if (acc == null) {
 				return false;
 			}
-			long amt = (long)(amount*100.00);
+			long amt = Math.round(amount*100);
 			acc.setBalance(acc.getBalance() + amt);
 			boolean status = adao.update(acc);
 			logger.info("depositing: $" + amt/100.0 + " to the account id: " + accountId);
@@ -75,7 +75,7 @@ public class AccountService
 			return false;
 		}
 		
-		long amt = (long)(amount*100.00);
+		long amt = Math.round(amount*100);
 		
 		if (amt > acc.getBalance()) {
 			return false;
