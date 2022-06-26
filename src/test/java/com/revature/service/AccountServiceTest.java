@@ -320,4 +320,29 @@ public class AccountServiceTest
 		Assert.assertNotNull(resultList);
 		Assert.assertArrayEquals(accList.toArray(), resultList.toArray());
 	}
+	
+	// testing checkUserAccess
+	@Test
+	public void shouldBeAbleToCheckUserAccess()
+	{
+		when(mockDaoAccount.checkUserAccess(1, 1)).thenReturn(true);
+		boolean result = as.checkUserAccess(1, 1);
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void shouldBeAbleToCheckUserAccessInvalidUserId()
+	{
+		when(mockDaoAccount.checkUserAccess(1, 1)).thenReturn(true);
+		boolean result = as.checkUserAccess(0, 1);
+		Assert.assertFalse(result);
+	}
+	
+	@Test
+	public void shouldBeAbleToCheckUserAccessInvalidAccountId()
+	{
+		when(mockDaoAccount.checkUserAccess(1, 1)).thenReturn(true);
+		boolean result = as.checkUserAccess(1, 0);
+		Assert.assertFalse(result);
+	}
 }

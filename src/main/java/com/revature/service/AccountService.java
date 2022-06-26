@@ -126,4 +126,15 @@ public class AccountService
 		logger.info("fetching all accounts");
 		return adao.getAll();
 	}
+	
+	public boolean checkUserAccess(long userId, long accountId)
+	{
+		if (userId <= 0 || accountId <= 0) 
+		{
+			return false;
+		} else {
+			logger.info("checking if user id: " + userId + " can access account id: " + accountId);
+			return adao.checkUserAccess(userId, accountId);
+		}		
+	}
 }
