@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.revature.Bank;
-import com.revature.view.Console;
 import com.revature.models.Account;
+import com.revature.view.Console;
 
 public class CustomerMenu extends MainMenu
 {
@@ -99,42 +99,14 @@ public class CustomerMenu extends MainMenu
 	private boolean deposit() 
 	{
 		Console.printLine("\nSelect account and input amount for deposit.");
-		Scanner scan = new Scanner(System.in);
-		
-		boolean isValid = false;
-		
 		long accountId = 0;
 		double amount = 0;
 		
-		while (!isValid)
-		{
-			Console.printLine("Please enter a valid account ID (id > 0)");
-			Console.print("\nAccount ID: ");
-			if (scan.hasNextLong())
-			{
-				accountId = scan.nextLong();
-				isValid = true;
-			} else {
-				Console.printLine("\nYou did not enter a number for the account ID, try again.");
-				scan.nextLine();
-			}
-		}
+		Console.printLine("Please enter a valid account ID (id > 0)");
+		accountId = getAccountId("Account ID");
 
-		isValid = false;
-
-		while (!isValid)
-		{
-			Console.printLine("Please enter a valid amount (amount > 0)");
-			Console.print("\nAmount: ");
-			if (scan.hasNextDouble())
-			{
-				amount = scan.nextDouble();
-				isValid = true;
-			} else {
-				Console.printLine("\nYou did not enter a number for the account ID, try again.");
-				scan.nextLine();
-			}
-		}
+		Console.printLine("Please enter a valid amount (amount > 0)");
+		amount = getMoney("Amount");
 		
 		long userId = this.getBank().getCurrentUser().getId();
 		
@@ -157,42 +129,14 @@ public class CustomerMenu extends MainMenu
 	private void withdraw() 
 	{
 		Console.printLine("\nSelect account and input amount for withdraw.");
-		Scanner scan = new Scanner(System.in);
-		
-		boolean isValid = false;
-		
 		long accountId = 0;
 		double amount = 0;
 		
-		while (!isValid)
-		{
-			Console.printLine("Please enter a valid account ID (id > 0)");
-			Console.print("\nAccount ID: ");
-			if (scan.hasNextLong())
-			{
-				accountId = scan.nextLong();
-				isValid = true;
-			} else {
-				Console.printLine("\nYou did not enter a number for the account ID, try again.");
-				scan.nextLine();
-			}
-		}
+		Console.printLine("Please enter a valid account ID (id > 0)");
+		accountId = getAccountId("Account ID");
 
-		isValid = false;
-
-		while (!isValid)
-		{
-			Console.printLine("Please enter a valid amount (amount > 0)");
-			Console.print("\nAmount: ");
-			if (scan.hasNextDouble())
-			{
-				amount = scan.nextDouble();
-				isValid = true;
-			} else {
-				Console.printLine("\nYou did not enter a number for the amount, try again.");
-				scan.nextLine();
-			}
-		}
+		Console.printLine("Please enter a valid amount (amount > 0)");
+		amount = getMoney("Amount");
 		
 		long userId = this.getBank().getCurrentUser().getId();
 		
@@ -214,65 +158,20 @@ public class CustomerMenu extends MainMenu
 	{
 		Console.printLine("\nSelect source and destination accounts,");
 		Console.printLine("and enter transfer amount.");
-		Scanner scan = new Scanner(System.in);
-		
-		boolean isValid = false;
-		
+
 		long srcId = 0;
 		long destId = 0;
 		double amount = 0;
 		
-		while (!isValid)
-		{
-			Console.printLine("Please enter a valid source account ID (id > 0)");
-			Console.print("\nSource Account ID: ");
-			if (scan.hasNextLong())
-			{
-				srcId = scan.nextLong();
-				isValid = true;
-			} else {
-				Console.printLine("\nYou did not enter a number for the source account ID, try again.");
-				scan.nextLine();
-			}
-		}
+		Console.printLine("Please enter a valid source account ID (id > 0)");
+		srcId = getAccountId("Source Account ID");
+
+		Console.printLine("Please enter a valid destination account ID (id > 0)");
+		destId = getAccountId("Destination Account ID");
 		
-		isValid = false;
-		
-		while (!isValid)
-		{
-			Console.printLine("Please enter a valid destination account ID (id > 0)");
-			Console.print("\nDestination Account ID: ");
-			if (scan.hasNextLong())
-			{
-				destId = scan.nextLong();
-				isValid = true;
-			} else {
-				Console.printLine("\nYou did not enter a number for the destination account ID, try again.");
-				scan.nextLine();
-			}
-		}
-		
-		isValid = false;
-		
-		while (!isValid)
-		{
-			Console.printLine("Please enter a valid amount (amount > 0)");
-			Console.print("\nAmount: ");
-			if (scan.hasNextDouble())
-			{
-				amount = scan.nextDouble();
-				if (amount > 0) {
-					isValid = true;
-				} else {
-					Console.printLine("Amount must be > 0, try again.");
-					scan.nextLine();
-				}
-			} else {
-				Console.printLine("\nYou did not enter a number for the amount, try again.");
-				scan.nextLine();
-			}
-		}
-		
+		Console.printLine("Please enter a valid amount (amount > 0)");
+		amount = getMoney("Amount");
+
 		long userId = this.getBank().getCurrentUser().getId();
 		
 		if (this.getBank().checkUserAccess(userId, srcId))
@@ -296,47 +195,17 @@ public class CustomerMenu extends MainMenu
 		Scanner scan = new Scanner(System.in);
 		
 		boolean isValid = false;
-		String choice = "";
 		double amount = 0;
 		String username = "";
 		
-		while (!isValid)
+		Console.print("\nDo you wish to continue (yes or no)? ");
+		if(!isYesSelected())
 		{
-			Console.print("\nDo you wish to continue (yes or no)? ");
-			choice = scan.nextLine();
-			if (choice.equalsIgnoreCase("yes"))
-			{
-				isValid = true;
-			} else if (choice.equalsIgnoreCase("no")) {
-				return;
-			} else {
-				Console.printLine("Invalid choice, type in yes or no.");
-			}
+			return;
 		}
 		
-		isValid = false;
-		
-		while (!isValid)
-		{
-			Console.printLine("Please enter a valid initial deposit amount (amount > 0)");
-			Console.print("\nInitial deposit: ");
-			if (scan.hasNextDouble())
-			{
-				amount = scan.nextDouble();
-				if (amount > 0) {
-					isValid = true;
-				} else {
-					Console.printLine("Deposit amount must be > 0, try again.");
-					scan.nextLine();
-				}
-			} else {
-				Console.printLine("\nYou did not enter a number for the amount, try again.");
-				scan.nextLine();
-			}
-		}
-		
-		isValid = false;
-		scan.nextLine();
+		Console.printLine("Please enter a valid initial deposit amount (amount > 0)");
+		amount = getMoney("Initial deposit");
 		
 		while (!isValid)
 		{
