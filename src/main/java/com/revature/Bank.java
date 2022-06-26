@@ -2,6 +2,7 @@ package com.revature;
 
 import java.util.List;
 
+import com.revature.enums.Status;
 import com.revature.models.Account;
 import com.revature.models.Address;
 import com.revature.models.Person;
@@ -91,5 +92,16 @@ public class Bank
 			return alist;
 		}	
 		return alist;
+	}
+	
+	public boolean createAccount(double deposit)
+	{
+		long balance = Math.round(deposit*100);
+		Account a = new Account(0, currentUser.getId(), balance, Status.pending);
+		Account newAccount = as.createAccountForPerson(currentUser, a);
+		if (newAccount != null) {
+			return true;
+		}
+		return false;
 	}
 }

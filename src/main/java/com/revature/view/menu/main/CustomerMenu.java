@@ -1,12 +1,9 @@
 package com.revature.view.menu.main;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 import com.revature.Bank;
-import com.revature.models.Person;
 import com.revature.view.Console;
 import com.revature.models.Account;
 
@@ -53,7 +50,17 @@ public class CustomerMenu extends MainMenu
 					withdraw();
 					repeat();
 					input = scan.next().charAt(0);
-					break;						
+					break;
+				case '4':
+					Console.printLine("not implemented");
+					repeat();
+					input = scan.next().charAt(0);
+					break;
+				case '5':
+					createAccount();
+					repeat();
+					input = scan.next().charAt(0);
+					break;					
 				case 'q':
 					this.exitApp();
 					break;				
@@ -201,6 +208,84 @@ public class CustomerMenu extends MainMenu
 		}
 		Console.printLine("================================");
 		Console.printLine("");
+	}
+	
+	private void createAccount()
+	{
+		Console.printLine("\nThank you for choosing YKZ BANK, are you ready to creat an account?");
+		Scanner scan = new Scanner(System.in);
+		
+		boolean isValid = false;
+		String choice = "";
+		double amount = 0;
+		String username = "";
+		
+		while (!isValid)
+		{
+			Console.print("\nDo you wish to continue (yes or no)? ");
+			choice = scan.nextLine();
+			if (choice.equalsIgnoreCase("yes"))
+			{
+				isValid = true;
+			} else if (choice.equalsIgnoreCase("no")) {
+				return;
+			} else {
+				Console.printLine("Invalid choice, type in yes or no.");
+			}
+		}
+		
+		isValid = false;
+		
+		while (!isValid)
+		{
+			Console.printLine("Please enter a valid initial deposit amount (amount > 0)");
+			Console.print("\nInitial deposit: ");
+			if (scan.hasNextDouble())
+			{
+				amount = scan.nextDouble();
+				if (amount > 0) {
+					isValid = true;
+				} else {
+					Console.printLine("Deposit amount must be > 0, try again.");
+					scan.nextLine();
+				}
+			} else {
+				Console.printLine("\nYou did not enter a number for the amount, try again.");
+				scan.nextLine();
+			}
+		}
+		
+		isValid = false;
+		scan.nextLine();
+		
+		while (!isValid)
+		{
+			Console.printLine("Confirm your username: ");
+			username = scan.nextLine();
+			if (!username.equals(""))
+			{
+				if (username.equals(this.getBank().getCurrentUser().getUserName()))
+				{
+					isValid = true;
+				} else {
+					Console.printLine("Confirm username, type in your username.");
+				}				
+			} else {
+				Console.printLine("\nPlease enter your username.");
+				scan.nextLine();
+			}
+
+		}
+		
+		Console.printLine("Creating account with initial deposit of $" + amount);
+		
+		if (this.getBank().createAccount(amount)) 
+		{
+			Console.printLine("Created account with balance of $" + amount);
+			Console.printLine("It will take 2-5 business days to approve your account, thank you for choosing YKZ BANK.");
+		} else {
+			Console.printLine("Account creation failed.");
+		}
 	}
 
 }
