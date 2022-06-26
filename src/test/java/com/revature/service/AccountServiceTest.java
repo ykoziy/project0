@@ -366,8 +366,7 @@ public class AccountServiceTest
 		Assert.assertFalse(result);
 	}
 	
-	// testing findByUsername
-	// testing getAccountsByUserId
+	// testing getAccountsByUserName
 	@Test
 	public void shouldGetAllAccountsForUsername()
 	{
@@ -391,5 +390,22 @@ public class AccountServiceTest
 	{
 		List<Account> resultList = as.getAccountsByUserName("");
 		Assert.assertNull(resultList);
+	}
+	
+	//test transfer
+	@Test
+	public void shouldBeAbleToTransferBetweenAccounts()
+	{
+		when(mockDaoAccount.transfer(1,2,10000)).thenReturn(true);
+		boolean result = as.transfer(1,2,100);
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void shouldBeAbleToTransferToTheSameAccount()
+	{
+		when(mockDaoAccount.transfer(1,1,10000)).thenReturn(true);
+		boolean result = as.transfer(1,1,100);
+		Assert.assertFalse(result);
 	}
 }

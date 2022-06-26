@@ -89,6 +89,9 @@ public class AccountService
 	
 	public boolean transfer(long fromId, long toId, double amount)
 	{
+		if (fromId == toId) {
+			return false;
+		}
 		logger.info("transfering: $" + Math.round(amount/100.0) + " from id: " + fromId + " to id: " + toId);
 		return adao.transfer(fromId, toId, Math.round(amount*100));
 	}
