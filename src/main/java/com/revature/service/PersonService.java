@@ -53,12 +53,14 @@ public class PersonService
 	{
 		//plain string login......
 		Person returnedPerson = pdao.getByUsername(username);
-		if (new String(returnedPerson.getPassword()).equals(password)) 
+		if (returnedPerson != null) 
 		{
-			logger.info("user: " + returnedPerson.getId() + " successfully logged in");
-			return returnedPerson;
-		}
-				
+			if (new String(returnedPerson.getPassword()).equals(password)) 
+			{
+				logger.info("user: " + returnedPerson.getId() + " successfully logged in");
+				return returnedPerson;
+			}		
+		}	
 		return null;
 	}
 	
