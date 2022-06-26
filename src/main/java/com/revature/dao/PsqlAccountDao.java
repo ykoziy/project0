@@ -129,7 +129,10 @@ public class PsqlAccountDao implements AccountDao
 	public long add(long user_id, Account account)
 	{
 		String sql = "INSERT INTO account (user_id, balance, status)" + 
-		" VALUES (?, ?, ?) RETURNING account.id;";
+		" VALUES (?, ?, ?) RETURNING account.id";
+		
+		String sqlTwo = "INSERT INTO account_holder (user_id, account_id)" + 
+		" VALUES (?, ?) RETURNING account_holder.user_id";
 		long id = 0L;
 		
 		try (Connection conn = ConnectionManager.getConnection())
@@ -141,10 +144,24 @@ public class PsqlAccountDao implements AccountDao
 			
 			ResultSet rs = pstmt.executeQuery();
 			
-			//get primary key
+			
+			//get primary key and update account_holder table
 			if (rs.next()) {
-				id = rs.getInt(1); 
-				return id;
+				id = rs.getLong(1);
+				pstmt.close();
+				rs.close();
+				pstmt = conn.prepareStatement(sqlTwo);
+				pstmt.setLong(1, user_id);
+				pstmt.setLong(2, id);
+				rs = pstmt.executeQuery();
+				if (rs.next())
+				{
+					long newId = rs.getLong(1);
+					if(newId == user_id)
+					{
+						return id;
+					}
+				}
 			}					
 		} catch (SQLException e)
 		{
