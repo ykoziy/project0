@@ -44,6 +44,11 @@ public class CustomerMenu extends MainMenu
 					repeat();
 					input = scan.next().charAt(0);
 					break;
+				case '2':
+					deposit();
+					repeat();
+					input = scan.next().charAt(0);
+					break;					
 				case 'q':
 					this.exitApp();
 					break;				
@@ -61,23 +66,60 @@ public class CustomerMenu extends MainMenu
 		Console.generateMenu(menuTitle, options);
 	}
 	
+	private void deposit() 
+	{
+		Console.printLine("\nSelect account and input amount for deposit.");
+		Scanner scan = new Scanner(System.in);
+		
+		boolean isValid = false;
+		
+		long userId = 0;
+		double amount = 0;
+		
+		while (!isValid)
+		{
+			Console.printLine("Please enter a valid account ID (id > 0)");
+			Console.print("\nAccount ID: ");
+			if (scan.hasNextLong())
+			{
+				userId = scan.nextLong();
+				isValid = true;
+			} else {
+				Console.printLine("\nYou did not enter a number for the account ID, try again.");
+				scan.nextLine();
+			}
+		}
+
+		isValid = false;
+
+		while (!isValid)
+		{
+			Console.printLine("Please enter a valid amount (amount > 0)");
+			Console.print("\nAmount: ");
+			if (scan.hasNextDouble())
+			{
+				amount = scan.nextLong();
+				isValid = true;
+			} else {
+				Console.printLine("\nYou did not enter a number for the account ID, try again.");
+				scan.nextLine();
+			}
+		}
+		
+		///do the deposit right here....	
+	}
+	
 	private void viewAccounts()
 	{
 		this.getBank().setUserAccounts();
 		List<Account> aList = this.getBank().getCurrentUser().getAccounts();
-		Locale usa = new Locale("en", "US");
-		NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(usa);
-		
-		
 		Console.printLine("");
 		Console.printLine("========== Accounts ==========");
 		for (int i = 0; i < aList.size(); i++)
 		{
 			Account a = aList.get(i);
 			String accountNumber = a.getAccountNumber();
-			double balance = a.getBalance() / 100.0;
-			String balanceStr = dollarFormat.format(balance);
-			
+			String balanceStr = Console.getMoney(a.getBalance());
 			String out = String.format("%d) %s Balance: %s Status: %s", i+1, accountNumber, balanceStr, a.getStatus());
 			Console.printLine(out);
 		}
