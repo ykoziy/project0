@@ -82,6 +82,7 @@ public class PersonService
 	
 	public List<Person> getAll()
 	{
+		logger.info("getting all users");
 		return pdao.getAll();
 	}
 	
