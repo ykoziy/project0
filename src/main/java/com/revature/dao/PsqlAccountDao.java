@@ -114,14 +114,14 @@ public class PsqlAccountDao implements AccountDao
 	}
 
 	@Override
-	public boolean delete(Account account)
+	public boolean delete(long id)
 	{
 		String sql = "DELETE FROM account WHERE id = ?";
 		
 		try (Connection conn = ConnectionManager.getConnection())
 		{
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setLong(1, account.getId());
+			stmt.setLong(1, id);
 			int result  = stmt.executeUpdate();
 			if (result != 0) {
 				return true;

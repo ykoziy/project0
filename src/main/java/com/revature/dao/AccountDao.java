@@ -12,7 +12,7 @@ public interface AccountDao
 	
 	List<Account> getUserAccounts(String username);
 	
-	boolean delete(Account account);
+	boolean delete(long id);
 	
 	boolean update(Account account);
 	
