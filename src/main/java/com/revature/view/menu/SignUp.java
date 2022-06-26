@@ -6,7 +6,7 @@ import com.revature.Bank;
 import com.revature.enums.UserRole;
 import com.revature.models.Address;
 import com.revature.models.Person;
-import com.revature.view.Console;
+import com.revature.view.ConsoleOps;
 
 public class SignUp extends Menu
 {
@@ -27,7 +27,7 @@ public class SignUp extends Menu
 	@Override
 	public void show()
 	{
-		Console.generateMenu(menuTitle, options);
+		ConsoleOps.generateMenu(menuTitle, options);
 	}
 
 	@Override
@@ -85,22 +85,22 @@ public class SignUp extends Menu
 		String state = "";
 		String zip = "";
 		
-		Console.printLine("");
-		Console.printLine("\nPlease enter your home address information: ");
-		Console.printLine("Street address: ");
+		ConsoleOps.printLine("");
+		ConsoleOps.printLine("\nPlease enter your home address information: ");
+		ConsoleOps.printLine("Street address: ");
 		street = scan.nextLine();
 		
-		Console.printLine("City: ");
+		ConsoleOps.printLine("City: ");
 		city = scan.nextLine();
 		
-		Console.printLine("State: ");
+		ConsoleOps.printLine("State: ");
 		state = scan.nextLine();
 		
-		Console.printLine("Phone number (5 digit only): ");
+		ConsoleOps.printLine("Phone number (5 digit only): ");
 		zip = scan.nextLine();
 		
 		
-		Console.printLine("");
+		ConsoleOps.printLine("");
 		
 		address = new Address(street, city, state, zip);
 		
@@ -115,21 +115,21 @@ public class SignUp extends Menu
 		String email = "";
 		String phoneNumber = "";
 		
-		Console.printLine("\nLet's gather your personal infromation: ");
-		Console.printLine("First name: ");
+		ConsoleOps.printLine("\nLet's gather your personal infromation: ");
+		ConsoleOps.printLine("First name: ");
 		firstName = scan.nextLine();
 		
-		Console.printLine("Last name: ");
+		ConsoleOps.printLine("Last name: ");
 		firstName = scan.nextLine();
 		
-		Console.printLine("Email: ");
+		ConsoleOps.printLine("Email: ");
 		email = scan.nextLine();
 		
-		Console.printLine("Phone number (10 digit only): ");
+		ConsoleOps.printLine("Phone number (10 digit only): ");
 		phoneNumber = scan.nextLine();
 
 
-		Console.printLine("");
+		ConsoleOps.printLine("");
 		
 		
 		person = new Person(firstName, lastName, email, phoneNumber);
@@ -144,11 +144,11 @@ public class SignUp extends Menu
 		String password = "";
 
 		
-		Console.printLine("\nLet's create an account: ");
-		Console.printLine("Username: ");
+		ConsoleOps.printLine("\nLet's create an account: ");
+		ConsoleOps.printLine("Username: ");
 		username = scan.nextLine();
 		
-		Console.printLine("Password: ");
+		ConsoleOps.printLine("Password: ");
 		password = scan.nextLine();
 			
 		person.setId(0);

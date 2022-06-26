@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class Console
+public class ConsoleOps
 {
 	public static void print(Object obj)
     {
