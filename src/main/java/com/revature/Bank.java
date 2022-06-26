@@ -78,6 +78,11 @@ public class Bank
 		return as.withdraw(accountId, amount);
 	}
 	
+	public boolean transfer(long srctId, long destId, double amount)
+	{
+		return as.transfer(srctId, destId, amount);
+	}
+	
 	public Person getUser(String username)
 	{
 		return ps.findByUsername(username);

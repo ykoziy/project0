@@ -52,7 +52,7 @@ public class CustomerMenu extends MainMenu
 					input = scan.next().charAt(0);
 					break;
 				case '4':
-					Console.printLine("not implemented");
+					transfer();
 					repeat();
 					input = scan.next().charAt(0);
 					break;
@@ -76,6 +76,24 @@ public class CustomerMenu extends MainMenu
 	private void repeat()
 	{
 		Console.generateMenu(menuTitle, options);
+	}
+	
+	private void viewAccounts()
+	{
+		this.getBank().setUserAccounts();
+		List<Account> aList = this.getBank().getCurrentUser().getAccounts();
+		Console.printLine("");
+		Console.printLine("========== Accounts ==========");
+		for (int i = 0; i < aList.size(); i++)
+		{
+			Account a = aList.get(i);
+			String accountNumber = a.getAccountNumber();
+			String balanceStr = Console.getMoney(a.getBalance());
+			String out = String.format("%d) %s Balance: %s Status: %s", i+1, accountNumber, balanceStr, a.getStatus());
+			Console.printLine(out);
+		}
+		Console.printLine("================================");
+		Console.printLine("");
 	}
 	
 	private boolean deposit() 
@@ -192,24 +210,86 @@ public class CustomerMenu extends MainMenu
 		}
 	}
 	
-	private void viewAccounts()
+	private void transfer()
 	{
-		this.getBank().setUserAccounts();
-		List<Account> aList = this.getBank().getCurrentUser().getAccounts();
-		Console.printLine("");
-		Console.printLine("========== Accounts ==========");
-		for (int i = 0; i < aList.size(); i++)
+		Console.printLine("\nSelect source and destination accounts,");
+		Console.printLine("and enter transfer amount.");
+		Scanner scan = new Scanner(System.in);
+		
+		boolean isValid = false;
+		
+		long srcId = 0;
+		long destId = 0;
+		double amount = 0;
+		
+		while (!isValid)
 		{
-			Account a = aList.get(i);
-			String accountNumber = a.getAccountNumber();
-			String balanceStr = Console.getMoney(a.getBalance());
-			String out = String.format("%d) %s Balance: %s Status: %s", i+1, accountNumber, balanceStr, a.getStatus());
-			Console.printLine(out);
+			Console.printLine("Please enter a valid source account ID (id > 0)");
+			Console.print("\nSource Account ID: ");
+			if (scan.hasNextLong())
+			{
+				srcId = scan.nextLong();
+				isValid = true;
+			} else {
+				Console.printLine("\nYou did not enter a number for the source account ID, try again.");
+				scan.nextLine();
+			}
 		}
-		Console.printLine("================================");
-		Console.printLine("");
+		
+		isValid = false;
+		
+		while (!isValid)
+		{
+			Console.printLine("Please enter a valid destination account ID (id > 0)");
+			Console.print("\nDestination Account ID: ");
+			if (scan.hasNextLong())
+			{
+				destId = scan.nextLong();
+				isValid = true;
+			} else {
+				Console.printLine("\nYou did not enter a number for the destination account ID, try again.");
+				scan.nextLine();
+			}
+		}
+		
+		isValid = false;
+		
+		while (!isValid)
+		{
+			Console.printLine("Please enter a valid amount (amount > 0)");
+			Console.print("\nAmount: ");
+			if (scan.hasNextDouble())
+			{
+				amount = scan.nextDouble();
+				if (amount > 0) {
+					isValid = true;
+				} else {
+					Console.printLine("Amount must be > 0, try again.");
+					scan.nextLine();
+				}
+			} else {
+				Console.printLine("\nYou did not enter a number for the amount, try again.");
+				scan.nextLine();
+			}
+		}
+		
+		long userId = this.getBank().getCurrentUser().getId();
+		
+		if (this.getBank().checkUserAccess(userId, srcId))
+		{
+			boolean result = this.getBank().transfer(srcId, destId, amount);
+			if (result)
+			{
+				Console.printLine("\nYou have succesfully transfered: $" + amount + " ");
+				Console.printLine("From account ID: " + srcId + " to the account ID: " + destId);
+			} else {
+				Console.printLine("\nTransfer failed. ");
+			}
+		} else {
+			Console.printLine("\nTransfer failed, you dont have access to the source account.");			
+		}
 	}
-	
+		
 	private void createAccount()
 	{
 		Console.printLine("\nThank you for choosing YKZ BANK, are you ready to creat an account?");
