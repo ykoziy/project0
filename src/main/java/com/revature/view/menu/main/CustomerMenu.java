@@ -66,14 +66,14 @@ public class CustomerMenu extends MainMenu
 		Console.generateMenu(menuTitle, options);
 	}
 	
-	private void deposit() 
+	private boolean deposit() 
 	{
 		Console.printLine("\nSelect account and input amount for deposit.");
 		Scanner scan = new Scanner(System.in);
 		
 		boolean isValid = false;
 		
-		long userId = 0;
+		long accountId = 0;
 		double amount = 0;
 		
 		while (!isValid)
@@ -82,7 +82,7 @@ public class CustomerMenu extends MainMenu
 			Console.print("\nAccount ID: ");
 			if (scan.hasNextLong())
 			{
-				userId = scan.nextLong();
+				accountId = scan.nextLong();
 				isValid = true;
 			} else {
 				Console.printLine("\nYou did not enter a number for the account ID, try again.");
@@ -98,7 +98,7 @@ public class CustomerMenu extends MainMenu
 			Console.print("\nAmount: ");
 			if (scan.hasNextDouble())
 			{
-				amount = scan.nextLong();
+				amount = scan.nextDouble();
 				isValid = true;
 			} else {
 				Console.printLine("\nYou did not enter a number for the account ID, try again.");
@@ -106,7 +106,22 @@ public class CustomerMenu extends MainMenu
 			}
 		}
 		
-		///do the deposit right here....	
+		long userId = this.getBank().getCurrentUser().getId();
+		
+		if (this.getBank().checkUserAccess(userId, accountId))
+		{
+			boolean result = this.getBank().deposit(accountId, amount);
+			if (result)
+			{
+				Console.printLine("\nYou have succesfully deposited: $" + amount + " into account with ID: " + accountId);
+				return true;
+			} else {
+				Console.printLine("\nDeposit failed.");
+				return false;
+			}
+		}
+		Console.printLine("\nDeposit failed, account access failure.");
+		return false;
 	}
 	
 	private void viewAccounts()

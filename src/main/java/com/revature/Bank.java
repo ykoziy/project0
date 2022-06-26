@@ -61,4 +61,14 @@ public class Bank
 			currentUser.setAccounts(alist);
 		}
 	}
+	
+	public boolean checkUserAccess(long userId, long accountId)
+	{
+		return as.checkUserAccess(userId, accountId);
+	}
+	
+	public boolean deposit(long accountId, double amount)
+	{
+		return as.deposit(accountId, amount);
+	}
 }
