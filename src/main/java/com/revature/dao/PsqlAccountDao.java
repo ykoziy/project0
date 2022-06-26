@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -263,5 +264,37 @@ public class PsqlAccountDao implements AccountDao
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	
+	/*
+	 * Calls stored procedure that does the transfer, when valid active accounts.
+	 * And source account not overdrafted.
+	 */
+	@Override
+	public boolean transfer(long srcId, long destId, long amount)
+	{
+		String callStr = "{? = call transfer_money( ?, ?, ? )}";
+		boolean result = false;
+		if (srcId < 1 || destId < 1 || amount <= 0)
+		{
+			return result;
+		}
+		
+		try (Connection conn = ConnectionManager.getConnection())
+		{
+			CallableStatement transferMoney = conn.prepareCall(callStr);
+			transferMoney.registerOutParameter(1, Types.BOOLEAN);
+			transferMoney.setLong(2, srcId);
+			transferMoney.setLong(3, destId);
+			transferMoney.setLong(4, amount);
+			transferMoney.execute();
+			result = transferMoney.getBoolean(1);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }

@@ -21,4 +21,6 @@ public interface AccountDao
 	List<Account> getAll();
 	
 	boolean checkUserAccess(long userId, long accountId);
+	
+	boolean transfer(long srcId, long destId, long amount);
 }
