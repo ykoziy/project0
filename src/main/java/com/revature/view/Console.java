@@ -56,10 +56,17 @@ public class Console
     {
     	printLine("");
         printLine(menuTitle);
-        for (int i = 0; i < options.size(); i++) {
-            printLine(options.get(i));
+        int count = 0;
+        for (int i = 0; i < options.size(); i++) 
+        {
+        	String option = options.get(i);
+            printLine(option);
+            if (option.matches("\\d\\).*")) 
+            {
+            	count += 1;
+            }
         }
-        printLine("\nSelect an option " + "(" + 1 + " - " + options.size() + ")" + " to continue:");
+        printLine("\nSelect an option " + "(" + 1 + " - " + count + ")" + " to continue or other options in the menu:");
     }
     
     private static String repeatStringNTimes(String str, int n)
