@@ -2,6 +2,8 @@ package com.revature.view.menu;
 
 import java.util.Scanner;
 
+import org.apache.commons.validator.routines.EmailValidator;
+
 import com.revature.Bank;
 import com.revature.enums.UserRole;
 import com.revature.models.Address;
@@ -78,18 +80,22 @@ public class SignUp extends Menu
 		}
 	}
 	
-	/// verify inputs
 	private boolean getPersonalInfo()
 	{
 		String firstName = "";
 		String lastName = "";
 		String email = "";
 		String phoneNumber = "";
-		
+
 		Console.printLine("\nLet's gather your personal infromation: ");
 		firstName = readStringOfLength("First name", 45);
 		lastName = readStringOfLength("Last name", 45);
-		email = readStringOfLength("Email", 50);
+		email = readStringOfLength("Email", 320);
+		while(!EmailValidator.getInstance().isValid(email))
+		{
+			Console.printLine("Invalid email, try again");
+			email = readStringOfLength("Email", 320);
+		}
 		phoneNumber = readString("Phone number (10 digit only)");
 		while(!phoneNumber.matches("^\\d{10}\\b.*"))
 		{
