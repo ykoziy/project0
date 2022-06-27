@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.revature.Bank;
+import com.revature.enums.Status;
 import com.revature.models.Account;
 import com.revature.models.Person;
 import com.revature.view.Console;
@@ -42,6 +43,11 @@ public class EmployeeMenu extends MainMenu
 					break;
 				case '2':
 					viewCustomerAccounts();
+					repeat();
+					input = scan.next().charAt(0);
+					break;
+				case '3':
+					approveDenyAccounts();
 					repeat();
 					input = scan.next().charAt(0);
 					break;					
@@ -114,5 +120,60 @@ public class EmployeeMenu extends MainMenu
 				scan.nextLine();
 			}
 		}		
+	}
+	
+	private void approveDenyAccounts()
+	{
+		Console.printLine("\nApprove/deny accounts menu.");
+		List<Account> aList = null;
+		Scanner scan = new Scanner(System.in);
+		
+		boolean isValid = false;
+		String username = "";
+		
+		Console.printLine("\nPlease enter customers username.");
+		username = readString("Username");
+		
+		if (!username.equals(""))
+		{
+			aList = this.getBank().getAccountsForUser(username);
+			if (aList.size() > 0) {
+				printAccounts(aList, username);
+			} else {
+				Console.printLine("\nUser with username: " + username + " does not exist. Or has no accounts attached.");
+				return;
+			}
+		}
+		
+		long accountId = 0;
+		Console.printLine("Please enter a valid account ID (id > 0)");
+		accountId = getAccountId("Account ID");
+		Account acc = this.getBank().getAccountById(accountId);
+		if (acc != null)
+		{
+			Console.printLine("Selected account.");
+			printAccount(acc);
+			if (acc.getStatus() == Status.active) {
+				Console.printLine("Can't deny/approve an account that is active.");
+				return;
+			}
+			Console.printLine("\nDo you approve this account? ");
+			Console.print("Type in yes to approve or no to deny: ");
+			if(isYesSelected())
+			{
+				acc.setStatus(Status.active);
+			} else {
+				acc.setStatus(Status.closed);
+			}
+			
+			if (!this.getBank().updateAccount(acc)) 
+			{
+				return;
+			} 
+			Console.printLine("Account status was changed.");
+		} else {
+			Console.printLine("\nUnable to get account.");
+			return;
+		}
 	}
 }
