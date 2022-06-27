@@ -280,7 +280,6 @@ public class AdminMenu extends MainMenu
 	private void approveDenyAccounts()
 	{
 		Console.printLine("\nApprove/deny accounts menu.");
-		Scanner scan = new Scanner(System.in);
 		List<Account> aList = null;
 		
 		Console.printLine("\nDo you know account ID of a pending account? ");
@@ -297,9 +296,7 @@ public class AdminMenu extends MainMenu
 			}
 		}
 		
-		
 		long accountId = 0;
-		// get account ID and get account
 		Console.printLine("Please enter a valid account ID (id > 0)");
 		accountId = getAccountId("Account ID");
 		Account acc = this.getBank().getAccountById(accountId);
@@ -329,8 +326,5 @@ public class AdminMenu extends MainMenu
 			Console.printLine("\nUnable to get account.");
 			return;
 		}
-		
-		// ask if approving or denying
-		// update the status
 	}
 }
