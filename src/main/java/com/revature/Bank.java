@@ -124,4 +124,14 @@ public class Bank
 	{
 		return as.delete(id);
 	}
+	
+	public Account getAccountById(long id)
+	{
+		return as.getAccount(id);
+	}
+	
+	public boolean updateAccount(Account acc)
+	{
+		return as.update(acc);
+	}
 }
