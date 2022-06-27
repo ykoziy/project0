@@ -321,6 +321,21 @@ public class AccountServiceTest
 		Assert.assertArrayEquals(accList.toArray(), resultList.toArray());
 	}
 	
+	@Test
+	public void shouldGetAllAccountsWithStatus()
+	{
+		List<Account> accList = new ArrayList<>();
+		
+		accList.add(new Account(2, 1, 10000, Status.active));
+		accList.add(new Account(3, 1, 10000, Status.active));
+		
+		when(mockDaoAccount.getAll(Status.active)).thenReturn(accList);
+		
+		List<Account> resultList = as.getAll(Status.active);
+		Assert.assertNotNull(resultList);
+		Assert.assertArrayEquals(accList.toArray(), resultList.toArray());
+	}
+	
 	// testing checkUserAccess
 	@Test
 	public void shouldBeAbleToCheckUserAccess()
@@ -389,6 +404,30 @@ public class AccountServiceTest
 	public void shouldNotGetAccountsForInvalidUsername()
 	{
 		List<Account> resultList = as.getAccountsByUserName("");
+		Assert.assertNull(resultList);
+	}
+	
+	// testing getAccountsByUserName overloaded with account status
+	@Test
+	public void shouldGetAllAccountsForUsernameWithStatus()
+	{
+		List<Account> accList = new ArrayList<>();
+		
+		accList.add(new Account(2, 1, 10000, Status.active));
+		accList.add(new Account(3, 1, 10000, Status.active));
+		
+		when(mockDaoAccount.getUserAccounts("jmiller", Status.active)).thenReturn(accList);
+		
+		List<Account> resultList = as.getAccountsByUserName("jmiller", Status.active);
+		
+		Assert.assertNotNull(resultList);
+		Assert.assertArrayEquals(accList.toArray(), resultList.toArray());
+	}
+	
+	@Test
+	public void shouldNotGetAccountsForInvalidUsernameWithStatus()
+	{
+		List<Account> resultList = as.getAccountsByUserName("", Status.active);
 		Assert.assertNull(resultList);
 	}
 	

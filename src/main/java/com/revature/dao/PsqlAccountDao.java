@@ -112,7 +112,43 @@ public class PsqlAccountDao implements AccountDao
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Account> getUserAccounts(String username, Status accountStatus)
+	{
+		List<Account> accList = new ArrayList<>();
+		String sql = "SELECT a.id, a.user_id, a.balance, a.status " +
+				"FROM person p " +
+				"LEFT JOIN account_holder ah ON p.id = ah.user_id " +
+				"LEFT JOIN account a ON ah.account_id = a.id " +
+				"WHERE p.username = ? AND a.status = ?";
+		try (Connection conn = ConnectionManager.getConnection()) {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setObject(2, accountStatus, Types.OTHER);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				long user_id = rs.getLong("id");
+				long ownerId = rs.getLong("user_id");
+				long balance = rs.getLong("balance");
+				Status status = Status.valueOf(rs.getString("status"));
+				
+				Account a = new Account(user_id, ownerId, balance, status);
+				
+				accList.add(a);
+			}
+			return accList;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
+	//pstmt.setObject(7, person.getUserRole(), Types.OTHER);
+	
 	@Override
 	public boolean delete(long id)
 	{
@@ -236,6 +272,39 @@ public class PsqlAccountDao implements AccountDao
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return null;
+	}
+
+	@Override
+	public List<Account> getAll(Status status)
+	{
+		String sql = "SELECT * FROM account WHERE status = ?";
+		List<Account> accList = new ArrayList<>();
+		
+		try (Connection conn = ConnectionManager.getConnection())
+		{
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setObject(1, status, Types.OTHER);
+
+			long user_id = 0;
+			long ownerId = 0;
+			long balance = 0;
+			
+			ResultSet rs = pstmt.executeQuery();		
+			while (rs.next())
+			{
+				user_id = rs.getLong("id");
+				ownerId = rs.getLong("user_id");
+				balance = rs.getLong("balance");				
+				Account a = new Account(user_id, ownerId, balance, status);		
+				accList.add(a);				
+			}
+			return accList;
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 		}	
 		return null;

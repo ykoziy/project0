@@ -112,12 +112,12 @@ public class Bank
 	
 	public List<Person> getAllUsernames()
 	{
-		List<Person> alist = ps.getAll();
-		if (alist != null) 
-		{
-			return alist;
-		}	
-		return alist;		
+		return ps.getAll();	
+	}
+	
+	public List<Account> getAllAccounts(Status status)
+	{
+		return as.getAll(status);
 	}
 	
 	public boolean deleteAccount(long id)

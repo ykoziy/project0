@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import com.revature.dao.AccountDao;
 import com.revature.dao.PsqlAccountDao;
+import com.revature.enums.Status;
 import com.revature.exceptions.CreateAccountFailedException;
 import com.revature.models.Account;
 import com.revature.models.Person;
@@ -141,10 +142,27 @@ public class AccountService
 		}
 	}
 	
+	public List<Account> getAccountsByUserName(String username, Status status)
+	{
+		if (username.equals(""))
+		{
+			return null;
+		} else {
+			logger.info("fetching all accounts by for user: " + username + " with status: " + status);
+			return adao.getUserAccounts(username, status);
+		}
+	}
+	
 	public List<Account> getAll()
 	{
 		logger.info("fetching all accounts");
 		return adao.getAll();
+	}
+	
+	public List<Account> getAll(Status status)
+	{
+		logger.info("fetching all accounts with status: " + status);
+		return adao.getAll(status);
 	}
 	
 	public boolean checkUserAccess(long userId, long accountId)
@@ -156,5 +174,16 @@ public class AccountService
 			logger.info("checking if user id: " + userId + " can access account id: " + accountId);
 			return adao.checkUserAccess(userId, accountId);
 		}		
+	}
+	
+	public Account getAccount(long id)
+	{
+		if (id <= 0)
+		{
+			return null;
+		} else {
+			logger.info("fetching account with id: " + id);
+			return adao.get(id);
+		}
 	}
 }

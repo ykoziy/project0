@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.util.List;
 
+import com.revature.enums.Status;
 import com.revature.models.Account;
 
 public interface AccountDao
@@ -12,6 +13,8 @@ public interface AccountDao
 	
 	List<Account> getUserAccounts(String username);
 	
+	List<Account> getUserAccounts(String username, Status status);
+	
 	boolean delete(long id);
 	
 	boolean update(Account account);
@@ -19,6 +22,8 @@ public interface AccountDao
 	long add(long user_id, Account account);
 	
 	List<Account> getAll();
+	
+	List<Account> getAll(Status status);
 	
 	boolean checkUserAccess(long userId, long accountId);
 	
