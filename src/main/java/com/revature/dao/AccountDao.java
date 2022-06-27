@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.util.List;
 
+import com.revature.enums.Status;
 import com.revature.models.Account;
 
 public interface AccountDao
@@ -11,6 +12,8 @@ public interface AccountDao
 	List<Account> getUserAccounts(long id);
 	
 	List<Account> getUserAccounts(String username);
+	
+	List<Account> getUserAccounts(String username, Status status);
 	
 	boolean delete(long id);
 	
