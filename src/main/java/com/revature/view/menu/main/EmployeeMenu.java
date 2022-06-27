@@ -65,7 +65,7 @@ public class EmployeeMenu extends MainMenu
 	
 	private void getCustomerInfo() 
 	{
-		Console.printLine("\nSelect customer to view their information.");
+		Console.printLine("\nSelect a customer to view their information.");
 		Scanner scan = new Scanner(System.in);
 		
 		boolean isValid = false;
@@ -94,7 +94,7 @@ public class EmployeeMenu extends MainMenu
 	
 	private void viewCustomerAccounts()
 	{
-		Console.printLine("\nSelect customer to view their accounts.");
+		Console.printLine("\nSelect a customer to view their accounts.");
 		Scanner scan = new Scanner(System.in);
 		
 		List<Account> aList = null;
@@ -112,7 +112,7 @@ public class EmployeeMenu extends MainMenu
 				if (aList.size() > 0) {
 					printAccounts(aList, username);
 				} else {
-					Console.printLine("\nUser with username: " + username + " does not exist. Or ha no accounts attached.");
+					Console.printLine("\nUser with username: " + username + " does not exist. Or has no accounts attached.");
 				}
 				isValid = true;
 			} else {
@@ -124,7 +124,7 @@ public class EmployeeMenu extends MainMenu
 	
 	private void approveDenyAccounts()
 	{
-		Console.printLine("\nApprove/deny accounts menu.");
+		Console.printLine("\nApprove/deny an account.");
 		List<Account> aList = null;
 		Scanner scan = new Scanner(System.in);
 		
