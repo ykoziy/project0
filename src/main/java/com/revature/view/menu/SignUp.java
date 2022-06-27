@@ -78,57 +78,24 @@ public class SignUp extends Menu
 		}
 	}
 	
-	private boolean getAddressInfo()
-	{
-		Scanner scan = new Scanner(System.in);
-		String street = "";
-		String city = "";
-		String state = "";
-		String zip = "";
-		
-		Console.printLine("");
-		Console.printLine("\nPlease enter your home address information: ");
-		Console.printLine("Street address: ");
-		street = scan.nextLine();
-		
-		Console.printLine("City: ");
-		city = scan.nextLine();
-		
-		Console.printLine("State: ");
-		state = scan.nextLine();
-		
-		Console.printLine("Phone number (5 digit only): ");
-		zip = scan.nextLine();
-		
-		
-		Console.printLine("");
-		
-		address = new Address(street, city, state, zip);
-		
-		return true;
-	}
-	
+	/// verify inputs
 	private boolean getPersonalInfo()
 	{
-		Scanner scan = new Scanner(System.in);
 		String firstName = "";
 		String lastName = "";
 		String email = "";
 		String phoneNumber = "";
 		
 		Console.printLine("\nLet's gather your personal infromation: ");
-		Console.printLine("First name: ");
-		firstName = scan.nextLine();
-		
-		Console.printLine("Last name: ");
-		firstName = scan.nextLine();
-		
-		Console.printLine("Email: ");
-		email = scan.nextLine();
-		
-		Console.printLine("Phone number (10 digit only): ");
-		phoneNumber = scan.nextLine();
-
+		firstName = readStringOfLength("First name", 45);
+		lastName = readStringOfLength("Last name", 45);
+		email = readStringOfLength("Email", 50);
+		phoneNumber = readString("Phone number (10 digit only)");
+		while(!phoneNumber.matches("^\\d{10}\\b.*"))
+		{
+			Console.printLine("Phone number must be 10 digits only, try again.");
+			phoneNumber = readString("Phone number (10 digit only)");
+		}
 
 		Console.printLine("");
 		
@@ -138,19 +105,41 @@ public class SignUp extends Menu
 		return true;
 	}
 	
+	private boolean getAddressInfo()
+	{
+		String street = "";
+		String city = "";
+		String state = "";
+		String zip = "";
+		
+		Console.printLine("");
+		Console.printLine("\nPlease enter your home address information: ");
+		street = readStringOfLength("Street address", 100);
+		city = readStringOfLength("City", 40);
+		state = readStringOfLength("State (2 letters)", 2);
+		zip = readString("Zip (5 digits only)");
+		while(!zip.matches("^\\d{5}\\b.*"))
+		{
+			Console.printLine("Zip code must be 5 digits only, try again.");
+			zip = readString("Zip (5 digits only)");
+		}
+		
+		Console.printLine("");
+		
+		address = new Address(street, city, state.toUpperCase(), zip);
+		
+		return true;
+	}
+		
 	private boolean  getAccountInfo() 
 	{
-		Scanner scan = new Scanner(System.in);
 		String username = "";
 		String password = "";
 
 		
 		Console.printLine("\nLet's create an account: ");
-		Console.printLine("Username: ");
-		username = scan.nextLine();
-		
-		Console.printLine("Password: ");
-		password = scan.nextLine();
+		username = readStringOfLength("Username", 20);
+		password = readStringOfLength("Password", 35);
 			
 		person.setId(0);
 		person.setUserRole(UserRole.customer);
