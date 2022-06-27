@@ -175,4 +175,15 @@ public class AccountService
 			return adao.checkUserAccess(userId, accountId);
 		}		
 	}
+	
+	public Account getAccount(long id)
+	{
+		if (id <= 0)
+		{
+			return null;
+		} else {
+			logger.info("fetching account with id: " + id);
+			return adao.get(id);
+		}
+	}
 }
