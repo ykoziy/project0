@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.revature.Bank;
+import com.revature.enums.Status;
 import com.revature.models.Account;
 import com.revature.models.Person;
 import com.revature.view.Console;
@@ -284,10 +285,10 @@ public class AdminMenu extends MainMenu
 		
 		Console.printLine("\nDo you know account ID of a pending account? ");
 		Console.print("Type in yes or no: ");
-		if(isYesSelected())
+		if(!isYesSelected())
 		{
 			Console.printLine("\nPrinting pending accounts.");
-			aList = this.getBank().getAllAccounts(null);
+			aList = this.getBank().getAllAccounts(Status.pending);
 			if (aList.size() > 0) {
 				this.printAccounts(aList);
 			} else {
@@ -301,8 +302,34 @@ public class AdminMenu extends MainMenu
 		// get account ID and get account
 		Console.printLine("Please enter a valid account ID (id > 0)");
 		accountId = getAccountId("Account ID");
+		Account acc = this.getBank().getAccountById(accountId);
+		if (acc != null)
+		{
+			Console.printLine("Selected account.");
+			printAccount(acc);
+			if (acc.getStatus() == Status.active) {
+				Console.printLine("Can't deny/approve an account that is active.");
+				return;
+			}
+			Console.printLine("\nDo you approve this account? ");
+			Console.print("Type in yes to approve or no to deny: ");
+			if(isYesSelected())
+			{
+				acc.setStatus(Status.active);
+			} else {
+				acc.setStatus(Status.closed);
+			}
+			
+			if (!this.getBank().updateAccount(acc)) 
+			{
+				return;
+			} 
+			Console.printLine("Account status was changed.");
+		} else {
+			Console.printLine("\nUnable to get account.");
+			return;
+		}
 		
-		//Account a = this.getBank().getAccountById(accountId);
 		// ask if approving or denying
 		// update the status
 	}

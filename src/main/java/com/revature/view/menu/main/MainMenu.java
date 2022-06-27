@@ -172,4 +172,12 @@ public abstract class MainMenu extends Menu
 		Console.printLine("================================");
 		Console.printLine("");		
 	}
+	
+	protected void printAccount(Account a)
+	{
+		String accountNumber = a.getAccountNumber();
+		String balanceStr = Console.getMoney(a.getBalance());
+		String out = String.format("Account number: %s Balance: %s Status: %s", accountNumber, balanceStr, a.getStatus());
+		Console.printLine(out);		
+	}
 }
