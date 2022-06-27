@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import com.revature.dao.AccountDao;
 import com.revature.dao.PsqlAccountDao;
+import com.revature.enums.Status;
 import com.revature.exceptions.CreateAccountFailedException;
 import com.revature.models.Account;
 import com.revature.models.Person;
@@ -138,6 +139,17 @@ public class AccountService
 		} else {
 			logger.info("fetching all accounts by for user: " + username);
 			return adao.getUserAccounts(username);
+		}
+	}
+	
+	public List<Account> getAccountsByUserName(String username, Status status)
+	{
+		if (username.equals(""))
+		{
+			return null;
+		} else {
+			logger.info("fetching all accounts by for user: " + username + " with status: " + status);
+			return adao.getUserAccounts(username, status);
 		}
 	}
 	
