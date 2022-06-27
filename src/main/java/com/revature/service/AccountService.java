@@ -159,6 +159,12 @@ public class AccountService
 		return adao.getAll();
 	}
 	
+	public List<Account> getAll(Status status)
+	{
+		logger.info("fetching all accounts with status: " + status);
+		return adao.getAll(status);
+	}
+	
 	public boolean checkUserAccess(long userId, long accountId)
 	{
 		if (userId <= 0 || accountId <= 0) 

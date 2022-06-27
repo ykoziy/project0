@@ -23,6 +23,8 @@ public interface AccountDao
 	
 	List<Account> getAll();
 	
+	List<Account> getAll(Status status);
+	
 	boolean checkUserAccess(long userId, long accountId);
 	
 	boolean transfer(long srcId, long destId, long amount);

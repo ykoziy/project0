@@ -278,6 +278,39 @@ public class PsqlAccountDao implements AccountDao
 	}
 
 	@Override
+	public List<Account> getAll(Status status)
+	{
+		String sql = "SELECT * FROM account WHERE status = ?";
+		List<Account> accList = new ArrayList<>();
+		
+		try (Connection conn = ConnectionManager.getConnection())
+		{
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setObject(1, status, Types.OTHER);
+
+			long user_id = 0;
+			long ownerId = 0;
+			long balance = 0;
+			
+			ResultSet rs = pstmt.executeQuery();		
+			while (rs.next())
+			{
+				user_id = rs.getLong("id");
+				ownerId = rs.getLong("user_id");
+				balance = rs.getLong("balance");				
+				Account a = new Account(user_id, ownerId, balance, status);		
+				accList.add(a);				
+			}
+			return accList;
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}	
+		return null;
+	}
+
+	@Override
 	public boolean checkUserAccess(long userId, long accountId)
 	{
 		String sql = "SELECT count(*) FROM account_holder WHERE user_id = ? AND account_id = ?";

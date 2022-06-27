@@ -321,6 +321,21 @@ public class AccountServiceTest
 		Assert.assertArrayEquals(accList.toArray(), resultList.toArray());
 	}
 	
+	@Test
+	public void shouldGetAllAccountsWithStatus()
+	{
+		List<Account> accList = new ArrayList<>();
+		
+		accList.add(new Account(2, 1, 10000, Status.active));
+		accList.add(new Account(3, 1, 10000, Status.active));
+		
+		when(mockDaoAccount.getAll(Status.active)).thenReturn(accList);
+		
+		List<Account> resultList = as.getAll(Status.active);
+		Assert.assertNotNull(resultList);
+		Assert.assertArrayEquals(accList.toArray(), resultList.toArray());
+	}
+	
 	// testing checkUserAccess
 	@Test
 	public void shouldBeAbleToCheckUserAccess()
