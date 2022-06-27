@@ -75,7 +75,7 @@ public class AdminMenu extends MainMenu
 					input = scan.next().charAt(0);
 					break;
 				case '8':
-					Console.printLine("approving/denying accounts not implemented");
+					approveDenyAccounts();
 					repeat();
 					input = scan.next().charAt(0);
 					break;
@@ -276,5 +276,28 @@ public class AdminMenu extends MainMenu
 		}
 	}
 	
-
+	private void approveDenyAccounts()
+	{
+		Console.printLine("\nApprove/deny accounts menu.");
+		Scanner scan = new Scanner(System.in);
+		List<Account> aList = null;
+		
+		Console.printLine("\nDo you know account ID of a pending account? ");
+		Console.print("Type in yes or no: ");
+		if(isYesSelected())
+		{
+			Console.printLine("\nPrinting pending accounts.");
+			aList = this.getBank().getAllAccounts(null);
+			if (aList.size() > 0) {
+				this.printAccounts(aList);
+			} else {
+				Console.printLine("\nSomething wrong, cant get all pending accounts.");
+				return;
+			}
+		}
+		
+		// get account ID and get account
+		// ask if approving or denying
+		// update the status
+	}
 }

@@ -156,4 +156,20 @@ public abstract class MainMenu extends Menu
 		Console.printLine("================================");
 		Console.printLine("");		
 	}
+	
+	protected void printAccounts(List<Account> accounts)
+	{
+		Console.printLine("");
+		Console.printLine("========== Accounts ===========");
+		for (int i = 0; i < accounts.size(); i++)
+		{
+			Account a = accounts.get(i);
+			String accountNumber = a.getAccountNumber();
+			String balanceStr = Console.getMoney(a.getBalance());
+			String out = String.format("%d) Account number: %s Balance: %s Status: %s", i+1, accountNumber, balanceStr, a.getStatus());
+			Console.printLine(out);
+		}
+		Console.printLine("================================");
+		Console.printLine("");		
+	}
 }
