@@ -296,7 +296,13 @@ public class AdminMenu extends MainMenu
 			}
 		}
 		
+		
+		long accountId = 0;
 		// get account ID and get account
+		Console.printLine("Please enter a valid account ID (id > 0)");
+		accountId = getAccountId("Account ID");
+		
+		//Account a = this.getBank().getAccountById(accountId);
 		// ask if approving or denying
 		// update the status
 	}
