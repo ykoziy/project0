@@ -40,6 +40,7 @@ CREATE TABLE account (
 CREATE TABLE account_holder (
 	user_id BIGINT NOT NULL,
 	account_id BIGINT NOT NULL,
+	UNIQUE (user_id, account_id),
 	FOREIGN KEY (user_id) REFERENCES person(id) ON DELETE CASCADE,
 	FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE
 );
@@ -108,23 +109,23 @@ END;
 
 ------ CREATING STORED FUNCTION , for transfering money --------
 
-DROP FUNCTION transfer_money(bigint,bigint,bigint);
+DROP FUNCTION IF EXISTS transfer_money(bigint,bigint,bigint);
 
 CREATE OR REPLACE FUNCTION transfer_money(src_account_id BIGINT, dest_account_id BIGINT, amount BIGINT)
 RETURNS boolean
 LANGUAGE plpgsql
 AS $$
 
-DECLARE 
+DECLARE
 	acc_count int;
 	src_bal bigint;
 
 BEGIN
-	SELECT count(*) INTO acc_count 
-    FROM account 
+	SELECT count(*) INTO acc_count
+    FROM account
     WHERE (id = src_account_id OR id = dest_account_id)
     AND status = 'active';
-   
+
 	IF acc_count = 2 THEN
 		SELECT balance INTO src_bal FROM account WHERE id = src_account_id;
 		IF amount <= src_bal THEN
@@ -132,6 +133,34 @@ BEGIN
 			UPDATE account SET balance = balance + amount WHERE id = dest_account_id;
 			RETURN true;
 		END IF;
+	END IF;
+	RETURN FALSE;
+END;
+$$
+
+DROP FUNCTION IF EXISTS add_account_holder(bigint,bigint);
+
+CREATE OR REPLACE FUNCTION add_account_holder(u_id BIGINT, a_id BIGINT)
+RETURNS boolean
+LANGUAGE plpgsql
+AS $$
+
+DECLARE
+	person_count int;
+	account_count int;
+
+BEGIN
+	SELECT count(*) INTO person_count
+    FROM person
+    WHERE id = u_id;
+
+	SELECT count(*) INTO account_count
+    FROM account
+    WHERE id = a_id;
+
+	IF account_count = 1 AND person_count = 1 THEN
+		INSERT INTO account_holder (user_id, account_id) VALUES (u_id, a_id);
+		RETURN true;
 	END IF;
 	RETURN FALSE;
 END;
