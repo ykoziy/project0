@@ -447,4 +447,22 @@ public class AccountServiceTest
 		boolean result = as.transfer(1,1,100);
 		Assert.assertFalse(result);
 	}
+	
+	//test getAccount
+	@Test
+	public void shouldBeAbletoGetAccount()
+	{
+		dummyAccount = new Account(1, 1, 10000, Status.active);
+		when(mockDaoAccount.get(1)).thenReturn(dummyAccount);
+		Account resultAccount = as.getAccount(1);
+		Assert.assertEquals(dummyAccount, resultAccount);
+	}
+	
+	@Test
+	public void shouldNotAbletoGetAccountWIthInvalidId()
+	{
+		when(mockDaoAccount.get(0)).thenReturn(null);
+		Account resultAccount = as.getAccount(0);
+		Assert.assertNull(resultAccount);		
+	}
 }
