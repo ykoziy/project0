@@ -339,9 +339,6 @@ public class AdminMenu extends MainMenu
 	private void editAccountUsers()
 	{
 		Console.printLine("\nSelect a customer to remove/add to the account.");
-		Scanner scan = new Scanner(System.in);
-		boolean isValid = false;
-		List<Account> aList = null;
 		String username = "";
 		Person person = null;
 		Console.printLine("\nPlease enter customers username.");
