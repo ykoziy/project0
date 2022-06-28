@@ -66,6 +66,7 @@ public class PsqlAccountDao implements AccountDao
 				long user_id = rs.getLong("id");
 				long ownerId = rs.getLong("user_id");
 				long balance = rs.getLong("balance");
+				System.out.println(balance);
 				Status status = Status.valueOf(rs.getString("status"));
 				
 				Account a = new Account(user_id, ownerId, balance, status);
@@ -86,8 +87,8 @@ public class PsqlAccountDao implements AccountDao
 		List<Account> accList = new ArrayList<>();
 		String sql = "SELECT a.id, a.user_id, a.balance, a.status " +
 				"FROM person p " +
-				"LEFT JOIN account_holder ah ON p.id = ah.user_id " +
-				"LEFT JOIN account a ON ah.account_id = a.id " +
+				"INNER JOIN account_holder ah ON p.id = ah.user_id " +
+				"INNER JOIN account a ON ah.account_id = a.id " +
 				"WHERE p.username = ?";
 		try (Connection conn = ConnectionManager.getConnection()) {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -99,6 +100,7 @@ public class PsqlAccountDao implements AccountDao
 				long user_id = rs.getLong("id");
 				long ownerId = rs.getLong("user_id");
 				long balance = rs.getLong("balance");
+				System.out.println(balance);
 				Status status = Status.valueOf(rs.getString("status"));
 				
 				Account a = new Account(user_id, ownerId, balance, status);
