@@ -56,7 +56,7 @@ public class PersonService
 		if (returnedPerson != null) 
 		{
 			String passwordHash = new String(returnedPerson.getPassword());
-			if (PasswordSecurity.comparePassword(passwordHash, password)); 
+			if (PasswordSecurity.comparePassword(passwordHash, password)) 
 			{
 				logger.info("user: " + returnedPerson.getId() + " successfully logged in");
 				return returnedPerson;
