@@ -13,10 +13,9 @@ import com.revature.view.Console;
 public class SignUp extends Menu
 {
 	private Bank bank;
-	
 	private Address address;
 	private Person person;
-	
+
 	public SignUp(String menuTitle, Bank bank)
 	{
 		super(menuTitle);
@@ -25,7 +24,7 @@ public class SignUp extends Menu
 		this.addQuitOption();
 		this.addGoBackOption();
 	}
-	
+
 	@Override
 	public void show()
 	{
@@ -37,124 +36,110 @@ public class SignUp extends Menu
 	{
 		Scanner scan = new Scanner(System.in);
 		char input = scan.next().charAt(0);
-		
 		boolean isValid = false;
 		String result = "invalid";
-		
-		while (!isValid) {
+		while (!isValid)
+		{
 			switch (input)
 			{
-				case '1':
-					isValid = register();
-					break;
-				case 'b':
-					return "back";
-				case 'q':
-					this.exitApp();
-					break;				
-				default:
-					input = scan.next().charAt(0);
-					break;
+			case '1':
+				isValid = register();
+				break;
+			case 'b':
+				return "back";
+			case 'q':
+				this.exitApp();
+				break;
+			default:
+				input = scan.next().charAt(0);
+				break;
 			}
 		}
-		if (isValid) {
+		if (isValid)
+		{
 			result = "next";
 		}
 		return result;
 	}
-	
+
 	private boolean register()
 	{
-
-		
 		getPersonalInfo();
-		
 		getAddressInfo();
-		
-		boolean isValid = getAccountInfo();
-
-		if (isValid) {
+		boolean isValid = createUserAccount();
+		if (isValid)
+		{
 			return true;
-		} else {
+		} else
+		{
 			return false;
 		}
 	}
-	
+
 	private boolean getPersonalInfo()
 	{
 		String firstName = "";
 		String lastName = "";
 		String email = "";
 		String phoneNumber = "";
-
 		Console.printLine("\nLet's gather your personal infromation: ");
 		firstName = readStringOfLength("First name", 45);
 		lastName = readStringOfLength("Last name", 45);
 		email = readStringOfLength("Email", 320);
-		while(!EmailValidator.getInstance().isValid(email))
+		while (!EmailValidator.getInstance().isValid(email))
 		{
 			Console.printLine("Invalid email, try again");
 			email = readStringOfLength("Email", 320);
 		}
 		phoneNumber = readString("Phone number (10 digit only)");
-		while(!phoneNumber.matches("^\\d{10}\\b.*"))
+		while (!phoneNumber.matches("^\\d{10}\\b.*"))
 		{
 			Console.printLine("Phone number must be 10 digits only, try again.");
 			phoneNumber = readString("Phone number (10 digit only)");
 		}
-
 		Console.printLine("");
-		
-		
 		person = new Person(firstName, lastName, email, phoneNumber);
-
 		return true;
 	}
-	
+
 	private boolean getAddressInfo()
 	{
 		String street = "";
 		String city = "";
 		String state = "";
 		String zip = "";
-		
 		Console.printLine("");
 		Console.printLine("\nPlease enter your home address information: ");
 		street = readStringOfLength("Street address", 100);
 		city = readStringOfLength("City", 40);
 		state = readStringOfLength("State (2 letters)", 2);
 		zip = readString("Zip (5 digits only)");
-		while(!zip.matches("^\\d{5}\\b.*"))
+		while (!zip.matches("^\\d{5}\\b.*"))
 		{
 			Console.printLine("Zip code must be 5 digits only, try again.");
 			zip = readString("Zip (5 digits only)");
 		}
-		
 		Console.printLine("");
-		
 		address = new Address(street, city, state.toUpperCase(), zip);
-		
 		return true;
 	}
-		
-	private boolean  getAccountInfo() 
+
+	private boolean createUserAccount()
 	{
 		String username = "";
 		String password = "";
-
-		
 		Console.printLine("\nLet's create an account: ");
 		username = readStringOfLength("Username", 20);
 		password = readStringOfLength("Password", 35);
-			
 		person.setId(0);
 		person.setUserRole(UserRole.customer);
 		person.setUserName(username);
 		person.setPassword(password.toCharArray());
-		
-		if (bank.signUp(person, address)) {
+		if (bank.signUp(person, address))
+		{
 			return true;
-		} else {
+		} else
+		{
 			return false;
 		}
 	}
