@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.revature.Bank;
-import com.revature.enums.Status;
-import com.revature.models.Account;
 import com.revature.models.Person;
 import com.revature.view.Console;
 
@@ -62,7 +60,7 @@ public class AdminMenu extends MainMenu
 					input = scan.next().charAt(0);
 					break;
 				case '5':
-					getCustomerInfo();
+					super.getCustomerInfo();
 					repeat();
 					input = scan.next().charAt(0);
 					break;
@@ -77,12 +75,12 @@ public class AdminMenu extends MainMenu
 					input = scan.next().charAt(0);
 					break;
 				case '8':
-					approveDenyAccounts();
+					super.approveDenyAccounts();
 					repeat();
 					input = scan.next().charAt(0);
 					break;
 				case '9':
-					editAccountUsers();
+					super.editAccountUsers();
 					repeat();
 					input = scan.next().charAt(0);
 					break;					
@@ -169,65 +167,6 @@ public class AdminMenu extends MainMenu
 		}
 	}
 
-	private void getCustomerInfo()
-	{
-		Console.printLine("\nSelect customer to view their information.");
-		Scanner scan = new Scanner(System.in);
-
-		boolean isValid = false;
-
-		String username = "";
-
-		while (!isValid)
-		{
-			Console.print("\nPlease enter customers username: ");
-			username = scan.nextLine();
-			if (!username.equals(""))
-			{
-				Person p = this.getBank().getUser(username);
-				if (p != null) {
-					System.out.println(p.getInfo());
-				} else {
-					Console.printLine("\nUser with username: " + username + " does not exist.");
-				}
-				isValid = true;
-			} else {
-				Console.printLine("\nPlease enter a username.");
-				scan.nextLine();
-			}
-		}
-	}
-
-	private void viewCustomerAccounts()
-	{
-		Console.printLine("\nSelect customer to view their accounts.");
-		Scanner scan = new Scanner(System.in);
-
-		List<Account> aList = null;
-		boolean isValid = false;
-
-		String username = "";
-
-		while (!isValid)
-		{
-			Console.print("\nPlease enter customers username: ");
-			username = scan.nextLine();
-			if (!username.equals(""))
-			{
-				aList = this.getBank().getAccountsForUser(username);
-				if (aList.size() > 0) {
-					printAccounts(aList, username);
-				} else {
-					Console.printLine("\nUser with username: " + username + " does not exist. Or ha no accounts attached.");
-				}
-				isValid = true;
-			} else {
-				Console.printLine("\nPlease enter a username.");
-				scan.nextLine();
-			}
-		}
-	}
-	
 	private void getAllUsernames()
 	{
 		Console.printLine("This might take a while....");
@@ -280,112 +219,6 @@ public class AdminMenu extends MainMenu
 			Console.printLine("Deleted account with ID of " + accountId);
 		} else {
 			Console.printLine("Account deletion failed.");
-		}
-	}
-	
-	private void approveDenyAccounts()
-	{
-		Console.printLine("\nApprove/deny accounts menu.");
-		List<Account> aList = null;
-		
-		Console.printLine("\nDo you know account ID of a pending account? ");
-		Console.print("Type in yes or no: ");
-		if(!isYesSelected())
-		{
-			Console.printLine("\nPrinting pending accounts.");
-			aList = this.getBank().getAllAccounts(Status.pending);
-			if (aList.size() > 0) {
-				this.printAccounts(aList);
-			} else {
-				Console.printLine("\nSomething wrong, cant get all pending accounts.");
-				return;
-			}
-		}
-		
-		long accountId = 0;
-		Console.printLine("Please enter a valid account ID (id > 0)");
-		accountId = getAccountId("Account ID");
-		Account acc = this.getBank().getAccountById(accountId);
-		if (acc != null)
-		{
-			Console.printLine("Selected account.");
-			printAccount(acc);
-			if (acc.getStatus() == Status.active) {
-				Console.printLine("Can't deny/approve an account that is active.");
-				return;
-			}
-			Console.printLine("\nDo you approve this account? ");
-			Console.print("Type in yes to approve or no to deny: ");
-			if(isYesSelected())
-			{
-				acc.setStatus(Status.active);
-			} else {
-				acc.setStatus(Status.closed);
-			}
-			
-			if (!this.getBank().updateAccount(acc)) 
-			{
-				Console.printLine("Account status was not changed.");
-				return;
-			} 
-			Console.printLine("Account status was changed.");
-		} else {
-			Console.printLine("\nUnable to get account.");
-			return;
-		}
-	}
-	
-	
-	private void editAccountUsers()
-	{
-		Console.printLine("\nSelect a customer to remove/add to the account.");
-		String username = "";
-		Person person = null;
-		Console.printLine("\nPlease enter customers username.");
-		username = readString("Username");
-		if (!username.equals(""))
-		{
-			person = this.getBank().getUser(username);
-			if (person == null) {
-				Console.printLine("\nUser with username: " + username + " does not exist.");
-				return;
-			}
-		}
-		
-		long accountId = 0;
-		Console.printLine("Please enter a valid account ID (id > 0)");
-		accountId = getAccountId("Account ID");
-		Account acc = this.getBank().getAccountById(accountId);
-		if (acc != null)
-		{
-			boolean isChanged = false;
-			Console.printLine("Selected account.");
-			printAccount(acc);
-			Console.printLine("\nDo you wan to add/remove " + username + " access to the account with ID: " + accountId);
-			Console.print("Type in yes to add or no to remove: ");
-			if(isYesSelected())
-			{
-				isChanged = this.getBank().addAccountUser(person.getId(), accountId);
-				if (!isChanged) 
-				{
-					Console.printLine("Account user was not added.");
-					return;
-				}
-			} else {
-				isChanged = this.getBank().removeAccountUser(person.getId(), accountId);
-				if (!isChanged) 
-				{
-					Console.printLine("Account user was not removed.");
-					return;
-				} 
-			}
-			if (isChanged)
-			{
-				Console.printLine("Account user access was changed.");			
-			}
-		} else {
-			Console.printLine("\nUnable to get account.");
-			return;
 		}
 	}
 }
