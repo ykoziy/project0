@@ -28,6 +28,8 @@ public class PersonServiceTest
 {
 	private PersonService ps;
 	
+	private final String hashedDbPwd = "ff61eb9a4a6360f66abee80009b6b5bd2ba9adb17847c9ad9469823421fcd690095c66d31b0c76016be81ccbeb456fe29073e0e35f0f02714e09d8ae156f9915.c2763f8778554788b2ed4197a0314c02";
+	
 	// Declare the dependencies of the class to be tested
 	private PsqlPersonDao mockDaoPerson;
 	private PsqlAddressDao mockDaoAddress;
@@ -146,35 +148,49 @@ public class PersonServiceTest
 		when(mockDaoAddress.addPersonAddress(dummyAddress, 1)).thenReturn(0L);
 		ps.register(dummyPerson, dummyAddress);
 	}
+	// testing login
 	
 	@Test
 	public void testLoginReturnsPerson() 
 	{
 		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
-		dummyPerson = new Person(0, firstName, lastName, userName,"pwd".toCharArray(), email, phoneNumber, dummyAddress, UserRole.admin);
+		dummyPerson = new Person(0, firstName, lastName, userName,hashedDbPwd.toCharArray(), email, phoneNumber, dummyAddress, UserRole.admin);
 		
 		String username = "jdoe45";
-		String password = "pwd";
+		String password = "password";
 		
 		when(mockDaoPerson.getByUsername(username)).thenReturn(dummyPerson);
 		
 		Person loggedIn = ps.login(username, password);
 		
-		assertEquals(loggedIn.getUserName(), username);
+		assertEquals(username, loggedIn.getUserName());
 		
 		
 	}
-	
-	// testing login
 	
 	@Test
 	public void testLoginReturnsNull() 
 	{
 		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
-		dummyPerson = new Person(0, firstName, lastName, userName,"pwd".toCharArray(), email, phoneNumber, dummyAddress, UserRole.admin);
+		dummyPerson = new Person(0, firstName, lastName, userName,hashedDbPwd.toCharArray(), email, phoneNumber, dummyAddress, UserRole.admin);
 		
 		String username = "jdoe45";
-		String password = "pwdz";
+		String password = "password.salt";
+		
+		when(mockDaoPerson.getByUsername(username)).thenReturn(null);
+		
+		Person loggedIn = ps.login(username, password);
+		Assert.assertNull(loggedIn);
+	}
+	
+	@Test
+	public void testLoginReturnsNullIfHashComparisonFailed() 
+	{
+		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
+		dummyPerson = new Person(0, firstName, lastName, userName,hashedDbPwd.toCharArray(), email, phoneNumber, dummyAddress, UserRole.admin);
+		
+		String username = "jdoe45";
+		String password = "bob";
 		
 		when(mockDaoPerson.getByUsername(username)).thenReturn(dummyPerson);
 		
@@ -186,10 +202,10 @@ public class PersonServiceTest
 	public void testLoginReturnsNullIfUserNotFound() 
 	{
 		dummyAddress = new Address("404 Example Rd", "New York", "NY", "10017");
-		dummyPerson = new Person(0, firstName, lastName, userName,"pwd".toCharArray(), email, phoneNumber, dummyAddress, UserRole.admin);
+		dummyPerson = new Person(0, firstName, lastName, userName,hashedDbPwd.toCharArray(), email, phoneNumber, dummyAddress, UserRole.admin);
 		
 		String username = "jdoe45";
-		String password = "pwdz";
+		String password = "saltedhash.salt";
 		
 		when(mockDaoPerson.getByUsername(username)).thenReturn(null);
 		
