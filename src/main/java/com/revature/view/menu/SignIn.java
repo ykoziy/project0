@@ -38,7 +38,7 @@ public class SignIn extends Menu
 			switch (input)
 			{
 				case '1':
-					isValid = getUserInfo();
+					isValid = signIn();
 					break;
 				case 'b':
 					return "back";
@@ -56,7 +56,7 @@ public class SignIn extends Menu
 		return result;
 	}
 	
-	private boolean getUserInfo()
+	private boolean signIn()
 	{
 		Scanner scan = new Scanner(System.in);
 		Console.printLine("\nLog in by typing in username and password.");
