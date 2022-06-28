@@ -16,8 +16,24 @@ public class PasswordSecurity
 		}
 		return false;
 	}
+	
+	// returns "salted hash(128 chars).salt(32 chars)"
+	public static String getHashedPassword(String password)
+	{
+		String result = "";
+		try
+		{
+			byte[] salt = salt();
+			String saltedHash = hashPassword(password, salt);
+			result =  String.format("%s.%s",saltedHash, byteToHex(salt));
+		} catch (NoSuchAlgorithmException e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
 
-	public static String hashPassword(String passwordToHash, byte[] salt)
+	private static String hashPassword(String passwordToHash, byte[] salt)
 	{
 		String generatedPassword = null;
 		try
@@ -58,7 +74,7 @@ public class PasswordSecurity
 		return bytes;
 	}
 
-	public static byte[] salt() throws NoSuchAlgorithmException
+	private static byte[] salt() throws NoSuchAlgorithmException
 	{
 		SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
 		byte[] salt = new byte[16];
