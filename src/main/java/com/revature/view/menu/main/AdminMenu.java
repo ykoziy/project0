@@ -28,6 +28,7 @@ public class AdminMenu extends MainMenu
         this.addOption(6, "Get customer account(s).");
         this.addOption(7, "Cancel accounts.");
         this.addOption(8, "Approve/deny account.");
+        this.addOption(9, "Add/remove account users.");
         this.addQuitOption();
 	}
 
@@ -80,6 +81,11 @@ public class AdminMenu extends MainMenu
 					repeat();
 					input = scan.next().charAt(0);
 					break;
+				case '9':
+					editAccountUsers();
+					repeat();
+					input = scan.next().charAt(0);
+					break;					
 				case 'q':
 					this.exitApp();
 					break;
@@ -319,9 +325,67 @@ public class AdminMenu extends MainMenu
 			
 			if (!this.getBank().updateAccount(acc)) 
 			{
+				Console.printLine("Account status was not changed.");
 				return;
 			} 
 			Console.printLine("Account status was changed.");
+		} else {
+			Console.printLine("\nUnable to get account.");
+			return;
+		}
+	}
+	
+	
+	private void editAccountUsers()
+	{
+		Console.printLine("\nSelect a customer to remove/add to the account.");
+		Scanner scan = new Scanner(System.in);
+		boolean isValid = false;
+		List<Account> aList = null;
+		String username = "";
+		Person person = null;
+		Console.printLine("\nPlease enter customers username.");
+		username = readString("Username");
+		if (!username.equals(""))
+		{
+			person = this.getBank().getUser(username);
+			if (person == null) {
+				Console.printLine("\nUser with username: " + username + " does not exist.");
+				return;
+			}
+		}
+		
+		long accountId = 0;
+		Console.printLine("Please enter a valid account ID (id > 0)");
+		accountId = getAccountId("Account ID");
+		Account acc = this.getBank().getAccountById(accountId);
+		if (acc != null)
+		{
+			boolean isChanged = false;
+			Console.printLine("Selected account.");
+			printAccount(acc);
+			Console.printLine("\nDo you wan to add/remove " + username + " access to the account with ID: " + accountId);
+			Console.print("Type in yes to add or no to remove: ");
+			if(isYesSelected())
+			{
+				isChanged = this.getBank().addAccountUser(person.getId(), accountId);
+				if (!isChanged) 
+				{
+					Console.printLine("Account user was not added.");
+					return;
+				}
+			} else {
+				isChanged = this.getBank().removeAccountUser(person.getId(), accountId);
+				if (!isChanged) 
+				{
+					Console.printLine("Account user was not removed.");
+					return;
+				} 
+			}
+			if (isChanged)
+			{
+				Console.printLine("Account user access was changed.");			
+			}
 		} else {
 			Console.printLine("\nUnable to get account.");
 			return;

@@ -135,4 +135,9 @@ public class Bank
 	{
 		return as.addAccountUser(userId, accountId);
 	}
+
+	public boolean removeAccountUser(long id, long accountId)
+	{
+		return as.deleteAccountUser(id, accountId);
+	}
 }
