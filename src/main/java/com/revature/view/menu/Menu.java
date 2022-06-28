@@ -62,6 +62,31 @@ public abstract class Menu implements Interactable
 		}
 		return "";		
 	}
+	
+	protected String readStringOfLength(String prompt, int maxLength)
+	{
+		Scanner scan = new Scanner(System.in);
+		String input = "";
+		boolean isValid = false;
+		
+		while (!isValid)
+		{
+			Console.printLine(prompt + ": ");
+			input = scan.nextLine();
+			if (!input.equals(""))
+			{
+				if (input.length() <= maxLength) 
+				{
+					return input;
+				} else {
+					Console.printLine(prompt + " max length is " + maxLength);
+				}
+			} else {
+				Console.printLine(prompt + " cant be empty.");
+			}
+		}
+		return "";		
+	}
 
 	protected void repeat()
 	{

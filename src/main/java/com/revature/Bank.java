@@ -99,17 +99,13 @@ public class Bank
 		return alist;
 	}
 	
-	public boolean createAccount(double deposit)
+	public Account createAccount(double deposit)
 	{
 		long balance = Math.round(deposit*100);
 		Account a = new Account(0, currentUser.getId(), balance, Status.pending);
-		Account newAccount = as.createAccountForPerson(currentUser, a);
-		if (newAccount != null) {
-			return true;
-		}
-		return false;
+		return as.createAccountForPerson(currentUser, a);
 	}
-	
+
 	public List<Person> getAllUsernames()
 	{
 		return ps.getAll();	
@@ -133,5 +129,10 @@ public class Bank
 	public boolean updateAccount(Account acc)
 	{
 		return as.update(acc);
+	}
+	
+	public boolean addAccountUser(long userId, long accountId)
+	{
+		return as.addAccountUser(userId, accountId);
 	}
 }

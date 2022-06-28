@@ -12,6 +12,7 @@ import com.revature.dao.PsqlPersonDao;
 import com.revature.exceptions.RegisterPersonFailedException;
 import com.revature.models.Address;
 import com.revature.models.Person;
+import com.revature.util.PasswordSecurity;
 
 public class PersonService
 {
@@ -51,11 +52,11 @@ public class PersonService
 	
 	public Person login(String username, String password)
 	{
-		//plain string login......
 		Person returnedPerson = pdao.getByUsername(username);
 		if (returnedPerson != null) 
 		{
-			if (new String(returnedPerson.getPassword()).equals(password)) 
+			String passwordHash = new String(returnedPerson.getPassword());
+			if (PasswordSecurity.comparePassword(passwordHash, password)) 
 			{
 				logger.info("user: " + returnedPerson.getId() + " successfully logged in");
 				return returnedPerson;

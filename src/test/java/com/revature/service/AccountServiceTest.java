@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.revature.dao.PsqlAccountDao;
+import com.revature.dao.PsqlAccountHolderDao;
 import com.revature.enums.Status;
 import com.revature.enums.UserRole;
 import com.revature.exceptions.CreateAccountFailedException;
@@ -24,6 +25,7 @@ public class AccountServiceTest
 {
 	private AccountService as;
 	private PsqlAccountDao mockDaoAccount;
+	private PsqlAccountHolderDao mockDaoAccountUser;
 	
 	private Account dummyAccount;
 	private Person dummyPerson;
@@ -40,7 +42,9 @@ public class AccountServiceTest
 	{
 		as = new AccountService();
 		mockDaoAccount = mock(PsqlAccountDao.class);
+		mockDaoAccountUser = mock(PsqlAccountHolderDao.class);
 		as.adao = mockDaoAccount;
+		as.ahdao = mockDaoAccountUser;
 		
 		dummyAccount = new Account();
 		dummyAccount.setId(0);
@@ -58,6 +62,7 @@ public class AccountServiceTest
 		dummyPerson = null;
 		dummyAddress = null;
 		mockDaoAccount = null;
+		mockDaoAccountUser = null;
 	}
 	
 	// testing deposit
@@ -447,4 +452,82 @@ public class AccountServiceTest
 		boolean result = as.transfer(1,1,100);
 		Assert.assertFalse(result);
 	}
+	
+	//test getAccount
+	@Test
+	public void shouldBeAbletoGetAccount()
+	{
+		dummyAccount = new Account(1, 1, 10000, Status.active);
+		when(mockDaoAccount.get(1)).thenReturn(dummyAccount);
+		Account resultAccount = as.getAccount(1);
+		Assert.assertEquals(dummyAccount, resultAccount);
+	}
+	
+	@Test
+	public void shouldNotAbletoGetAccountWIthInvalidId()
+	{
+		when(mockDaoAccount.get(0)).thenReturn(null);
+		Account resultAccount = as.getAccount(0);
+		Assert.assertNull(resultAccount);		
+	}
+	
+	//test deleteAccountUser
+	@Test
+	public void shouldBeAbleToDeleteAccountUser()
+	{
+		dummyAccount.setId(1);
+		dummyPerson.setId(1);
+		when(mockDaoAccountUser.delete(dummyPerson.getId(), dummyAccount.getId())).thenReturn(true);
+		boolean result = as.deleteAccountUser(dummyPerson.getId(), dummyAccount.getId());
+
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void shouldNotDeleteAccountUserWithInvalidUserId()
+	{
+		when(mockDaoAccountUser.delete(0, 1)).thenReturn(false);
+		boolean result = as.deleteAccountUser(0, 1);
+
+		Assert.assertFalse(result);
+	}
+	
+	@Test
+	public void shouldNotDeleteAccountUserWithInvalidAccountId()
+	{
+		when(mockDaoAccountUser.delete(1, 0)).thenReturn(false);
+		boolean result = as.deleteAccountUser(1, 0);
+
+		Assert.assertFalse(result);
+	}
+	
+	//test addAccountUser
+	@Test
+	public void shouldBeAbleToAddAccountUser()
+	{
+		dummyAccount.setId(1);
+		dummyPerson.setId(1);
+		when(mockDaoAccountUser.add(dummyPerson.getId(), dummyAccount.getId())).thenReturn(true);
+		boolean result = as.addAccountUser(dummyPerson.getId(), dummyAccount.getId());
+
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void shouldNotAddAccountUserWithInvalidUserId()
+	{
+		when(mockDaoAccountUser.add(0, 1)).thenReturn(false);
+		boolean result = as.addAccountUser(0, 1);
+
+		Assert.assertFalse(result);
+	}
+	
+	@Test
+	public void shouldNotAddAccountUserWithInvalidAccountId()
+	{
+		when(mockDaoAccountUser.add(1, 0)).thenReturn(false);
+		boolean result = as.addAccountUser(1, 0);
+
+		Assert.assertFalse(result);
+	}	
 }
