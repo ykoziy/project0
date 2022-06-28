@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.revature.Bank;
 import com.revature.models.Account;
+import com.revature.models.Person;
 import com.revature.view.Console;
 
 public class CustomerMenu extends MainMenu
@@ -22,6 +23,7 @@ public class CustomerMenu extends MainMenu
         this.addOption(3, "Withdraw");
         this.addOption(4, "Transfer");
         this.addOption(5, "Open new account.");
+        this.addOption(6, "Open new joint account.");
         this.addQuitOption();   
 	}
 
@@ -60,7 +62,12 @@ public class CustomerMenu extends MainMenu
 					createAccount();
 					repeat();
 					input = scan.next().charAt(0);
-					break;					
+					break;
+				case '6':
+					createJointAccount();
+					repeat();
+					input = scan.next().charAt(0);
+					break;						
 				case 'q':
 					this.exitApp();
 					break;				
@@ -223,10 +230,84 @@ public class CustomerMenu extends MainMenu
 		
 		Console.printLine("Creating account with initial deposit of $" + amount);
 		
-		if (this.getBank().createAccount(amount)) 
+		if (this.getBank().createAccount(amount) != null) 
 		{
 			Console.printLine("Created account with balance of $" + amount);
 			Console.printLine("It will take 2-5 business days to approve your account, thank you for choosing YKZ BANK.");
+		} else {
+			Console.printLine("Account creation failed.");
+		}
+	}
+	
+	private void createJointAccount()
+	{
+		Console.printLine("\nThank you for choosing YKZ BANK, are you ready to create a joint account?");
+		Scanner scan = new Scanner(System.in);
+		
+		boolean isValid = false;
+		double amount = 0;
+		String username = "";
+		Person person = null;
+		
+		Console.print("\nDo you wish to continue (yes or no)? ");
+		if(!isYesSelected())
+		{
+			return;
+		}
+		
+		while (!isValid)
+		{
+			Console.print("\nPlease enter another username: ");
+			username = scan.nextLine();
+			if (!username.equals(""))
+			{
+				person = this.getBank().getUser(username);
+				if (person != null) {
+					System.out.println(person.getInfo());
+				} else {
+					Console.printLine("\nUser with username: " + username + " does not exist.");
+				}
+				isValid = true;
+			} else {
+				Console.printLine("\nPlease enter a username.");
+				scan.nextLine();
+			}
+		}
+		
+		Console.printLine("Please enter a valid initial deposit amount (amount > 0)");
+		amount = getMoney("Initial deposit");
+		
+		isValid = false;
+		
+		while (!isValid)
+		{
+			Console.printLine("Confirm your username: ");
+			username = scan.nextLine();
+			if (!username.equals(""))
+			{
+				if (username.equals(this.getBank().getCurrentUser().getUserName()))
+				{
+					isValid = true;
+				} else {
+					Console.printLine("Confirm username, type in your username.");
+				}				
+			} else {
+				Console.printLine("\nPlease enter your username.");
+				scan.nextLine();
+			}
+
+		}
+		
+		Console.printLine("Creating joint account with initial deposit of $" + amount);
+		Account newAccount = this.getBank().createAccount(amount);
+		
+		if (newAccount != null) 
+		{
+			if (this.getBank().addAccountUser(person.getId(), newAccount.getId()))
+			{
+				Console.printLine("Created joint account with balance of $" + amount);
+				Console.printLine("It will take 2-5 business days to approve your account, thank you for choosing YKZ BANK.");
+			}
 		} else {
 			Console.printLine("Account creation failed.");
 		}
