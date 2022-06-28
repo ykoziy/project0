@@ -1,5 +1,6 @@
 package com.revature.view.menu;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 import org.apache.commons.validator.routines.EmailValidator;
@@ -8,6 +9,7 @@ import com.revature.Bank;
 import com.revature.enums.UserRole;
 import com.revature.models.Address;
 import com.revature.models.Person;
+import com.revature.util.PasswordSecurity;
 import com.revature.view.Console;
 
 public class SignUp extends Menu
@@ -57,7 +59,7 @@ public class SignUp extends Menu
 		}
 		if (isValid)
 		{
-			result = "next";
+			result = "back";
 		}
 		return result;
 	}
@@ -131,12 +133,18 @@ public class SignUp extends Menu
 		Console.printLine("\nLet's create an account: ");
 		username = readStringOfLength("Username", 20);
 		password = readStringOfLength("Password", 35);
+		String dbHash = PasswordSecurity.getHashedPassword(password);
+		if (dbHash.equals(""))
+		{
+			return false;
+		}
 		person.setId(0);
 		person.setUserRole(UserRole.customer);
 		person.setUserName(username);
-		person.setPassword(password.toCharArray());
+		person.setPassword(dbHash.toCharArray());
 		if (bank.signUp(person, address))
 		{
+			Console.printLine(String.format("Welcome to YKZ BANK %s %s, you can now sign in using username: %s ", person.getFirstName(), person.getLastName(), person.getUserName()));
 			return true;
 		} else
 		{
