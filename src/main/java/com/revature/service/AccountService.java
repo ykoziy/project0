@@ -84,7 +84,7 @@ public class AccountService
 		{
 			acc.setBalance(acc.getBalance() - amt);
 			boolean status = adao.update(acc);
-			logger.info("withdrawing: $" + Math.round(amt / 100.0) + " from the account id: " + accountId);
+			logger.info("withdrawing: $" + amt + " from the account id: " + accountId);
 			return status;
 		}
 	}
@@ -95,7 +95,7 @@ public class AccountService
 		{
 			return false;
 		}
-		logger.info("transfering: $" + Math.round(amount / 100.0) + " from id: " + fromId + " to id: " + toId);
+		logger.info("transfering: $" + amount + " from id: " + fromId + " to id: " + toId);
 		return adao.transfer(fromId, toId, Math.round(amount * 100));
 	}
 
